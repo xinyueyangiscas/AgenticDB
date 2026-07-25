@@ -1,0 +1,35 @@
+{
+  "experiment_id": "mysql_tpch_gpt_5_5",
+  "title": "MySQL TPC-H - GPT-5.5",
+  "dbms": "MySQL",
+  "workload": "TPC-H",
+  "llm_backend": "GPT-5.5",
+  "paper_label": "GPT-5.5",
+  "cross_task_experience_memory": false,
+  "roles": [
+    "main effectiveness"
+  ],
+  "source_run_id": "20260528_001500_mysql51_tpch_exec_time_no_memory_gpt55_rcouyi_fresh_20260528_001500",
+  "curve_file": "mysql_tpch_gpt_5_5/mysql_tpch_gpt_5_5_curve.csv",
+  "curve_columns": [
+    "step",
+    "elapsed_minutes",
+    "score",
+    "best_so_far",
+    "tps",
+    "p95_latency_ms",
+    "phase"
+  ],
+  "curve_points": 12,
+  "end_minutes": 50.878274,
+  "final_best_so_far": 165769,
+  "notes": "",
+  "source_directory": "runs/20260528_001500_mysql51_tpch_exec_time_no_memory_gpt55_rcouyi_fresh_20260528_001500",
+  "excluded_private_files": [
+    "trace.jsonl",
+    "report.json"
+  ],
+  "privacy_sanitization": "Sensitive deployment values were replaced with placeholders.",
+  "original_files_copied": 49,
+  "original_files_excluded": 2
+}

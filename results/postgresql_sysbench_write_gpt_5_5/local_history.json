@@ -1,0 +1,2740 @@
+{
+  "profiles": {
+    "postgres|sysbench_pg_write|tps_over_p95|tps|maximize": {
+      "profile_context": {
+        "dbms": "postgres",
+        "workload": "sysbench_pg_write",
+        "objective_formula": "tps_over_p95",
+        "primary_metric": "tps",
+        "direction": "maximize",
+        "hardware": {
+          "cpu": "12 vCPU",
+          "memory": "64GB",
+          "disk": "116GB SSD"
+        },
+        "benchmark": {
+          "kind": "shell",
+          "mode": "write",
+          "command_template": null,
+          "script_path": "<PAPER_WORKSPACE>\\scripts\\run_sysbench_pg.sh",
+          "db_driver": "pgsql",
+          "workload_script": null,
+          "tables": 32,
+          "table_size": 1000000,
+          "estimated_total_rows": 32000000,
+          "threads": 32,
+          "duration_seconds": 60,
+          "warmup_seconds": 0,
+          "report_interval_seconds": 5,
+          "database": "sbtest",
+          "host": "127.0.0.1",
+          "port": 5432,
+          "output_path": "/tmp/sb_pg.log",
+          "benchmark_config_path": "<PAPER_WORKSPACE>\\agenticDB\\config\\benchmark_postgres_10_20_173_61_write.yaml",
+          "benchmark_config_text": "[omitted from stored memory; provided directly to the LLM prompt when needed]",
+          "script_content": "[omitted from stored memory; provided directly to the LLM prompt when needed]",
+          "reference_files": [
+            {
+              "path": "<PAPER_WORKSPACE>\\agenticDB\\config\\benchmark_postgres_10_20_173_61_write.yaml",
+              "role": "benchmark_config",
+              "content": "[omitted from stored memory; provided directly to the LLM prompt when needed]"
+            },
+            {
+              "path": "<PAPER_WORKSPACE>\\scripts\\run_sysbench_pg.sh",
+              "role": "benchmark_script",
+              "content": "[omitted from stored memory; provided directly to the LLM prompt when needed]"
+            },
+            {
+              "path": "<PAPER_WORKSPACE>\\readme_pg.md",
+              "role": "reference_file",
+              "content": "[omitted from stored memory; provided directly to the LLM prompt when needed]"
+            },
+            {
+              "path": "<PAPER_WORKSPACE>\\pg_knobs_common150_ranges.csv",
+              "role": "knob_space_file",
+              "content": "[omitted from stored memory; provided directly to the LLM prompt when needed]"
+            },
+            {
+              "path": "<PAPER_WORKSPACE>\\pg_knobs_tunable.csv",
+              "role": "knob_space_file",
+              "content": "[omitted from stored memory; provided directly to the LLM prompt when needed]"
+            },
+            {
+              "path": "<PAPER_WORKSPACE>\\pg_knobs_initial.csv",
+              "role": "knob_space_file",
+              "content": "[omitted from stored memory; provided directly to the LLM prompt when needed]"
+            },
+            {
+              "path": "<PAPER_WORKSPACE>\\environment\\metrics_whitelist pg.py",
+              "role": "state_metric_whitelist",
+              "content": "[omitted from stored memory; provided directly to the LLM prompt when needed]"
+            }
+          ],
+          "effective_command_preview": "bash <PAPER_WORKSPACE>\\scripts\\run_sysbench_pg.sh <mode/host/port/password/duration/output according to workload kind>",
+          "workload_interpretation": {
+            "workload_type": "sysbench_pg_oltp_write_only",
+            "workload_family": "sysbench_pgsql",
+            "mode": "write",
+            "lua_script": "oltp_write_only.lua",
+            "read_intensity": "low",
+            "write_intensity": "high",
+            "client_transport": "tcp_loopback",
+            "report_interval": 5,
+            "classification_source": "benchmark.mode",
+            "primary_tuning_directions": [
+              "wal_flush_durability",
+              "checkpoint_and_bgwriter_policy",
+              "postgres_memory_for_write_working_set",
+              "connection_and_worker_budget",
+              "autovacuum_write_interference"
+            ],
+            "low_priority_directions": [
+              "read_planner_costs_without_read_pressure"
+            ],
+            "first_round_guidance": [
+              "Base the first DB round on a real global candidate, not one isolated probe.",
+              "Separate restart-required knobs from reloadable/runtime knobs.",
+              "For benchmark maximum, synchronous_commit/full_page_writes/fsync are high-leverage but risky durability tradeoffs.",
+              "For pure PG write benchmark_max, also consider max_connections=threads, wal_level=minimal, max_wal_senders=0, hot_standby=off, ssl=off, track_counts=off, compute_query_id=off, and *_flush_after=0 if present in allowed_knob_space.",
+              "Prioritize WAL, checkpoint, bgwriter, write memory, and connection/worker limits."
+            ],
+            "knobs_to_prioritize": [
+              "shared_buffers",
+              "wal_buffers",
+              "wal_level",
+              "max_wal_senders",
+              "hot_standby",
+              "max_wal_size",
+              "min_wal_size",
+              "checkpoint_timeout",
+              "checkpoint_completion_target",
+              "checkpoint_flush_after",
+              "bgwriter_delay",
+              "bgwriter_lru_maxpages",
+              "bgwriter_lru_multiplier",
+              "bgwriter_flush_after",
+              "backend_flush_after",
+              "wal_writer_delay",
+              "wal_writer_flush_after",
+              "synchronous_commit",
+              "full_page_writes",
+              "fsync",
+              "max_connections",
+              "autovacuum",
+              "ssl",
+              "track_counts",
+              "track_activities",
+              "log_checkpoints",
+              "compute_query_id",
+              "update_process_title"
+            ],
+            "knobs_to_deprioritize": [
+              "random_page_cost",
+              "effective_io_concurrency",
+              "max_parallel_workers_per_gather"
+            ],
+            "auditor_policy": {
+              "min_db_rounds_hint": 5,
+              "db_plateau_patience_hint": 3
+            },
+            "evidence": [
+              "benchmark.mode=write",
+              "lua_script inferred from mode=oltp_write_only.lua",
+              "report_interval=5",
+              "client_transport=tcp_loopback",
+              "db_family=postgresql"
+            ],
+            "confidence": "high"
+          },
+          "planner_instruction": "Use workload_interpretation as the controller's preflight workload classification. You may cross-check it against benchmark_config_text, script_content, and effective_command_preview, but do not relabel a configured read workload as readwrite just because a wrapper script contains an unused readwrite branch.",
+          "objective": {
+            "primary_metric": "tps",
+            "direction": "maximize",
+            "formula": "tps_over_p95",
+            "latency_metric": "p95_latency_ms",
+            "min_improvement_ratio": 0.01
+          }
+        },
+        "workload_interpretation": {
+          "workload_type": "sysbench_pg_oltp_write_only",
+          "workload_family": "sysbench_pgsql",
+          "mode": "write",
+          "lua_script": "oltp_write_only.lua",
+          "read_intensity": "low",
+          "write_intensity": "high",
+          "client_transport": "tcp_loopback",
+          "report_interval": 5,
+          "classification_source": "benchmark.mode",
+          "primary_tuning_directions": [
+            "wal_flush_durability",
+            "checkpoint_and_bgwriter_policy",
+            "postgres_memory_for_write_working_set",
+            "connection_and_worker_budget",
+            "autovacuum_write_interference"
+          ],
+          "low_priority_directions": [
+            "read_planner_costs_without_read_pressure"
+          ],
+          "first_round_guidance": [
+            "Base the first DB round on a real global candidate, not one isolated probe.",
+            "Separate restart-required knobs from reloadable/runtime knobs.",
+            "For benchmark maximum, synchronous_commit/full_page_writes/fsync are high-leverage but risky durability tradeoffs.",
+            "For pure PG write benchmark_max, also consider max_connections=threads, wal_level=minimal, max_wal_senders=0, hot_standby=off, ssl=off, track_counts=off, compute_query_id=off, and *_flush_after=0 if present in allowed_knob_space.",
+            "Prioritize WAL, checkpoint, bgwriter, write memory, and connection/worker limits."
+          ],
+          "knobs_to_prioritize": [
+            "shared_buffers",
+            "wal_buffers",
+            "wal_level",
+            "max_wal_senders",
+            "hot_standby",
+            "max_wal_size",
+            "min_wal_size",
+            "checkpoint_timeout",
+            "checkpoint_completion_target",
+            "checkpoint_flush_after",
+            "bgwriter_delay",
+            "bgwriter_lru_maxpages",
+            "bgwriter_lru_multiplier",
+            "bgwriter_flush_after",
+            "backend_flush_after",
+            "wal_writer_delay",
+            "wal_writer_flush_after",
+            "synchronous_commit",
+            "full_page_writes",
+            "fsync",
+            "max_connections",
+            "autovacuum",
+            "ssl",
+            "track_counts",
+            "track_activities",
+            "log_checkpoints",
+            "compute_query_id",
+            "update_process_title"
+          ],
+          "knobs_to_deprioritize": [
+            "random_page_cost",
+            "effective_io_concurrency",
+            "max_parallel_workers_per_gather"
+          ],
+          "auditor_policy": {
+            "min_db_rounds_hint": 5,
+            "db_plateau_patience_hint": 3
+          },
+          "evidence": [
+            "benchmark.mode=write",
+            "lua_script inferred from mode=oltp_write_only.lua",
+            "report_interval=5",
+            "client_transport=tcp_loopback",
+            "db_family=postgresql"
+          ],
+          "confidence": "high"
+        }
+      },
+      "baseline": {
+        "score": 921.6096904441455,
+        "tps": 6847.56,
+        "p95_latency_ms": 7.43,
+        "primary_metric_name": "tps",
+        "primary_metric_value": 6847.56,
+        "valid": true,
+        "metrics": {
+          "tps": 6847.56,
+          "p95_latency_ms": 7.43
+        },
+        "metadata": {}
+      },
+      "best_result": {
+        "score": 15724.66129032258,
+        "tps": 29247.87,
+        "p95_latency_ms": 1.86,
+        "primary_metric_name": "tps",
+        "primary_metric_value": 29247.87,
+        "valid": true,
+        "metrics": {
+          "tps": 29247.87,
+          "p95_latency_ms": 1.86
+        },
+        "metadata": {}
+      },
+      "best_config": {
+        "allow_in_place_tablespaces": false,
+        "allow_system_table_mods": false,
+        "archive_timeout": 0,
+        "array_nulls": true,
+        "authentication_timeout": 60000,
+        "autovacuum": false,
+        "autovacuum_analyze_scale_factor": 0.1,
+        "autovacuum_analyze_threshold": 50,
+        "autovacuum_freeze_max_age": 200000000,
+        "autovacuum_max_workers": 3,
+        "autovacuum_multixact_freeze_max_age": 400000000,
+        "autovacuum_naptime": 60000,
+        "autovacuum_vacuum_cost_delay": 2.0,
+        "autovacuum_vacuum_cost_limit": -1,
+        "autovacuum_vacuum_insert_scale_factor": 0.2,
+        "autovacuum_vacuum_insert_threshold": 1000,
+        "autovacuum_vacuum_scale_factor": 0.2,
+        "autovacuum_vacuum_threshold": 50,
+        "autovacuum_work_mem": -1024,
+        "backend_flush_after": 0,
+        "backslash_quote": "safe_encoding",
+        "bgwriter_delay": 50,
+        "bgwriter_flush_after": 0,
+        "bgwriter_lru_maxpages": 2000,
+        "bgwriter_lru_multiplier": 5.0,
+        "bonjour": false,
+        "bytea_output": "hex",
+        "check_function_bodies": true,
+        "checkpoint_completion_target": 0.95,
+        "checkpoint_flush_after": 0,
+        "checkpoint_timeout": 3600000,
+        "checkpoint_warning": 30000,
+        "client_connection_check_interval": 0,
+        "client_min_messages": "notice",
+        "commit_delay": 0,
+        "commit_siblings": 5,
+        "compute_query_id": false,
+        "constraint_exclusion": "partition",
+        "cpu_index_tuple_cost": 0.005,
+        "cpu_operator_cost": 0.0025,
+        "cpu_tuple_cost": 0.01,
+        "cursor_tuple_fraction": 0.1,
+        "data_sync_retry": false,
+        "db_user_namespace": false,
+        "deadlock_timeout": 1000,
+        "debug_discard_caches": 0,
+        "debug_io_direct": "",
+        "debug_logical_replication_streaming": "buffered",
+        "debug_parallel_query": false,
+        "debug_pretty_print": true,
+        "debug_print_parse": false,
+        "debug_print_plan": false,
+        "debug_print_rewritten": false,
+        "default_statistics_target": 100,
+        "default_toast_compression": "pglz",
+        "default_transaction_deferrable": false,
+        "default_transaction_isolation": "read committed",
+        "default_transaction_read_only": false,
+        "dynamic_shared_memory_type": "posix",
+        "effective_cache_size": 51539607552,
+        "effective_io_concurrency": 1,
+        "enable_async_append": true,
+        "enable_bitmapscan": true,
+        "enable_gathermerge": true,
+        "enable_hashagg": true,
+        "enable_hashjoin": true,
+        "enable_incremental_sort": true,
+        "enable_indexonlyscan": true,
+        "enable_indexscan": true,
+        "enable_material": true,
+        "enable_memoize": true,
+        "enable_mergejoin": true,
+        "enable_nestloop": true,
+        "enable_parallel_append": true,
+        "enable_parallel_hash": true,
+        "enable_partition_pruning": true,
+        "enable_partitionwise_aggregate": false,
+        "enable_partitionwise_join": false,
+        "enable_presorted_aggregate": true,
+        "enable_seqscan": true,
+        "enable_sort": true,
+        "enable_tidscan": true,
+        "escape_string_warning": true,
+        "exit_on_error": false,
+        "extra_float_digits": 1,
+        "file_extend_method": "posix_fallocate",
+        "from_collapse_limit": 8,
+        "fsync": false,
+        "full_page_writes": false,
+        "geqo": true,
+        "geqo_effort": 5,
+        "geqo_generations": 0,
+        "geqo_pool_size": 0,
+        "geqo_seed": 0.0,
+        "geqo_selection_bias": 2.0,
+        "geqo_threshold": 12,
+        "gin_fuzzy_search_limit": 0,
+        "gin_pending_list_limit": 4194304,
+        "gss_accept_delegation": false,
+        "hash_mem_multiplier": 2.0,
+        "hot_standby": false,
+        "hot_standby_feedback": false,
+        "huge_page_size": 0,
+        "huge_pages": "try",
+        "icu_validation_level": "warning",
+        "idle_in_transaction_session_timeout": 0,
+        "idle_session_timeout": 0,
+        "ignore_checksum_failure": false,
+        "ignore_invalid_pages": false,
+        "ignore_system_indexes": false,
+        "IntervalStyle": "postgres",
+        "jit": false,
+        "jit_above_cost": 100000.0,
+        "jit_debugging_support": false,
+        "jit_dump_bitcode": false,
+        "jit_expressions": true,
+        "jit_inline_above_cost": 500000.0,
+        "jit_optimize_above_cost": 500000.0,
+        "jit_profiling_support": false,
+        "jit_tuple_deforming": true,
+        "join_collapse_limit": 8,
+        "krb_caseins_users": false,
+        "lo_compat_privileges": false,
+        "lock_timeout": 0,
+        "log_autovacuum_min_duration": 600000,
+        "log_checkpoints": false,
+        "log_connections": false,
+        "log_disconnections": false,
+        "log_duration": false,
+        "log_error_verbosity": "default",
+        "log_executor_stats": false,
+        "log_file_mode": 600,
+        "log_hostname": false,
+        "log_lock_waits": false,
+        "log_min_duration_sample": -1,
+        "log_min_duration_statement": -1,
+        "log_min_error_statement": "error",
+        "log_min_messages": "warning",
+        "log_parameter_max_length": -1,
+        "log_parameter_max_length_on_error": 0,
+        "log_parser_stats": false,
+        "log_planner_stats": false,
+        "log_recovery_conflict_waits": false,
+        "log_replication_commands": false,
+        "log_rotation_age": 86400000,
+        "log_rotation_size": 10485760,
+        "log_startup_progress_interval": 10000,
+        "log_statement": "none",
+        "log_statement_sample_rate": 1.0,
+        "log_statement_stats": false,
+        "log_temp_files": -1024,
+        "log_transaction_sample_rate": 0.0,
+        "log_truncate_on_rotation": false,
+        "logging_collector": false,
+        "logical_decoding_work_mem": 67108864,
+        "maintenance_io_concurrency": 10,
+        "maintenance_work_mem": 67108864,
+        "max_connections": 64,
+        "max_files_per_process": 1000,
+        "max_locks_per_transaction": 64,
+        "max_logical_replication_workers": 4,
+        "max_parallel_apply_workers_per_subscription": 2,
+        "max_parallel_maintenance_workers": 2,
+        "max_parallel_workers": 0,
+        "max_parallel_workers_per_gather": 0,
+        "max_pred_locks_per_page": 2,
+        "max_pred_locks_per_relation": -2,
+        "max_pred_locks_per_transaction": 64,
+        "max_prepared_transactions": 0,
+        "max_replication_slots": 10,
+        "max_slot_wal_keep_size": -1048576,
+        "max_stack_depth": 2097152,
+        "max_standby_archive_delay": 30000,
+        "max_standby_streaming_delay": 30000,
+        "max_sync_workers_per_subscription": 2,
+        "max_wal_senders": 0,
+        "max_wal_size": 34359738368,
+        "max_worker_processes": 8,
+        "min_dynamic_shared_memory": 0,
+        "min_parallel_index_scan_size": 524288,
+        "min_parallel_table_scan_size": 8388608,
+        "min_wal_size": 8589934592,
+        "old_snapshot_threshold": -60000,
+        "parallel_leader_participation": true,
+        "parallel_setup_cost": 1000.0,
+        "parallel_tuple_cost": 0.1,
+        "password_encryption": "scram-sha-256",
+        "plan_cache_mode": "auto",
+        "port": 5432,
+        "post_auth_delay": 0,
+        "pre_auth_delay": 0,
+        "quote_all_identifiers": false,
+        "random_page_cost": 4.0,
+        "recovery_init_sync_method": "fsync",
+        "recovery_min_apply_delay": 0,
+        "recovery_prefetch": "try",
+        "recovery_target_action": "pause",
+        "recovery_target_inclusive": true,
+        "recursive_worktable_factor": 10.0,
+        "remove_temp_files_after_crash": true,
+        "reserved_connections": 0,
+        "restart_after_crash": true,
+        "row_security": true,
+        "scram_iterations": 4096,
+        "send_abort_for_crash": false,
+        "send_abort_for_kill": false,
+        "seq_page_cost": 1.0,
+        "session_replication_role": "origin",
+        "shared_buffers": 21474836480,
+        "shared_memory_type": "mmap",
+        "ssl": false,
+        "ssl_max_protocol_version": "",
+        "ssl_min_protocol_version": "TLSv1.2",
+        "ssl_passphrase_command_supports_reload": false,
+        "ssl_prefer_server_ciphers": true,
+        "standard_conforming_strings": true,
+        "statement_timeout": 0,
+        "stats_fetch_consistency": "cache",
+        "superuser_reserved_connections": 3,
+        "synchronize_seqscans": true,
+        "synchronous_commit": false,
+        "syslog_facility": "local0",
+        "syslog_sequence_numbers": true,
+        "syslog_split_messages": true,
+        "tcp_keepalives_count": 9,
+        "tcp_keepalives_idle": 7200000,
+        "tcp_keepalives_interval": 75000,
+        "tcp_user_timeout": 0,
+        "temp_buffers": 16777216,
+        "temp_file_limit": -1024,
+        "trace_notify": false,
+        "trace_recovery_messages": "log",
+        "trace_sort": false,
+        "track_activities": false,
+        "track_activity_query_size": 1024,
+        "track_commit_timestamp": false,
+        "track_counts": false,
+        "track_functions": "none",
+        "track_io_timing": false,
+        "track_wal_io_timing": false,
+        "transform_null_equals": false,
+        "unix_socket_permissions": 777,
+        "update_process_title": false,
+        "vacuum_buffer_usage_limit": 262144,
+        "vacuum_cost_delay": 0.0,
+        "vacuum_cost_limit": 200,
+        "vacuum_cost_page_dirty": 20,
+        "vacuum_cost_page_hit": 1,
+        "vacuum_cost_page_miss": 2,
+        "vacuum_failsafe_age": 1600000000,
+        "vacuum_freeze_min_age": 50000000,
+        "vacuum_freeze_table_age": 150000000,
+        "vacuum_multixact_failsafe_age": 1600000000,
+        "vacuum_multixact_freeze_min_age": 5000000,
+        "vacuum_multixact_freeze_table_age": 150000000,
+        "wal_buffers": 134217728,
+        "wal_compression": false,
+        "wal_decode_buffer_size": 524288,
+        "wal_init_zero": false,
+        "wal_keep_size": 0,
+        "wal_level": "minimal",
+        "wal_log_hints": false,
+        "wal_receiver_create_temp_slot": false,
+        "wal_receiver_status_interval": 10000,
+        "wal_receiver_timeout": 60000,
+        "wal_recycle": true,
+        "wal_retrieve_retry_interval": 5000,
+        "wal_sender_timeout": 60000,
+        "wal_skip_threshold": 2097152,
+        "wal_sync_method": "fdatasync",
+        "wal_writer_delay": 200,
+        "wal_writer_flush_after": 33554432,
+        "work_mem": 8388608,
+        "xmlbinary": "base64",
+        "xmloption": "content",
+        "zero_damaged_pages": false
+      },
+      "rounds": [
+        {
+          "round_id": 1,
+          "timestamp": "2026-05-16T00:41:32.937891",
+          "proposal": {
+            "diagnosis": "已按 workload_interpretation 先判定并交叉检查脚本：benchmark_config 的 mode=write，run_sysbench_pg.sh 在 MODE=write 时执行 /usr/share/sysbench/oltp_write_only.lua；wrapper 中的 read/readwrite 分支未被本次配置调用，因此这是 sysbench_pg_oltp_write_only 高写入负载。当前初始配置明显偏默认保守：shared_buffers 只有 128MB，而 32 张表共 3200 万行导致 pg_stat_io/pg_stat_bgwriter 中 reads/evictions/buffers_alloc 很高，buffers_backend 约 292 万远高于 buffers_clean，说明脏页/缓存压力主要落到 backend；max_wal_size 只有 1GB，60s 左右已出现 13 次 requested checkpoint 且 timed checkpoint 为 0，checkpoint_sync_time 明显，触发 full_page_writes 下大量 FPI，pg_stat_wal.wal_fpi 约 263 万、wal_bytes 约 10.8GB，是写路径主要放大源；WAL sync/write 次数很高，synchronous_commit=on 会让 32 线程写-only 直接等待 WAL 持久化。OS 侧内存充足、磁盘仍有约 58GB 空间，CPU/IO PSI 有压力但尚未到只能调 OS 的阶段。因此第一轮采用覆盖 WAL durability、checkpoint/bgwriter、内存、连接/worker、autovacuum/观测开销的 benchmark_max 倾向全局组合，但暂不关闭 fsync，以降低不可恢复风险；通过 synchronous_commit=off、full_page_writes=off、wal_level=minimal、扩大 WAL/checkpoint 空间和 shared_buffers 来优先提升 tps/p95。",
+            "action_type": "db_config",
+            "candidate_config": {
+              "shared_buffers": 8589934592,
+              "effective_cache_size": 51539607552,
+              "wal_buffers": 67108864,
+              "work_mem": 8388608,
+              "temp_buffers": 16777216,
+              "synchronous_commit": "off",
+              "full_page_writes": false,
+              "wal_level": "minimal",
+              "max_wal_senders": 0,
+              "max_replication_slots": 0,
+              "max_logical_replication_workers": 0,
+              "hot_standby": false,
+              "wal_init_zero": false,
+              "max_wal_size": 25769803776,
+              "min_wal_size": 4294967296,
+              "checkpoint_timeout": 1800000,
+              "checkpoint_completion_target": 0.95,
+              "checkpoint_flush_after": 0,
+              "bgwriter_delay": 100,
+              "bgwriter_lru_maxpages": 1000,
+              "bgwriter_lru_multiplier": 4.0,
+              "bgwriter_flush_after": 0,
+              "wal_writer_delay": 100,
+              "wal_writer_flush_after": 16777216,
+              "max_connections": 64,
+              "max_parallel_workers": 0,
+              "max_parallel_workers_per_gather": 0,
+              "jit": false,
+              "autovacuum": false,
+              "ssl": false,
+              "compute_query_id": "off",
+              "track_counts": false,
+              "track_activities": false,
+              "log_checkpoints": false,
+              "update_process_title": false
+            },
+            "restart_required": true,
+            "expected_effect": "预期通过减少每事务 WAL flush 等待、降低 FPI/WAL 放大、避免 60s 内频繁 requested checkpoint、减少 backend 自行写脏页以及降低 benchmark 无关后台/观测开销来提升 TPS 并降低 p95。最直接的指标应是 pg_stat_bgwriter.checkpoints_req 明显下降、buffers_backend 占比下降、pg_stat_wal.wal_fpi/wal_bytes 增速下降，sysbench tps/p95 分数高于 921.6。",
+            "risk": "需要重启。该方案偏 benchmark_max：synchronous_commit=off 可能丢失最近已提交事务；full_page_writes=off 在 OS/DB 崩溃后有页损坏风险；wal_level=minimal/max_wal_senders=0/hot_standby=off 会禁用复制、热备和逻辑解码能力；autovacuum=off 与 track_counts=off 不适合长期运行且会削弱统计/清理；track_activities=off、log_checkpoints=off、compute_query_id=off 会降低观测能力；shared_buffers=8GB 与 max_wal_size=24GB 会增加共享内存和磁盘 WAL 占用，但当前 64GB RAM、约 58GB 空闲磁盘下首轮可控。",
+            "validation_required": true,
+            "global_config_plan": {
+              "summary": "第一轮给出一套可重启验证的全局候选配置，而不是单点 probe。核心是：显著扩大 PostgreSQL 可用缓存和 WAL 缓冲；避免 60 秒压测内反复 requested checkpoint；减少 full_page_writes/FPI 与同步提交等待；让 bgwriter 更积极承担脏页清理；降低单机 benchmark 中复制、SSL、统计和 autovacuum 干扰。保留 fsync=on、wal_sync_method=fdatasync、wal_recycle=on，不在首轮使用最危险的 fsync=off。",
+              "change_groups": {
+                "memory": [
+                  "shared_buffers 从 128MB 提升到 8GB，解决当前 buffers_alloc/evictions/backend writes 过高的问题，同时避免首轮直接 16GB 带来过大 checkpoint 脏页面。",
+                  "effective_cache_size 提升到 48GB，让优化器感知 64GB 主机上的 OS cache；虽然 write-only 读计划不是主方向，但这是内存全局配置的一部分。",
+                  "wal_buffers 提升到 64MB，适配高并发写入和同步提交关闭后的 WAL 批量写入，避免 WAL buffer 成为短周期瓶颈。",
+                  "work_mem 提升到 8MB、temp_buffers 到 16MB，作为轻量全局内存配置；该负载无 temp_files，因此不大幅增加以免无收益。"
+                ],
+                "redo_binlog": [
+                  "synchronous_commit=off，针对 32 线程 write-only 直接减少每事务 WAL flush 等待，是本轮最大 TPS/p95 杠杆之一；会牺牲最近事务崩溃安全。",
+                  "full_page_writes=off，针对当前 wal_fpi 极高的问题减少 WAL 放大；这是 benchmark_max 风险项，崩溃后可能出现页损坏。",
+                  "wal_level=minimal、max_wal_senders=0、max_replication_slots=0、max_logical_replication_workers=0、hot_standby=off，单机 benchmark 不需要复制/逻辑解码能力，降低 WAL/后台复制预算。",
+                  "wal_init_zero=off 减少 WAL segment 初始化写零开销；保留 wal_recycle=on 不变以复用 WAL 文件。"
+                ],
+                "io_flush": [
+                  "max_wal_size 从 1GB 提升到 24GB、min_wal_size 到 4GB、checkpoint_timeout 到 30min，目标是在 60s 压测窗口内避免由 WAL 空间触发的 requested checkpoint。",
+                  "checkpoint_completion_target=0.95，让必要 checkpoint 更平滑。",
+                  "checkpoint_flush_after=0、bgwriter_flush_after=0，避免内核 writeback 提示造成额外 flush 噪声；backend_flush_after 当前已为 0，保持。",
+                  "bgwriter_delay=100ms、bgwriter_lru_maxpages=1000、bgwriter_lru_multiplier=4.0，让 bgwriter 更积极清理，降低 buffers_backend。",
+                  "wal_writer_delay=100ms、wal_writer_flush_after=16MB，在 synchronous_commit=off 后让 WAL writer 批量且较平滑地落盘。"
+                ],
+                "concurrency_cpu": [
+                  "max_connections 从 100 降到 64，仍覆盖 32 sysbench 线程、监控和管理连接，同时减少每连接预算和共享内存开销。",
+                  "max_parallel_workers=0、max_parallel_workers_per_gather=0，write-only OLTP 单语句不依赖并行查询，减少 worker 预算噪声；read planner costs 仍保持低优先级。",
+                  "jit=off，简单 OLTP DML 不需要 JIT，避免计划/执行额外开销。",
+                  "autovacuum=off，60s benchmark 中避免 autovacuum 与高频 insert/update/delete 竞争；这是 benchmark 风险，不适合长期运行。",
+                  "ssl=off、compute_query_id=off、track_counts=off、track_activities=off、log_checkpoints=off、update_process_title=off，减少 loopback benchmark 中连接/统计/日志/进程标题维护开销；代价是观测能力和 autovacuum 统计能力下降。"
+                ],
+                "benchmark_max_static": [
+                  "本轮包含 postmaster 参数 shared_buffers、wal_buffers、wal_level、max_wal_senders、max_replication_slots、max_logical_replication_workers、hot_standby、max_connections，因此需要重启。",
+                  "采用 benchmark_max 倾向但不是最激进组合：没有关闭 fsync，没有启用 debug_io_direct；风险主要来自 synchronous_commit=off、full_page_writes=off、wal_level=minimal、track_counts=off、autovacuum=off。",
+                  "如果本轮显著提升，下一轮可在此基础上小步测试 fsync=off 或 shared_buffers=16GB；如果回退，则优先回退 full_page_writes/track_counts/autovacuum 等高风险项，保留内存和 checkpoint 扩大方向。"
+                ]
+              }
+            },
+            "exploration_mode": "benchmark_max",
+            "next_step": "如果本轮 tps/p95 明显提升，下一轮沿着同一最佳配置细调：优先比较 shared_buffers=16GB vs 8GB、max_wal_size=32GB、bgwriter_lru_maxpages 500/1500、wal_writer_delay 20/200ms，并观察 buffers_backend、checkpoints_req、wal_sync 和 p95 是否继续下降。",
+            "if_failed_next": "如果本轮回退，避免重复这个全量 benchmark_max 组合；下一轮改用较保守拆分：保留 shared_buffers/wal_buffers/max_wal_size/checkpoint_timeout/bgwriter 增强，但恢复 full_page_writes=on、track_counts=on、track_activities=on、autovacuum=on，且 max_connections 回到 100，以判断回退是否来自 crash-safety/观测/autovacuum 关闭或 shared_buffers 冷启动。",
+            "more_aggressive_plan": {
+              "rationale": "若本轮有效但仍被 WAL fsync 或 IO PSI 限制，下一轮可尝试真正极限 benchmark：关闭 fsync，并把 shared_buffers 提到 16GB、max_wal_size 提到 32GB。这会进一步减少落盘等待，但崩溃后可能导致数据库不可恢复或数据损坏，因此不在第一轮直接采用。",
+              "aggressive_candidate_config": {
+                "shared_buffers": 17179869184,
+                "effective_cache_size": 51539607552,
+                "wal_buffers": 134217728,
+                "synchronous_commit": "off",
+                "fsync": false,
+                "full_page_writes": false,
+                "wal_level": "minimal",
+                "max_wal_senders": 0,
+                "max_replication_slots": 0,
+                "hot_standby": false,
+                "max_wal_size": 34359738368,
+                "min_wal_size": 8589934592,
+                "checkpoint_timeout": 3600000,
+                "checkpoint_completion_target": 0.95,
+                "checkpoint_flush_after": 0,
+                "bgwriter_delay": 50,
+                "bgwriter_lru_maxpages": 1500,
+                "bgwriter_lru_multiplier": 5.0,
+                "bgwriter_flush_after": 0,
+                "wal_writer_delay": 200,
+                "wal_writer_flush_after": 33554432,
+                "wal_init_zero": false,
+                "autovacuum": false,
+                "ssl": false,
+                "track_counts": false,
+                "track_activities": false,
+                "compute_query_id": "off",
+                "update_process_title": false,
+                "jit": false
+              }
+            },
+            "auditor_recommendation": {
+              "next_phase": "db",
+              "reason": "这是 DB 第一轮全局组合，尚未验证内存/WAL/checkpoint/bgwriter/durability 多组参数。无论本轮成功或失败，DB 层仍有明确后续候选：成功则细调 shared_buffers、WAL/checkpoint、bgwriter 和 fsync；失败则拆分为保守内存+checkpoint 组合。因此不应切换到 OS sysctl。",
+              "confidence": "high"
+            }
+          },
+          "result": null,
+          "decision": "rejected",
+          "reason": "Blocked unsafe DB knob(s): max_logical_replication_workers, max_replication_slots",
+          "metadata": {
+            "phase": "db",
+            "auditor": {
+              "current_phase": "db",
+              "next_phase": "db",
+              "action": "continue_db",
+              "reason": "DB phase still has tuning budget before plateau criteria are met.",
+              "stop": false,
+              "plateau_detected": false,
+              "phase_round_count": 0,
+              "consecutive_non_improving": 0,
+              "consecutive_repeats": 0,
+              "best_score": 921.6096904441455,
+              "model_recommendation": null,
+              "model_recommendation_used": false
+            },
+            "state_snapshot": {
+              "path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_003834_pg61_write32_clean_prompt_nohistory\\state_snapshots\\round_001_db.txt",
+              "counts": {
+                "tracked_config": 276,
+                "settings": 276,
+                "metrics_profile": 66,
+                "stat_metrics": 66
+              }
+            },
+            "errors": [
+              "unsafe_db_knob"
+            ]
+          }
+        },
+        {
+          "round_id": 2,
+          "timestamp": "2026-05-16T00:43:32.219079",
+          "proposal": {
+            "diagnosis": "压测预识别和脚本/命令预览一致：这是 sysbench PostgreSQL oltp_write_only.lua，32 线程、60 秒、TCP loopback 的纯写负载，不应按 read/readwrite 重新分类。上一轮没有得到性能结果，而是被安全拦截器拒绝，原因是包含 max_replication_slots 和 max_logical_replication_workers；因此不能认为该 WAL/内存/checkpoint 组合性能失败。本轮基于同一写路径瓶颈重新提交去掉被拦截 knobs 的可执行全局配置。当前状态显示默认配置仍是主要瓶颈：shared_buffers 只有 128MB，pg_stat_io/pg_stat_bgwriter 中 reads/evictions/buffers_alloc 很高；60 秒左右已有 13 次 requested checkpoint，max_wal_size=1GB 明显过小；WAL 约 10.8GB 且 wal_fpi 约 263 万，full_page_writes 和频繁 checkpoint 放大写入；wal_sync 约 4.6 万说明提交路径 fsync/flush 压力很高；buffers_backend 约 292 万说明 backend 自己刷脏页过多，bgwriter 太弱。CPU/内存余量很大，优先继续 DB 层写路径全局调参。",
+            "action_type": "db_config",
+            "candidate_config": {
+              "shared_buffers": 8589934592,
+              "effective_cache_size": 51539607552,
+              "wal_buffers": 67108864,
+              "work_mem": 8388608,
+              "temp_buffers": 16777216,
+              "synchronous_commit": "off",
+              "full_page_writes": false,
+              "wal_level": "minimal",
+              "max_wal_senders": 0,
+              "hot_standby": false,
+              "wal_init_zero": false,
+              "max_wal_size": 25769803776,
+              "min_wal_size": 4294967296,
+              "checkpoint_timeout": 1800000,
+              "checkpoint_completion_target": 0.95,
+              "checkpoint_flush_after": 0,
+              "bgwriter_delay": 100,
+              "bgwriter_lru_maxpages": 1000,
+              "bgwriter_lru_multiplier": 4.0,
+              "bgwriter_flush_after": 0,
+              "wal_writer_delay": 100,
+              "wal_writer_flush_after": 16777216,
+              "max_connections": 64,
+              "max_parallel_workers": 0,
+              "max_parallel_workers_per_gather": 0,
+              "jit": false,
+              "autovacuum": false,
+              "ssl": false,
+              "compute_query_id": "off",
+              "track_counts": false,
+              "track_activities": false,
+              "log_checkpoints": false,
+              "update_process_title": false
+            },
+            "restart_required": true,
+            "expected_effect": "预期通过减少 requested checkpoint、减少 WAL FPI/同步提交等待、降低 backend 自刷脏页和提高缓存命中，使 TPS 明显超过 6847，并降低或至少不显著恶化 p95；目标是提高 tps/p95 score。",
+            "risk": "需要重启。synchronous_commit=off 可能在崩溃时丢失最近已提交事务；full_page_writes=false 可能在崩溃后导致页面损坏；wal_level=minimal/max_wal_senders=0/hot_standby=false 会禁用复制/热备能力；autovacuum=false 和 track_counts=false 不适合长期运行；大 shared_buffers 可能改变 checkpoint 脏页分布并带来冷启动波动。",
+            "validation_required": true,
+            "global_config_plan": {
+              "summary": "沿用上一轮未验证的高杠杆方向，但删除被拦截的 max_replication_slots/max_logical_replication_workers，形成一套可落地的 benchmark_max 候选：扩大 shared_buffers/wal_buffers 和 WAL/checkpoint 空间，减少同步提交与 FPI 开销，增强 bgwriter，降低无关后台/观测/并行开销。先不关闭 fsync，避免一次性引入最极端 crash-safety 风险，也便于判断 sync_commit/full_page_writes/checkpoint/memory 的收益。",
+              "change_groups": {
+                "memory": [
+                  "shared_buffers 从 128MB 提升到 8GB，目标是显著降低当前高 buffers_alloc、evictions、blks_read 和 backend 写脏页压力；64GB 内存下该值较安全。",
+                  "effective_cache_size 提升到 48GB，让优化器感知 OS cache；该写负载读计划不是主瓶颈，但对随机点查/索引更新仍无明显风险。",
+                  "wal_buffers 提升到 64MB，减少高并发写入下 WAL buffer 周期性压力；当前 wal_buffers_full 为 0，但写路径吞吐提升后更大的 WAL buffer 更稳。",
+                  "work_mem 提升到 8MB、temp_buffers 到 16MB，保持轻量提高；当前 temp_files=0，因此不做大幅内存分配。"
+                ],
+                "redo_binlog": [
+                  "synchronous_commit=off，直接减少每事务等待 WAL flush 的提交延迟，是当前 wal_sync 很高时最强的 TPS/p95 杠杆之一。",
+                  "full_page_writes=false，针对 wal_fpi 极高和频繁 checkpoint 后 FPI 放大的问题，减少 WAL 量和写入压力；这是 benchmark_max 风险项。",
+                  "wal_level=minimal、max_wal_senders=0、hot_standby=false，用于单机 benchmark，去掉复制/热备需求；本轮刻意不再修改上轮被拦截的 max_replication_slots/max_logical_replication_workers。",
+                  "wal_init_zero=false，减少新 WAL segment 初始化写零开销；保留 wal_recycle=true 不改，以复用 WAL 文件。"
+                ],
+                "io_flush": [
+                  "max_wal_size 从 1GB 提升到 24GB、min_wal_size 到 4GB，目标是在 60 秒窗口内避免反复 requested checkpoint。",
+                  "checkpoint_timeout 提升到 30 分钟、checkpoint_completion_target=0.95，让 checkpoint 更少且更平滑。",
+                  "checkpoint_flush_after=0、bgwriter_flush_after=0，避免额外 writeback hint/flush 噪声；backend_flush_after 当前已为 0，保持。",
+                  "bgwriter_delay 降到 100ms、bgwriter_lru_maxpages 提到 1000、bgwriter_lru_multiplier 提到 4.0，让 bgwriter 更积极清理，减少 buffers_backend。",
+                  "wal_writer_delay=100ms、wal_writer_flush_after=16MB，在 synchronous_commit=off 后允许 WAL writer 更批量落盘，减少小 flush 干扰。"
+                ],
+                "concurrency_cpu": [
+                  "max_connections 降到 64，仍覆盖 32 sysbench 线程和管理连接，减少连接预算与共享内存噪声。",
+                  "max_parallel_workers=0、max_parallel_workers_per_gather=0，write-only OLTP 简单语句不需要并行查询，减少 worker/计划噪声。",
+                  "jit=false，简单 OLTP DML 不需要 JIT，降低潜在计划/执行开销。",
+                  "autovacuum=false，在 60 秒 benchmark 内避免 autovacuum 与 insert/update/delete 竞争；这不适合长期生产。",
+                  "ssl=false、compute_query_id=off、track_counts=false、track_activities=false、log_checkpoints=false、update_process_title=false，减少 loopback benchmark 的观测/日志/进程标题维护开销。"
+                ],
+                "benchmark_max_static": [
+                  "本轮包含 shared_buffers、wal_buffers、wal_level、max_wal_senders、hot_standby、max_connections 等 postmaster 参数，需要重启验证。",
+                  "本轮避免再次设置 max_replication_slots 和 max_logical_replication_workers，因为上一轮被安全策略拦截。",
+                  "采用 benchmark_max 但保留 fsync=on；主要风险来自 synchronous_commit=off、full_page_writes=false、wal_level=minimal、autovacuum=false、track_counts=false，可能牺牲 crash safety、复制能力和观测能力。"
+                ]
+              }
+            },
+            "exploration_mode": "benchmark_max",
+            "next_step": "如果本轮成功或接近成功，下一轮优先在已接受配置上细调：比较 shared_buffers=16GB vs 8GB、max_wal_size=32GB、bgwriter_lru_maxpages=500/1500、wal_writer_delay=20/200ms；同时观察 checkpoints_req、buffers_backend、wal_fpi、wal_sync、p95 是否继续下降。",
+            "if_failed_next": "如果本轮回退，不要再重复该 benchmark_max 组合；下一轮改为保守拆分：保留 shared_buffers=8GB、wal_buffers=64MB、max_wal_size=24GB、checkpoint_timeout=30min、bgwriter 增强，但恢复 full_page_writes=true、track_counts=true、track_activities=true、autovacuum=true，并把 max_connections 恢复 100，以判断回退是否来自 crash-safety/观测/autovacuum 关闭或连接预算变化。",
+            "more_aggressive_plan": {
+              "rationale": "如果本轮显著优于基线且 state_metric 仍显示 wal_sync/IO flush 或 checkpoint 影响 p95，下一轮可以尝试真正极限 benchmark：关闭 fsync，并将 shared_buffers 提到 16GB、wal_buffers 到 128MB、max_wal_size 到 32GB。这会进一步减少落盘等待，但崩溃后可能导致数据库不可恢复或数据损坏，所以本轮先不直接采用。",
+              "aggressive_candidate_config": {
+                "shared_buffers": 17179869184,
+                "effective_cache_size": 51539607552,
+                "wal_buffers": 134217728,
+                "synchronous_commit": "off",
+                "fsync": false,
+                "full_page_writes": false,
+                "wal_level": "minimal",
+                "max_wal_senders": 0,
+                "hot_standby": false,
+                "max_wal_size": 34359738368,
+                "min_wal_size": 8589934592,
+                "checkpoint_timeout": 3600000,
+                "checkpoint_completion_target": 0.95,
+                "checkpoint_flush_after": 0,
+                "bgwriter_delay": 50,
+                "bgwriter_lru_maxpages": 1500,
+                "bgwriter_lru_multiplier": 5.0,
+                "bgwriter_flush_after": 0,
+                "wal_writer_delay": 200,
+                "wal_writer_flush_after": 33554432,
+                "wal_init_zero": false,
+                "autovacuum": false,
+                "ssl": false,
+                "track_counts": false,
+                "track_activities": false,
+                "compute_query_id": "off",
+                "update_process_title": false,
+                "jit": false,
+                "max_connections": 64,
+                "max_parallel_workers": 0,
+                "max_parallel_workers_per_gather": 0
+              }
+            },
+            "auditor_recommendation": {
+              "next_phase": "db",
+              "reason": "DB 层实际还没有完成一次有效全局参数验证；上一轮只是被 max_replication_slots/max_logical_replication_workers 拦截。当前仍有明确 DB 候选：先验证去除被拦截 knobs 的全局写路径配置，之后还可细调 shared_buffers、checkpoint/bgwriter、wal_writer 和 fsync。因此不应切换到 OS sysctl。",
+              "confidence": "high"
+            }
+          },
+          "result": {
+            "score": 11645.481981981982,
+            "tps": 25852.97,
+            "p95_latency_ms": 2.22,
+            "primary_metric_name": "tps",
+            "primary_metric_value": 25852.97,
+            "valid": true,
+            "metrics": {
+              "tps": 25852.97,
+              "p95_latency_ms": 2.22
+            },
+            "metadata": {}
+          },
+          "decision": "accepted",
+          "reason": "Score improved from 921.610 to 11645.482 (1163.60%).",
+          "metadata": {
+            "phase": "db",
+            "auditor": {
+              "current_phase": "db",
+              "next_phase": "db",
+              "action": "continue_db",
+              "reason": "DB phase still has tuning budget before plateau criteria are met.",
+              "stop": false,
+              "plateau_detected": false,
+              "phase_round_count": 1,
+              "consecutive_non_improving": 1,
+              "consecutive_repeats": 0,
+              "best_score": 921.6096904441455,
+              "model_recommendation": {
+                "next_phase": "db",
+                "reason": "这是 DB 第一轮全局组合，尚未验证内存/WAL/checkpoint/bgwriter/durability 多组参数。无论本轮成功或失败，DB 层仍有明确后续候选：成功则细调 shared_buffers、WAL/checkpoint、bgwriter 和 fsync；失败则拆分为保守内存+checkpoint 组合。因此不应切换到 OS sysctl。",
+                "confidence": "high"
+              },
+              "model_recommendation_used": false
+            },
+            "state_snapshot": {
+              "path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_003834_pg61_write32_clean_prompt_nohistory\\state_snapshots\\round_002_db.txt",
+              "counts": {
+                "tracked_config": 276,
+                "settings": 276,
+                "metrics_profile": 66,
+                "stat_metrics": 66
+              }
+            },
+            "backup": {
+              "config_path": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+              "backup_path": "/tmp/agenticdb_round_2_1778863347.cnf.bak",
+              "created_at": "2026-05-16T00:42:27",
+              "content_sha256": "912384bdd99167452edf993e54362f1ef4fb9ba5d91f53295f5e7c7b9d1c36e6",
+              "metadata": {
+                "local_backup_path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_003834_pg61_write32_clean_prompt_nohistory\\backup_round_2.cnf"
+              }
+            },
+            "apply_report": {
+              "persisted_keys": [
+                "autovacuum",
+                "bgwriter_delay",
+                "bgwriter_flush_after",
+                "bgwriter_lru_maxpages",
+                "bgwriter_lru_multiplier",
+                "checkpoint_completion_target",
+                "checkpoint_flush_after",
+                "checkpoint_timeout",
+                "compute_query_id",
+                "effective_cache_size",
+                "full_page_writes",
+                "hot_standby",
+                "jit",
+                "log_checkpoints",
+                "max_connections",
+                "max_parallel_workers",
+                "max_parallel_workers_per_gather",
+                "max_wal_senders",
+                "max_wal_size",
+                "min_wal_size",
+                "shared_buffers",
+                "ssl",
+                "synchronous_commit",
+                "temp_buffers",
+                "track_activities",
+                "track_counts",
+                "update_process_title",
+                "wal_buffers",
+                "wal_init_zero",
+                "wal_level",
+                "wal_writer_delay",
+                "wal_writer_flush_after",
+                "work_mem"
+              ],
+              "runtime_applied_keys": [
+                "effective_cache_size",
+                "work_mem",
+                "temp_buffers",
+                "synchronous_commit",
+                "full_page_writes",
+                "wal_init_zero",
+                "max_wal_size",
+                "min_wal_size",
+                "checkpoint_timeout",
+                "checkpoint_completion_target",
+                "checkpoint_flush_after",
+                "bgwriter_delay",
+                "bgwriter_lru_maxpages",
+                "bgwriter_lru_multiplier",
+                "bgwriter_flush_after",
+                "wal_writer_delay",
+                "wal_writer_flush_after",
+                "max_parallel_workers",
+                "max_parallel_workers_per_gather",
+                "jit",
+                "autovacuum",
+                "ssl",
+                "compute_query_id",
+                "track_counts",
+                "track_activities",
+                "log_checkpoints",
+                "update_process_title"
+              ],
+              "runtime_skipped_keys": []
+            },
+            "effective_candidate_config": {
+              "shared_buffers": 8589934592,
+              "effective_cache_size": 51539607552,
+              "wal_buffers": 67108864,
+              "work_mem": 8388608,
+              "temp_buffers": 16777216,
+              "synchronous_commit": "off",
+              "full_page_writes": false,
+              "wal_level": "minimal",
+              "max_wal_senders": 0,
+              "hot_standby": false,
+              "wal_init_zero": false,
+              "max_wal_size": 25769803776,
+              "min_wal_size": 4294967296,
+              "checkpoint_timeout": 1800000,
+              "checkpoint_completion_target": 0.95,
+              "checkpoint_flush_after": 0,
+              "bgwriter_delay": 100,
+              "bgwriter_lru_maxpages": 1000,
+              "bgwriter_lru_multiplier": 4.0,
+              "bgwriter_flush_after": 0,
+              "wal_writer_delay": 100,
+              "wal_writer_flush_after": 16777216,
+              "max_connections": 64,
+              "max_parallel_workers": 0,
+              "max_parallel_workers_per_gather": 0,
+              "jit": false,
+              "autovacuum": false,
+              "ssl": false,
+              "compute_query_id": "off",
+              "track_counts": false,
+              "track_activities": false,
+              "log_checkpoints": false,
+              "update_process_title": false
+            }
+          }
+        },
+        {
+          "round_id": 3,
+          "timestamp": "2026-05-16T00:46:04.182471",
+          "proposal": {
+            "diagnosis": "已按 workload_interpretation 与 benchmark_config/script/effective command 交叉确认：本轮是 sysbench PostgreSQL oltp_write_only.lua，mode=write，32 threads、60s、TCP loopback，不应因 wrapper 中其他未执行分支改判为 readwrite/read。上一轮去掉被拦截复制 slot knobs 后，benchmark_max 写路径组合从 6847.56/7.43 提升到 25852.97/2.22，说明主要收益确实来自 WAL durability、checkpoint/bgwriter、内存和后台开销削减。当前 state_metric 显示 checkpoints_req=0、wal_fpi=0、wal_buffers_full=0，说明 checkpoint/FPI/WAL buffer 已不再是显性瓶颈；但 buffers_backend=2260578 远高于 buffers_clean=445092，maxwritten_clean=406，pg_stat_io evictions≈276万、reads≈381万，说明 8GB shared_buffers 下仍有明显 buffer churn 和 backend 写脏页；同时 synchronous_commit=off 后仍有 wal_sync=851，且 OS PSI 有 CPU some 与少量 IO full，短测 p95 仍可能受 WAL/fsync 与 backend write path 影响。当前目标是纯 benchmark 极限值，因此本轮沿上一轮 more_aggressive_plan，采用更大胆但仍在 allowed_knob_space 内的 DB 全局配置：扩大 shared_buffers/wal_buffers，进一步增强 bgwriter，并首次验证 fsync=false。",
+            "action_type": "db_config",
+            "candidate_config": {
+              "shared_buffers": 17179869184,
+              "effective_cache_size": 51539607552,
+              "wal_buffers": 134217728,
+              "work_mem": 8388608,
+              "temp_buffers": 16777216,
+              "synchronous_commit": "off",
+              "fsync": false,
+              "full_page_writes": false,
+              "wal_level": "minimal",
+              "max_wal_senders": 0,
+              "hot_standby": false,
+              "wal_init_zero": false,
+              "max_wal_size": 34359738368,
+              "min_wal_size": 8589934592,
+              "checkpoint_timeout": 3600000,
+              "checkpoint_completion_target": 0.95,
+              "checkpoint_flush_after": 0,
+              "bgwriter_delay": 50,
+              "bgwriter_lru_maxpages": 2000,
+              "bgwriter_lru_multiplier": 5.0,
+              "bgwriter_flush_after": 0,
+              "backend_flush_after": 0,
+              "wal_writer_delay": 200,
+              "wal_writer_flush_after": 33554432,
+              "max_connections": 64,
+              "max_parallel_workers": 0,
+              "max_parallel_workers_per_gather": 0,
+              "jit": false,
+              "autovacuum": false,
+              "ssl": false,
+              "compute_query_id": "off",
+              "track_counts": false,
+              "track_activities": false,
+              "log_checkpoints": false,
+              "update_process_title": false
+            },
+            "restart_required": true,
+            "expected_effect": "预期通过 fsync=false 消除剩余 WAL sync/fsync 开销，通过 shared_buffers=16GB 降低 evictions/reads/buffers_backend，通过更积极 bgwriter 将前台 backend writes 转移到后台，从而在当前 25852.97 TPS、2.22ms p95 基础上进一步提升 TPS/p95 score，目标是同时提高 TPS 并把 p95 压到约2ms或以下。",
+            "risk": "高风险 benchmark_max 配置。fsync=false 与 full_page_writes=false 组合会严重牺牲 crash safety，崩溃/断电后可能数据损坏或数据库不可恢复；shared_buffers/wal_buffers 变更需要重启；16GB shared_buffers 和更激进 bgwriter 可能造成重启后冷缓存差异、后台 IO 增加或 p95 抖动；该配置不适合生产持久性要求。",
+            "validation_required": true,
+            "global_config_plan": {
+              "summary": "相对当前最好配置，本轮不是重复上一轮，而是在已证明有效的 benchmark_max 基础上做高杠杆升级：把 8GB shared_buffers 提到 16GB 以减少 evictions/reads/backend writes；把 bgwriter 提速并提高 LRU 清理上限以把脏页写出从前台 backend 转移到后台；关闭 fsync 以消除剩余 WAL sync/fsync 类等待；把 WAL/checkpoint 空间继续放大作为吞吐提升后的保护。checkpoint 已无 requested checkpoint，因此 max_wal_size 不是核心收益点；真正核心是 fsync=false + larger shared_buffers + more aggressive bgwriter。",
+              "change_groups": {
+                "memory": [
+                  "shared_buffers 从 8GB 提到 16GB：当前仍有大量 evictions、pg_stat_io reads 与 buffers_backend，64GB 内存和约28GB free memory 下 16GB 较安全，预期降低 buffer churn 和前台写脏页概率。",
+                  "wal_buffers 从 64MB 提到 128MB：当前 wal_buffers_full=0，单独收益未必大，但 fsync=false 后 TPS 可能上升，扩大 WAL buffer 可避免新瓶颈；内存代价很小。",
+                  "effective_cache_size 保持 48GB：写-only 低读压下不作为主要收益方向，但 64GB 主机上该值合理。",
+                  "work_mem/temp_buffers 保持上一轮轻量值：temp_files=0，继续加大没有证据。"
+                ],
+                "redo_binlog": [
+                  "保持 synchronous_commit=off、full_page_writes=false、wal_level=minimal、max_wal_senders=0、hot_standby=false、wal_init_zero=false，这些已在上一轮证明是高收益方向。",
+                  "本轮新增 fsync=false：当前仍有 wal_sync=851，关闭 fsync 是纯 benchmark 最大化下最直接的剩余 WAL flush/durability 杠杆，可能进一步降低 p95 并提高 TPS。",
+                  "不再设置 max_replication_slots/max_logical_replication_workers，避免重复 round 1 被安全策略拦截的失败项。"
+                ],
+                "io_flush": [
+                  "max_wal_size 从 24GB 提到 32GB、min_wal_size 从 4GB 提到 8GB、checkpoint_timeout 从30min到1h：虽然当前 checkpoints_req=0，但吞吐若因 fsync=false/16GB buffer 上升，可继续避免 60s 窗口触发 requested checkpoint。",
+                  "bgwriter_delay 从100ms降到50ms，bgwriter_lru_maxpages 从1000升到2000，bgwriter_lru_multiplier 从4.0升到5.0：针对 buffers_backend 远高于 buffers_clean 且 maxwritten_clean>0，让后台更积极清理，减少前台 backend 写脏页和 p95 抖动。",
+                  "checkpoint_flush_after/bgwriter_flush_after/backend_flush_after 继续为0，避免额外 writeback hint 干扰短 benchmark。",
+                  "wal_writer_delay 从100ms放大到200ms、wal_writer_flush_after 从16MB到32MB：在 synchronous_commit=off 且 fsync=false 后更偏向批量 WAL 写，减少小写/小同步噪声。"
+                ],
+                "concurrency_cpu": [
+                  "max_connections 保持64，不急于降低到40/48：32 sysbench threads 加监控/管理连接仍需要余量，上一轮64已证明可用。",
+                  "max_parallel_workers/max_parallel_workers_per_gather 保持0，write-only OLTP 简单语句不需要并行查询。",
+                  "autovacuum=false、track_counts=false、track_activities=false、compute_query_id=off、ssl=false、jit=false、update_process_title=false 维持上一轮有效的低开销 benchmark 设置。"
+                ],
+                "benchmark_max_static": [
+                  "本轮包含 shared_buffers 与 wal_buffers 两个 postmaster 参数，需要重启验证。",
+                  "fsync=false 是本轮最大风险项：会牺牲崩溃恢复与数据一致性，崩溃后可能导致数据库损坏或不可恢复；仅适合当前纯 benchmark 极限目标。",
+                  "shared_buffers=16GB 可能改变 dirty page 积累和重启冷启动行为；bgwriter 更激进可能增加后台 IO，但目标是降低 backend path 延迟。"
+                ]
+              }
+            },
+            "exploration_mode": "benchmark_max",
+            "next_step": "如果本轮成功或接近最好结果，下一轮继续沿当前激进方向细调：优先比较 shared_buffers=24GB vs 16GB、bgwriter_lru_maxpages=3000/1000、wal_writer_delay=50/500ms，并可尝试 max_connections=48 以降低 ProcArray/连接预算开销；重点观察 buffers_backend、evictions、pg_stat_io reads/writes、wal_sync、p95 是否继续下降。",
+            "if_failed_next": "如果本轮回退，不要整体重复这个 fsync=false+16GB+更激进 bgwriter 组合；回到上一轮 accepted best 作为基线后拆分定位：先验证 shared_buffers=16GB 但 fsync=true、bgwriter保持100/1000/4.0；或验证 fsync=false 但 shared_buffers=8GB、bgwriter保持上一轮值。若 p95 因后台 IO 变差，优先回退 bgwriter_delay=100、bgwriter_lru_maxpages=1000、wal_writer_delay=100，而不要回退上一轮已成功的 synchronous_commit=off/full_page_writes=false/wal_level=minimal。",
+            "more_aggressive_plan": {
+              "rationale": "如果本轮仍提升但 state_metric 仍显示 evictions/buffers_backend 高，可以进一步把内存和后台清理推到更极限；如果瓶颈转为 CPU/连接管理，可降低 max_connections 到48。debug_io_direct 虽在 knob space 中，但对该随机写+缓存工作集可能带来冷读放大，暂不直接采用。",
+              "aggressive_candidate_config": {
+                "shared_buffers": 25769803776,
+                "effective_cache_size": 51539607552,
+                "wal_buffers": 268435456,
+                "synchronous_commit": "off",
+                "fsync": false,
+                "full_page_writes": false,
+                "wal_level": "minimal",
+                "max_wal_senders": 0,
+                "hot_standby": false,
+                "max_wal_size": 51539607552,
+                "min_wal_size": 17179869184,
+                "checkpoint_timeout": 3600000,
+                "checkpoint_completion_target": 0.95,
+                "checkpoint_flush_after": 0,
+                "bgwriter_delay": 20,
+                "bgwriter_lru_maxpages": 3000,
+                "bgwriter_lru_multiplier": 6.0,
+                "bgwriter_flush_after": 0,
+                "backend_flush_after": 0,
+                "wal_writer_delay": 500,
+                "wal_writer_flush_after": 67108864,
+                "wal_init_zero": false,
+                "max_connections": 48,
+                "max_parallel_workers": 0,
+                "max_parallel_workers_per_gather": 0,
+                "autovacuum": false,
+                "ssl": false,
+                "track_counts": false,
+                "track_activities": false,
+                "compute_query_id": "off",
+                "update_process_title": false,
+                "jit": false
+              }
+            },
+            "auditor_recommendation": {
+              "next_phase": "db",
+              "reason": "DB 层仍有明确可验证的高杠杆候选：本轮验证 fsync=false、16GB shared_buffers 与 bgwriter 强化；之后还可拆分 fsync/shared_buffers/bgwriter/wal_writer/max_connections 的影响。当前只完成一轮有效 DB 组合，不满足 DB plateau 条件，不应切换到 OS sysctl。",
+              "confidence": "high"
+            }
+          },
+          "result": {
+            "score": 14008.950738916257,
+            "tps": 28438.17,
+            "p95_latency_ms": 2.03,
+            "primary_metric_name": "tps",
+            "primary_metric_value": 28438.17,
+            "valid": true,
+            "metrics": {
+              "tps": 28438.17,
+              "p95_latency_ms": 2.03
+            },
+            "metadata": {}
+          },
+          "decision": "accepted",
+          "reason": "Score improved from 11645.482 to 14008.951 (20.30%).",
+          "metadata": {
+            "phase": "db",
+            "auditor": {
+              "current_phase": "db",
+              "next_phase": "db",
+              "action": "continue_db",
+              "reason": "DB phase still has tuning budget before plateau criteria are met.",
+              "stop": false,
+              "plateau_detected": false,
+              "phase_round_count": 2,
+              "consecutive_non_improving": 0,
+              "consecutive_repeats": 0,
+              "best_score": 11645.481981981982,
+              "model_recommendation": {
+                "next_phase": "db",
+                "reason": "DB 层实际还没有完成一次有效全局参数验证；上一轮只是被 max_replication_slots/max_logical_replication_workers 拦截。当前仍有明确 DB 候选：先验证去除被拦截 knobs 的全局写路径配置，之后还可细调 shared_buffers、checkpoint/bgwriter、wal_writer 和 fsync。因此不应切换到 OS sysctl。",
+                "confidence": "high"
+              },
+              "model_recommendation_used": false
+            },
+            "state_snapshot": {
+              "path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_003834_pg61_write32_clean_prompt_nohistory\\state_snapshots\\round_003_db.txt",
+              "counts": {
+                "tracked_config": 276,
+                "settings": 276,
+                "metrics_profile": 66,
+                "stat_metrics": 66
+              }
+            },
+            "backup": {
+              "config_path": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+              "backup_path": "/tmp/agenticdb_round_3_1778863492.cnf.bak",
+              "created_at": "2026-05-16T00:44:52",
+              "content_sha256": "64e420a8abf3958df93684acc06628de58f50f0cfaff62cb2107d3192a0a152b",
+              "metadata": {
+                "local_backup_path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_003834_pg61_write32_clean_prompt_nohistory\\backup_round_3.cnf"
+              }
+            },
+            "apply_report": {
+              "persisted_keys": [
+                "bgwriter_delay",
+                "bgwriter_lru_maxpages",
+                "bgwriter_lru_multiplier",
+                "checkpoint_timeout",
+                "compute_query_id",
+                "fsync",
+                "max_wal_size",
+                "min_wal_size",
+                "shared_buffers",
+                "synchronous_commit",
+                "wal_buffers",
+                "wal_writer_delay",
+                "wal_writer_flush_after"
+              ],
+              "runtime_applied_keys": [
+                "synchronous_commit",
+                "fsync",
+                "max_wal_size",
+                "min_wal_size",
+                "checkpoint_timeout",
+                "bgwriter_delay",
+                "bgwriter_lru_maxpages",
+                "bgwriter_lru_multiplier",
+                "wal_writer_delay",
+                "wal_writer_flush_after",
+                "compute_query_id"
+              ],
+              "runtime_skipped_keys": []
+            },
+            "effective_candidate_config": {
+              "shared_buffers": 17179869184,
+              "wal_buffers": 134217728,
+              "synchronous_commit": "off",
+              "fsync": false,
+              "max_wal_size": 34359738368,
+              "min_wal_size": 8589934592,
+              "checkpoint_timeout": 3600000,
+              "bgwriter_delay": 50,
+              "bgwriter_lru_maxpages": 2000,
+              "bgwriter_lru_multiplier": 5.0,
+              "wal_writer_delay": 200,
+              "wal_writer_flush_after": 33554432,
+              "compute_query_id": "off"
+            }
+          }
+        },
+        {
+          "round_id": 4,
+          "timestamp": "2026-05-16T00:49:23.458544",
+          "proposal": {
+            "diagnosis": "已按 workload_interpretation 与脚本/命令预览交叉确认：本轮仍是 sysbench pgsql oltp_write_only.lua，32 线程、60s、TCP loopback 的 write-only 负载，不把 wrapper 中未执行分支误判为 readwrite/read。历史上 round2 的 8GB shared_buffers + 关闭同步提交/FPW + 扩大 WAL/checkpoint 已大幅提升，round3 的 fsync=false + 16GB shared_buffers + 更积极 bgwriter 继续提升到当前最好 28438.17 TPS / p95 2.03ms。当前 state 显示 checkpoints_req=0、wal_sync=0、wal_buffers_full=0、buffers_backend=0，说明 WAL fsync/checkpoint/前台脏页写已经不是主要瓶颈；剩余可见信号是 pg_stat_io reads≈227万、buffers_alloc≈227万、evictions≈18万，且 bgwriter maxwritten_clean=46，说明 16GB shared_buffers 下仍有 buffer churn，bgwriter 有时触顶。OS 侧无内存 PSI，磁盘 PSI 很低但 CPU PSI 高，进一步收益更可能来自扩大写工作集缓存、减少连接/ProcArray 预算、降低 WAL write 小批量系统调用，而不是继续扩大 checkpoint 空间或调读 planner cost。",
+            "action_type": "db_config",
+            "candidate_config": {
+              "shared_buffers": 25769803776,
+              "effective_cache_size": 51539607552,
+              "wal_buffers": 268435456,
+              "work_mem": 8388608,
+              "temp_buffers": 16777216,
+              "synchronous_commit": "off",
+              "fsync": false,
+              "full_page_writes": false,
+              "wal_level": "minimal",
+              "max_wal_senders": 0,
+              "hot_standby": false,
+              "wal_init_zero": false,
+              "max_wal_size": 34359738368,
+              "min_wal_size": 8589934592,
+              "checkpoint_timeout": 3600000,
+              "checkpoint_completion_target": 0.95,
+              "checkpoint_flush_after": 0,
+              "bgwriter_delay": 50,
+              "bgwriter_lru_maxpages": 3000,
+              "bgwriter_lru_multiplier": 6.0,
+              "bgwriter_flush_after": 0,
+              "backend_flush_after": 0,
+              "wal_writer_delay": 500,
+              "wal_writer_flush_after": 67108864,
+              "max_connections": 48,
+              "max_parallel_workers": 0,
+              "max_parallel_workers_per_gather": 0,
+              "jit": false,
+              "autovacuum": false,
+              "ssl": false,
+              "compute_query_id": "off",
+              "track_counts": false,
+              "track_activities": false,
+              "log_checkpoints": false,
+              "update_process_title": false
+            },
+            "restart_required": true,
+            "expected_effect": "预期 shared_buffers=24GB 降低 buffer miss、alloc 和 evictions，减少随机写工作集在 PG buffer 内的 churn；max_connections=48 降低连接/共享结构预算；更大的 wal_writer 批量降低 WAL write syscall 频率。在 checkpoints_req=0、wal_sync=0 的前提下，目标是把 TPS 推高并把 p95 从 2.03ms 继续压低或至少保持。",
+            "risk": "需要重启；24GB shared_buffers 会占用更多常驻内存，可能降低 OS page cache 余量并带来重启后冷 PG buffer 的短测波动；wal_writer_delay=500ms/flush_after=64MB 可能导致 WAL 写入更成批、p95 偶发抖动；fsync=false/full_page_writes=false/synchronous_commit=off/wal_level=minimal/track_counts=false/autovacuum=false 已牺牲崩溃安全、恢复能力、复制能力、观测能力和长期维护安全。",
+            "validation_required": true,
+            "global_config_plan": {
+              "summary": "相对当前最好配置，本轮做一次有边界的 benchmark_max 细调：不重复已经成功的耐久性关闭组合本身，而是在其上把 shared_buffers 从 16GB 提到 24GB 以压低 reads/evictions/buffer alloc；把 max_connections 从 64 降到 48 以匹配 32 线程和少量监控连接、降低连接/共享结构预算；把 wal_writer 批量阈值进一步放大以减少 fsync=false/synchronous_commit=off 后剩余的 WAL write syscall；bgwriter 只提高 maxpages/multiplier、不把 delay 降到 20ms，避免过度后台写造成 p95 抖动。",
+              "change_groups": {
+                "memory": [
+                  "shared_buffers 16GB -> 24GB：当前仍有明显 pg_stat_io reads、buffers_alloc 和 evictions；64GB 内存且无 memory PSI，增加 8GB 较安全，目标是让随机 update/delete/insert 触及的 heap/index 页更多留在 PG buffer 中。",
+                  "wal_buffers 128MB -> 256MB：wal_buffers_full=0，单独收益不大；但本轮有重启且 WAL 写入频繁，扩到 256MB 代价小，防止 shared_buffers/连接预算优化后吞吐上升造成新 WAL buffer 压力。",
+                  "effective_cache_size 保持 48GB：该 write-only 负载读 planner 不是主瓶颈，不因 shared_buffers 变化去做低优先级 planner 调参。",
+                  "work_mem/temp_buffers 保持 8MB/16MB：temp_files=0，继续增大不会改善当前写路径。"
+                ],
+                "redo_binlog": [
+                  "保持 synchronous_commit=off、fsync=false、full_page_writes=false、wal_level=minimal、max_wal_senders=0、hot_standby=false、wal_init_zero=false，这些是已验证的 benchmark_max 写路径收益来源。",
+                  "不再触碰 max_replication_slots/max_logical_replication_workers：round1 因这些被 validator 拦截，且 wal_level=minimal/max_wal_senders=0 已足够覆盖单机 benchmark。",
+                  "wal_writer_delay 200ms -> 500ms，wal_writer_flush_after 32MB -> 64MB：当前 wal_sync=0 但 wal_write≈16万次，fsync=false 后主要剩余是写调用/批量效率，进一步批量化可能降低 CPU/syscall 开销。"
+                ],
+                "io_flush": [
+                  "max_wal_size/min_wal_size 保持 32GB/8GB，checkpoint_timeout 保持 1h：当前 checkpoints_req=0、60s 内 WAL bytes 约 1.5GB，继续扩大到 48GB 对收益有限且会占用仅约58GB的空闲磁盘。",
+                  "checkpoint_completion_target=0.95、checkpoint_flush_after=0、bgwriter_flush_after=0、backend_flush_after=0 保持：避免短压测中的额外 writeback hint/flush 噪声。",
+                  "bgwriter_lru_maxpages 2000 -> 3000、bgwriter_lru_multiplier 5 -> 6，bgwriter_delay 保持 50ms：针对 maxwritten_clean=46 提高每轮清理能力，但不降到20ms，避免过度唤醒和后台 IO 抢占。"
+                ],
+                "concurrency_cpu": [
+                  "max_connections 64 -> 48：32 sysbench threads 加监控/管理连接通常约37个 session，48 仍有余量，同时减少 MaxBackends 相关共享内存/ProcArray/锁管理预算。",
+                  "max_parallel_workers/max_parallel_workers_per_gather 保持0，jit=false 保持：简单 OLTP DML 不需要并行/JIT。",
+                  "autovacuum=false、track_counts=false、track_activities=false、compute_query_id=off、ssl=false、update_process_title=false 继续保持当前最佳低开销 benchmark 设置。"
+                ],
+                "benchmark_max_static": [
+                  "本轮包含 shared_buffers、wal_buffers、max_connections 等 postmaster 参数，需要重启验证。",
+                  "继续采用 benchmark_max：fsync=false、full_page_writes=false、synchronous_commit=off、wal_level=minimal、track_counts=false、autovacuum=false 会牺牲 crash safety、恢复能力、复制能力和观测/维护能力，只适合当前短时极限压测。",
+                  "主要新风险是 24GB shared_buffers 冷启动后 60s 内是否能充分填充，以及 bgwriter/wal_writer 更大批量是否造成 p95 波动。"
+                ]
+              }
+            },
+            "exploration_mode": "benchmark_max",
+            "next_step": "如果本轮成功或接近当前最好，下一轮继续在两个方向细调：一是比较 shared_buffers=32GB vs 24GB，并观察 reads/evictions 是否继续下降；二是拆分 wal_writer_delay=100/1000ms 与 bgwriter_lru_maxpages=2000/4000，判断 p95 是否受批量写或后台清理影响。若 CPU PSI 仍高，可尝试 max_connections=44 或 plan_cache_mode=force_generic_plan 作为小步 CPU/计划开销测试。",
+            "if_failed_next": "如果本轮回退，不要重复 24GB+max_connections=48+wal_writer_delay=500+bgwriter 3000/6 的组合；回到 round3 最佳基线后拆分定位：先只试 shared_buffers=24GB 且 max_connections=64、wal_writer_delay=200、bgwriter=50/2000/5；若仍回退说明 24GB 冷启动或 OS cache 影响较差。若只因 p95 抖动回退，优先把 wal_writer_delay 恢复200、wal_writer_flush_after恢复32MB，并把 bgwriter_lru_maxpages恢复2000，而保留已成功的 fsync=false、synchronous_commit=off、full_page_writes=false、wal_level=minimal。",
+            "more_aggressive_plan": {
+              "rationale": "如果本轮有效且 reads/evictions 仍明显，可以进一步扩大 buffer pool；如果 CPU/连接管理成为主要瓶颈，可继续降低连接上限。debug_io_direct 虽在空间内，但对当前随机写且依赖缓存的短测可能放大冷读，不作为下一步首选。",
+              "aggressive_candidate_config": {
+                "shared_buffers": 34359738368,
+                "effective_cache_size": 55834574848,
+                "wal_buffers": 268435456,
+                "synchronous_commit": "off",
+                "fsync": false,
+                "full_page_writes": false,
+                "wal_level": "minimal",
+                "max_wal_senders": 0,
+                "hot_standby": false,
+                "wal_init_zero": false,
+                "max_wal_size": 34359738368,
+                "min_wal_size": 8589934592,
+                "checkpoint_timeout": 3600000,
+                "checkpoint_completion_target": 0.95,
+                "checkpoint_flush_after": 0,
+                "bgwriter_delay": 50,
+                "bgwriter_lru_maxpages": 4000,
+                "bgwriter_lru_multiplier": 7.0,
+                "bgwriter_flush_after": 0,
+                "backend_flush_after": 0,
+                "wal_writer_delay": 1000,
+                "wal_writer_flush_after": 134217728,
+                "max_connections": 44,
+                "max_parallel_workers": 0,
+                "max_parallel_workers_per_gather": 0,
+                "jit": false,
+                "autovacuum": false,
+                "ssl": false,
+                "track_counts": false,
+                "track_activities": false,
+                "compute_query_id": "off",
+                "update_process_title": false
+              }
+            },
+            "auditor_recommendation": {
+              "next_phase": "db",
+              "reason": "当前 DB 侧仍有明确可验证候选：shared_buffers 24/32GB、max_connections 48/44、wal_writer 批量和 bgwriter 上限仍未拆分验证；且 auditor 的 DB 最小轮数提示尚未满足。即使本轮回退，也还有清晰的 DB 拆分路径，不应切换到 OS sysctl。",
+              "confidence": "high"
+            }
+          },
+          "result": {
+            "score": 11905.158878504673,
+            "tps": 25477.04,
+            "p95_latency_ms": 2.14,
+            "primary_metric_name": "tps",
+            "primary_metric_value": 25477.04,
+            "valid": true,
+            "metrics": {
+              "tps": 25477.04,
+              "p95_latency_ms": 2.14
+            },
+            "metadata": {}
+          },
+          "decision": "rollback",
+          "reason": "Score did not improve enough: incumbent=14008.951, candidate=11905.159.",
+          "metadata": {
+            "phase": "db",
+            "auditor": {
+              "current_phase": "db",
+              "next_phase": "db",
+              "action": "continue_db",
+              "reason": "DB phase still has tuning budget before plateau criteria are met.",
+              "stop": false,
+              "plateau_detected": false,
+              "phase_round_count": 3,
+              "consecutive_non_improving": 0,
+              "consecutive_repeats": 0,
+              "best_score": 14008.950738916257,
+              "model_recommendation": {
+                "next_phase": "db",
+                "reason": "DB 层仍有明确可验证的高杠杆候选：本轮验证 fsync=false、16GB shared_buffers 与 bgwriter 强化；之后还可拆分 fsync/shared_buffers/bgwriter/wal_writer/max_connections 的影响。当前只完成一轮有效 DB 组合，不满足 DB plateau 条件，不应切换到 OS sysctl。",
+                "confidence": "high"
+              },
+              "model_recommendation_used": false
+            },
+            "state_snapshot": {
+              "path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_003834_pg61_write32_clean_prompt_nohistory\\state_snapshots\\round_004_db.txt",
+              "counts": {
+                "tracked_config": 276,
+                "settings": 276,
+                "metrics_profile": 66,
+                "stat_metrics": 66
+              }
+            },
+            "backup": {
+              "config_path": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+              "backup_path": "/tmp/agenticdb_round_4_1778863658.cnf.bak",
+              "created_at": "2026-05-16T00:47:38",
+              "content_sha256": "808521d4119883f4b73eee781ea0ce0fd005300a8d9c1115741fa196adffc2d0",
+              "metadata": {
+                "local_backup_path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_003834_pg61_write32_clean_prompt_nohistory\\backup_round_4.cnf"
+              }
+            },
+            "apply_report": {
+              "persisted_keys": [
+                "bgwriter_lru_maxpages",
+                "bgwriter_lru_multiplier",
+                "compute_query_id",
+                "max_connections",
+                "shared_buffers",
+                "synchronous_commit",
+                "wal_buffers",
+                "wal_writer_delay",
+                "wal_writer_flush_after"
+              ],
+              "runtime_applied_keys": [
+                "synchronous_commit",
+                "bgwriter_lru_maxpages",
+                "bgwriter_lru_multiplier",
+                "wal_writer_delay",
+                "wal_writer_flush_after",
+                "compute_query_id"
+              ],
+              "runtime_skipped_keys": []
+            },
+            "effective_candidate_config": {
+              "shared_buffers": 25769803776,
+              "wal_buffers": 268435456,
+              "synchronous_commit": "off",
+              "bgwriter_lru_maxpages": 3000,
+              "bgwriter_lru_multiplier": 6.0,
+              "wal_writer_delay": 500,
+              "wal_writer_flush_after": 67108864,
+              "max_connections": 48,
+              "compute_query_id": "off"
+            }
+          }
+        },
+        {
+          "round_id": 5,
+          "timestamp": "2026-05-16T00:52:16.416331",
+          "proposal": {
+            "diagnosis": "已按 workload_interpretation 与脚本/命令预览交叉确认：本轮仍是 sysbench PostgreSQL oltp_write_only.lua，mode=write、32 线程、60s、loopback TCP，不把 wrapper 里未执行分支误判为 readwrite/read。当前最佳 round3 已把主要 WAL 耐久性瓶颈基本打掉：synchronous_commit=off、fsync=false、full_page_writes=false 后 wal_sync=0、wal_fpi=0、wal_buffers_full=0；因此继续盲目加大 WAL 批量收益有限。最新 state_metric 显示内存 PSI 为 0、空闲内存充足，但 pg_stat_io reads/buffers_alloc 约 220 万页，接近/超过 16GB shared_buffers 可容纳页数，说明 60s 写负载仍有明显 buffer 分配/冷读/工作集压力；同时 IO wait 很低而 CPU PSI/load 偏高，说明不宜增加后台写入和 WAL writer 抖动。round4 的 24GB shared_buffers + wal_buffers=256MB + max_connections=48 + bgwriter 3000/6 + wal_writer_delay=500 的组合已回退，不能重复该组合。本轮选择按失败后的拆分思路做更小幅、单主因验证：只把 shared_buffers 从 16GB 提到 20GB，保留 round3 最佳的 WAL、checkpoint、bgwriter、wal_writer、连接预算，避免把 round4 中可能导致回退的 max_connections=48、wal_writer_delay=500、bgwriter=3000/6 一起带入。",
+            "action_type": "db_config",
+            "candidate_config": {
+              "shared_buffers": 21474836480,
+              "effective_cache_size": 51539607552,
+              "wal_buffers": 134217728,
+              "work_mem": 8388608,
+              "temp_buffers": 16777216,
+              "synchronous_commit": "off",
+              "fsync": false,
+              "full_page_writes": false,
+              "wal_level": "minimal",
+              "max_wal_senders": 0,
+              "hot_standby": false,
+              "wal_init_zero": false,
+              "max_wal_size": 34359738368,
+              "min_wal_size": 8589934592,
+              "checkpoint_timeout": 3600000,
+              "checkpoint_completion_target": 0.95,
+              "checkpoint_flush_after": 0,
+              "bgwriter_delay": 50,
+              "bgwriter_lru_maxpages": 2000,
+              "bgwriter_lru_multiplier": 5.0,
+              "bgwriter_flush_after": 0,
+              "backend_flush_after": 0,
+              "wal_writer_delay": 200,
+              "wal_writer_flush_after": 33554432,
+              "max_connections": 64,
+              "max_parallel_workers": 0,
+              "max_parallel_workers_per_gather": 0,
+              "jit": false,
+              "autovacuum": false,
+              "ssl": false,
+              "compute_query_id": "off",
+              "track_counts": false,
+              "track_activities": false,
+              "log_checkpoints": false,
+              "update_process_title": false
+            },
+            "restart_required": true,
+            "expected_effect": "预期 20GB shared_buffers 能比 16GB 更好容纳当前约 17GB 级别的短测热页/脏页集合，降低 buffer alloc/read 和可能的 clock-sweep 开销；同时保持 round3 已验证的 WAL/checkpoint/bgwriter/连接配置，避免 round4 的 WAL writer 大延迟和过强 bgwriter 带来的 p95 抖动。若有效，应在不明显增加 p95 的情况下小幅提高 TPS 或把 p95 从 2.03ms 继续压低。",
+            "risk": "需要重启；shared_buffers 增大可能导致无 warmup 的冷启动阶段更慢，也可能减少 OS page cache 余量。当前配置继续关闭 fsync/full_page_writes 并关闭 autovacuum/统计，崩溃后可能数据损坏或不可恢复，不具备生产安全性。",
+            "validation_required": true,
+            "global_config_plan": {
+              "summary": "相对当前最好 round3，本轮不是重复 round4 的 24GB 组合，而是做一个中间档内存工作集试探：shared_buffers=20GB，其他已验证最优的 benchmark_max 写路径参数保持不变。目标是减少 pg_stat_io reads/buffers_alloc 对 16GB buffer pool 的压力，同时不改变 WAL flush、bgwriter、连接数这些 round4 中混入且可能造成回退的因素。",
+              "change_groups": {
+                "memory": [
+                  "shared_buffers 16GB -> 20GB：当前约 220 万 buffer alloc/read 对 16GB buffer pool 已接近边界，且系统仍有大量空闲内存和 0 memory PSI；20GB 比 round4 的 24GB 更保守，减少冷启动/OS cache 挤压风险。",
+                  "effective_cache_size 保持 48GB：write-only 读计划不是主瓶颈，且 OS cache 仍充足，不因本轮小幅调大 shared_buffers 去改 planner 感知。",
+                  "wal_buffers 保持 128MB：wal_buffers_full=0，round4 提到 256MB 未证明有效，避免无收益增大共享内存。",
+                  "work_mem/temp_buffers 保持 8MB/16MB：无 temp_files/temp_bytes，继续增大不会改善当前写路径。"
+                ],
+                "redo_binlog": [
+                  "保持 synchronous_commit=off、fsync=false、full_page_writes=false、wal_level=minimal、max_wal_senders=0、hot_standby=false、wal_init_zero=false：这是 round3 已验证的主要收益来源。",
+                  "保持 wal_writer_delay=200ms、wal_writer_flush_after=32MB：round4 的 500ms/64MB 与其他改动一起回退；wal_sync=0、wal_buffers_full=0 时不再加大 WAL writer 批量。",
+                  "不修改 max_replication_slots/max_logical_replication_workers：round1 已因这些 knobs 被 validator 拦截，且单机 benchmark 已通过 wal_level=minimal/max_wal_senders=0 覆盖主要复制开销。"
+                ],
+                "io_flush": [
+                  "保持 max_wal_size=32GB、min_wal_size=8GB、checkpoint_timeout=1h、checkpoint_completion_target=0.95：60s 压测 WAL 量远低于 32GB，继续扩大 WAL 空间对本轮收益有限。",
+                  "保持 checkpoint_flush_after=0、bgwriter_flush_after=0、backend_flush_after=0：延续当前最优的低 writeback hint 噪声策略。",
+                  "保持 bgwriter_delay=50ms、bgwriter_lru_maxpages=2000、bgwriter_lru_multiplier=5.0：round4 的 3000/6 组合回退，本轮避免增加后台写入竞争，只测试 buffer pool 中间档。"
+                ],
+                "concurrency_cpu": [
+                  "保持 max_connections=64：round4 同时降到 48 回退，本轮不混入连接上限变化；64 仍覆盖 32 sysbench 线程、监控和管理连接。",
+                  "保持 max_parallel_workers=0、max_parallel_workers_per_gather=0、jit=false：简单 OLTP write-only 不需要并行/JIT。",
+                  "保持 autovacuum=false、track_counts=false、track_activities=false、compute_query_id=off、ssl=false、update_process_title=false、log_checkpoints=false：这些低开销 benchmark 设置已在 round3 验证有效。"
+                ],
+                "benchmark_max_static": [
+                  "本轮包含 shared_buffers，属于 postmaster 参数，需要重启验证。",
+                  "继续采用 benchmark_max：fsync=false、full_page_writes=false、synchronous_commit=off、wal_level=minimal、autovacuum=false、track_counts=false 会牺牲 crash safety、恢复能力、复制能力、观测能力和维护安全性，仅适合当前短时极限压测。",
+                  "本轮主要风险是 20GB shared_buffers 是否因无 warmup 的重启测量产生更大冷启动成本；但相比 round4 的 24GB+多项改动，风险更可控。"
+                ]
+              }
+            },
+            "exploration_mode": "benchmark_max",
+            "next_step": "如果本轮成功或接近当前最好，下一轮沿中间档内存方向细调：优先比较 shared_buffers=22GB 或 20GB+max_connections=48 的拆分测试；也可在不改 shared_buffers 的情况下单独试 plan_cache_mode=force_generic_plan、join_collapse_limit=1/from_collapse_limit=1 来降低简单 DML 的计划/CPU 开销。继续避免同时加大 wal_writer_delay 和 bgwriter。",
+            "if_failed_next": "如果本轮回退，说明 shared_buffers 超过 16GB 本身可能不适合该无 warmup 60s 短测；下一轮回到 round3 最佳 16GB，不再尝试 20/24/32GB buffer pool。改为 CPU/连接预算小步测试：保持 shared_buffers=16GB、wal_writer_delay=200、bgwriter=50/2000/5，只单独测试 max_connections=48（可配 superuser_reserved_connections=1）或 plan_cache_mode=force_generic_plan，不要重复 round4 的 24GB+48连接+wal_writer500+bgwriter3000/6 组合。",
+            "more_aggressive_plan": {
+              "rationale": "如果 20GB 有效但提升不够，说明 buffer pool 确实有收益，可以继续小步到 22GB；若 TPS 仍受 CPU PSI 限制，则在已验证的内存档上再单独压缩连接/计划开销，而不是再扩大 WAL writer 批量。",
+              "aggressive_candidate_config": {
+                "shared_buffers": 23622320128,
+                "effective_cache_size": 51539607552,
+                "wal_buffers": 134217728,
+                "synchronous_commit": "off",
+                "fsync": false,
+                "full_page_writes": false,
+                "wal_level": "minimal",
+                "max_wal_senders": 0,
+                "hot_standby": false,
+                "wal_init_zero": false,
+                "max_wal_size": 34359738368,
+                "min_wal_size": 8589934592,
+                "checkpoint_timeout": 3600000,
+                "checkpoint_completion_target": 0.95,
+                "checkpoint_flush_after": 0,
+                "bgwriter_delay": 50,
+                "bgwriter_lru_maxpages": 2000,
+                "bgwriter_lru_multiplier": 5.0,
+                "bgwriter_flush_after": 0,
+                "backend_flush_after": 0,
+                "wal_writer_delay": 200,
+                "wal_writer_flush_after": 33554432,
+                "max_connections": 48,
+                "superuser_reserved_connections": 1,
+                "max_parallel_workers": 0,
+                "max_parallel_workers_per_gather": 0,
+                "plan_cache_mode": "force_generic_plan",
+                "join_collapse_limit": 1,
+                "from_collapse_limit": 1,
+                "jit": false,
+                "autovacuum": false,
+                "ssl": false,
+                "track_counts": false,
+                "track_activities": false,
+                "compute_query_id": "off",
+                "update_process_title": false
+              }
+            },
+            "auditor_recommendation": {
+              "next_phase": "db",
+              "reason": "DB 层仍有明确未拆分的候选：shared_buffers 中间档、单独 max_connections、plan_cache_mode/简单 planner CPU 开销均未验证；round4 只是一个混合组合回退，不足以判定 DB 参数已平台化。因此本轮后仍应留在 DB 阶段，除非连续多次拆分测试都无法接近当前最好。",
+              "confidence": "high"
+            }
+          },
+          "result": {
+            "score": 14918.813471502592,
+            "tps": 28793.31,
+            "p95_latency_ms": 1.93,
+            "primary_metric_name": "tps",
+            "primary_metric_value": 28793.31,
+            "valid": true,
+            "metrics": {
+              "tps": 28793.31,
+              "p95_latency_ms": 1.93
+            },
+            "metadata": {}
+          },
+          "decision": "accepted",
+          "reason": "Score improved from 14008.951 to 14918.813 (6.49%).",
+          "metadata": {
+            "phase": "db",
+            "auditor": {
+              "current_phase": "db",
+              "next_phase": "db",
+              "action": "continue_db",
+              "reason": "DB phase still has tuning budget before plateau criteria are met.",
+              "stop": false,
+              "plateau_detected": false,
+              "phase_round_count": 4,
+              "consecutive_non_improving": 1,
+              "consecutive_repeats": 0,
+              "best_score": 14008.950738916257,
+              "model_recommendation": {
+                "next_phase": "db",
+                "reason": "当前 DB 侧仍有明确可验证候选：shared_buffers 24/32GB、max_connections 48/44、wal_writer 批量和 bgwriter 上限仍未拆分验证；且 auditor 的 DB 最小轮数提示尚未满足。即使本轮回退，也还有清晰的 DB 拆分路径，不应切换到 OS sysctl。",
+                "confidence": "high"
+              },
+              "model_recommendation_used": false
+            },
+            "state_snapshot": {
+              "path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_003834_pg61_write32_clean_prompt_nohistory\\state_snapshots\\round_005_db.txt",
+              "counts": {
+                "tracked_config": 276,
+                "settings": 276,
+                "metrics_profile": 66,
+                "stat_metrics": 66
+              }
+            },
+            "backup": {
+              "config_path": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+              "backup_path": "/tmp/agenticdb_round_5_1778863871.cnf.bak",
+              "created_at": "2026-05-16T00:51:11",
+              "content_sha256": "808521d4119883f4b73eee781ea0ce0fd005300a8d9c1115741fa196adffc2d0",
+              "metadata": {
+                "local_backup_path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_003834_pg61_write32_clean_prompt_nohistory\\backup_round_5.cnf"
+              }
+            },
+            "apply_report": {
+              "persisted_keys": [
+                "compute_query_id",
+                "shared_buffers",
+                "synchronous_commit"
+              ],
+              "runtime_applied_keys": [
+                "synchronous_commit",
+                "compute_query_id"
+              ],
+              "runtime_skipped_keys": []
+            },
+            "effective_candidate_config": {
+              "shared_buffers": 21474836480,
+              "synchronous_commit": "off",
+              "compute_query_id": "off"
+            }
+          }
+        },
+        {
+          "round_id": 6,
+          "timestamp": "2026-05-16T00:55:17.398514",
+          "proposal": {
+            "diagnosis": "已按 workload_interpretation 交叉脚本/命令预览确认本轮仍是 sysbench PostgreSQL oltp_write_only，mode=write、32 threads、60s、tcp_loopback，不把 wrapper 中未执行分支误判为 readwrite/read。历史显示 WAL/durability 路线已基本打满：synchronous_commit=off、fsync=false、full_page_writes=false、wal_level=minimal 后 TPS 大幅提升；当前 metrics 中 wal_sync=0、wal_buffers_full=0、checkpoints_req=0、buffers_backend=0、evictions=0，说明 WAL flush、checkpoint、backend write 已不是主要剩余瓶颈。当前最好 round5 的 20GB shared_buffers 比 16GB 继续提升 6.49%，而 round4 的 24GB 回退混入了 max_connections=48、wal_writer_delay=500、bgwriter=3000/6、wal_buffers=256MB，不能单独证明 24GB/更大 buffer pool 无效。当前仍有约 2.26M pg_stat_io reads/buffers_alloc，内存 PSI 为 0 且仍有可用内存；因此本轮最稳的高杠杆动作是只把 shared_buffers 从 20GB 小步提高到 22GB，其余已验证最佳的 WAL/bgwriter/连接/观测开销配置保持不变，避免重复 round4 的多项混合失败组合。",
+            "action_type": "db_config",
+            "candidate_config": {
+              "shared_buffers": 23622320128,
+              "effective_cache_size": 51539607552,
+              "wal_buffers": 134217728,
+              "work_mem": 8388608,
+              "temp_buffers": 16777216,
+              "synchronous_commit": "off",
+              "fsync": false,
+              "full_page_writes": false,
+              "wal_level": "minimal",
+              "max_wal_senders": 0,
+              "hot_standby": false,
+              "wal_init_zero": false,
+              "max_wal_size": 34359738368,
+              "min_wal_size": 8589934592,
+              "checkpoint_timeout": 3600000,
+              "checkpoint_completion_target": 0.95,
+              "checkpoint_flush_after": 0,
+              "bgwriter_delay": 50,
+              "bgwriter_lru_maxpages": 2000,
+              "bgwriter_lru_multiplier": 5.0,
+              "bgwriter_flush_after": 0,
+              "backend_flush_after": 0,
+              "wal_writer_delay": 200,
+              "wal_writer_flush_after": 33554432,
+              "max_connections": 64,
+              "max_parallel_workers": 0,
+              "max_parallel_workers_per_gather": 0,
+              "jit": false,
+              "autovacuum": false,
+              "ssl": false,
+              "compute_query_id": "off",
+              "track_counts": false,
+              "track_activities": false,
+              "log_checkpoints": false,
+              "update_process_title": false
+            },
+            "restart_required": true,
+            "expected_effect": "预期通过 22GB shared_buffers 进一步覆盖 write-only 随机更新/删除/插入触达的表和索引工作集，减少短测期间 buffer alloc/read 压力，在不增加 WAL/checkpoint/bgwriter 干扰的前提下小幅提高 TPS 或降低 p95；目标是超过当前 28793.31 TPS / 1.93ms p95 的 score。",
+            "risk": "需要重启；22GB 共享缓冲会占用更多内存并可能减少 OS page cache，60s 无额外 warmup 场景下可能因冷 buffer 读入导致回退。当前仍使用 fsync=false、full_page_writes=false、synchronous_commit=off 等 benchmark_max 设置，崩溃后可能丢失事务、数据损坏或无法可靠恢复，不适合生产。",
+            "validation_required": true,
+            "global_config_plan": {
+              "summary": "相对当前最好 round5 仅做中间档 buffer pool 细调：shared_buffers=22GB，保持 20GB 已验证配置中的 fsync=false、synchronous_commit=off、full_page_writes=false、wal_level=minimal、128MB wal_buffers、32GB max_wal_size、bgwriter 50/2000/5、wal_writer 200ms/32MB、max_connections=64。目标是在不引入连接数、WAL writer、bgwriter 混杂变量的情况下验证 20GB 以上是否还能减少工作集读入/分配压力并改善 p95。",
+              "change_groups": {
+                "memory": [
+                  "shared_buffers 20GB -> 22GB：round5 证明 20GB 优于 16GB，当前仍有约 2.26M reads/buffers_alloc，且 memory PSI=0、系统仍有内存余量；22GB 比 round4 的 24GB 更保守，降低冷启动和 OS cache 挤压风险。",
+                  "effective_cache_size 保持 48GB：write-only 负载读计划不是主方向，且仅小幅增加 shared_buffers，不需要改变 planner 缓存估计。",
+                  "wal_buffers 保持 128MB：wal_buffers_full=0，round4 提到 256MB 未带来收益且混合回退，不继续增大。",
+                  "work_mem=8MB、temp_buffers=16MB 保持：temp_files/temp_bytes 为 0，增大不会改善当前瓶颈。"
+                ],
+                "redo_binlog": [
+                  "保持 synchronous_commit=off、fsync=false、full_page_writes=false、wal_level=minimal、max_wal_senders=0、hot_standby=false、wal_init_zero=false：这些是 round3/round5 已验证的主要收益来源，且当前 wal_sync=0、wal_fpi=0。",
+                  "不修改 max_replication_slots/max_logical_replication_workers：round1 曾因这些 knobs 被 validator 拦截；当前 wal_level=minimal/max_wal_senders=0 已覆盖单机 benchmark 的主要复制开销。",
+                  "wal_compression 保持关闭：full_page_writes=false 后 wal_fpi=0，压缩没有明显收益且可能增加 CPU。"
+                ],
+                "io_flush": [
+                  "保持 max_wal_size=32GB、min_wal_size=8GB、checkpoint_timeout=1h、checkpoint_completion_target=0.95：当前 60s 压测无 requested/timed checkpoints，继续扩大 WAL 空间收益低。",
+                  "保持 checkpoint_flush_after=0、bgwriter_flush_after=0、backend_flush_after=0：延续当前最好低 writeback hint 噪声策略。",
+                  "保持 bgwriter_delay=50ms、bgwriter_lru_maxpages=2000、bgwriter_lru_multiplier=5.0：round4 的 3000/6 与其他变量一起回退，本轮不加大后台写竞争。",
+                  "保持 wal_writer_delay=200ms、wal_writer_flush_after=32MB：wal_sync=0、wal_buffers_full=0，round4 的 500ms/64MB 未证明有效，不再加大批量。"
+                ],
+                "concurrency_cpu": [
+                  "保持 max_connections=64：round4 降到 48 与其他变量混合回退，本轮先隔离验证 shared_buffers=22GB；64 覆盖 32 sysbench 线程和管理连接。",
+                  "保持 max_parallel_workers=0、max_parallel_workers_per_gather=0、jit=false：简单 OLTP DML 不需要并行/JIT。",
+                  "保持 autovacuum=false、track_counts=false、track_activities=false、compute_query_id=off、ssl=false、update_process_title=false、log_checkpoints=false：这些 benchmark 降开销设置已经在 accepted trials 中验证有效。",
+                  "暂不引入 plan_cache_mode=force_generic_plan 或 join/from_collapse_limit=1：CPU PSI 高提示后续可试，但本轮优先避免与 shared_buffers 细调混杂。"
+                ],
+                "benchmark_max_static": [
+                  "本轮修改 shared_buffers，属于 postmaster 参数，需要重启验证。",
+                  "继续 benchmark_max 路线：fsync=false、full_page_writes=false、synchronous_commit=off、wal_level=minimal、autovacuum=false、track_counts=false 会牺牲 crash safety、恢复能力、复制能力、维护能力和观测能力，仅适合当前短时极限压测。",
+                  "关键风险是 22GB buffer pool 在无额外 warmup 的 60s 短测里可能带来冷启动读入成本；但相比 round4 的 24GB+多变量组合，本轮可解释性和风险更可控。"
+                ]
+              }
+            },
+            "exploration_mode": "benchmark_max",
+            "next_step": "如果本轮成功或接近当前最好，下一轮继续只做一个维度拆分：优先在 shared_buffers=22GB 上单独测试 max_connections=48 + superuser_reserved_connections=1；若 CPU PSI 仍高且 p95 未降，再单独测试 plan_cache_mode=force_generic_plan、join_collapse_limit=1、from_collapse_limit=1。不要同时改 wal_writer/bgwriter。",
+            "if_failed_next": "如果本轮回退，说明 20GB 可能是当前无 warmup 短测的 buffer pool 甜点；下一轮回到 round5 的 shared_buffers=20GB，不再继续 22/24/32GB 内存方向。改为 CPU/连接预算拆分：保持 20GB、wal_writer=200ms/32MB、bgwriter=50/2000/5，只测试 max_connections=48 + superuser_reserved_connections=1，或只测试 plan_cache_mode=force_generic_plan；避免重复 round4 的 24GB+48连接+wal_writer500+bgwriter3000/6 组合。",
+            "more_aggressive_plan": {
+              "rationale": "如果 22GB 有收益但仍有高 CPU PSI/连接管理开销，可以在 22GB 的基础上再单独压缩连接预算；如果 22GB 无收益则不再增大 buffer pool，转向 CPU/计划开销。更激进的一步不直接放入本轮，是为了避免把 shared_buffers、max_connections 和 planner knobs 混在一起导致无法解释。",
+              "aggressive_candidate_config": {
+                "shared_buffers": 23622320128,
+                "effective_cache_size": 51539607552,
+                "wal_buffers": 134217728,
+                "synchronous_commit": "off",
+                "fsync": false,
+                "full_page_writes": false,
+                "wal_level": "minimal",
+                "max_wal_senders": 0,
+                "hot_standby": false,
+                "wal_init_zero": false,
+                "max_wal_size": 34359738368,
+                "min_wal_size": 8589934592,
+                "checkpoint_timeout": 3600000,
+                "checkpoint_completion_target": 0.95,
+                "checkpoint_flush_after": 0,
+                "bgwriter_delay": 50,
+                "bgwriter_lru_maxpages": 2000,
+                "bgwriter_lru_multiplier": 5.0,
+                "bgwriter_flush_after": 0,
+                "backend_flush_after": 0,
+                "wal_writer_delay": 200,
+                "wal_writer_flush_after": 33554432,
+                "max_connections": 48,
+                "superuser_reserved_connections": 1,
+                "max_parallel_workers": 0,
+                "max_parallel_workers_per_gather": 0,
+                "plan_cache_mode": "force_generic_plan",
+                "join_collapse_limit": 1,
+                "from_collapse_limit": 1,
+                "jit": false,
+                "autovacuum": false,
+                "ssl": false,
+                "track_counts": false,
+                "track_activities": false,
+                "compute_query_id": "off",
+                "update_process_title": false
+              }
+            },
+            "auditor_recommendation": {
+              "next_phase": "db",
+              "reason": "DB 层仍有明确未拆分候选：22GB buffer pool、20/22GB 上单独 max_connections=48、以及简单 DML 的 plan_cache/join collapse CPU 开销测试。round4 是混合回退，不能作为这些单项方向的平台化证据；本轮后仍应保持 DB 阶段，至少完成这些拆分后再考虑 OS sysctl。",
+              "confidence": "high"
+            }
+          },
+          "result": {
+            "score": 10972.261061946905,
+            "tps": 24797.31,
+            "p95_latency_ms": 2.26,
+            "primary_metric_name": "tps",
+            "primary_metric_value": 24797.31,
+            "valid": true,
+            "metrics": {
+              "tps": 24797.31,
+              "p95_latency_ms": 2.26
+            },
+            "metadata": {}
+          },
+          "decision": "rollback",
+          "reason": "Score did not improve enough: incumbent=14918.813, candidate=10972.261.",
+          "metadata": {
+            "phase": "db",
+            "auditor": {
+              "current_phase": "db",
+              "next_phase": "db",
+              "action": "continue_db",
+              "reason": "DB phase still has tuning budget before plateau criteria are met.",
+              "stop": false,
+              "plateau_detected": false,
+              "phase_round_count": 5,
+              "consecutive_non_improving": 0,
+              "consecutive_repeats": 0,
+              "best_score": 14918.813471502592,
+              "model_recommendation": {
+                "next_phase": "db",
+                "reason": "DB 层仍有明确未拆分的候选：shared_buffers 中间档、单独 max_connections、plan_cache_mode/简单 planner CPU 开销均未验证；round4 只是一个混合组合回退，不足以判定 DB 参数已平台化。因此本轮后仍应留在 DB 阶段，除非连续多次拆分测试都无法接近当前最好。",
+                "confidence": "high"
+              },
+              "model_recommendation_used": false
+            },
+            "state_snapshot": {
+              "path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_003834_pg61_write32_clean_prompt_nohistory\\state_snapshots\\round_006_db.txt",
+              "counts": {
+                "tracked_config": 276,
+                "settings": 276,
+                "metrics_profile": 66,
+                "stat_metrics": 66
+              }
+            },
+            "backup": {
+              "config_path": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+              "backup_path": "/tmp/agenticdb_round_6_1778864008.cnf.bak",
+              "created_at": "2026-05-16T00:53:28",
+              "content_sha256": "8139faf5c9421ce1c8dafa40d6ada3d81820077e97c1d37f2ff806da13285a54",
+              "metadata": {
+                "local_backup_path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_003834_pg61_write32_clean_prompt_nohistory\\backup_round_6.cnf"
+              }
+            },
+            "apply_report": {
+              "persisted_keys": [
+                "compute_query_id",
+                "shared_buffers",
+                "synchronous_commit"
+              ],
+              "runtime_applied_keys": [
+                "synchronous_commit",
+                "compute_query_id"
+              ],
+              "runtime_skipped_keys": []
+            },
+            "effective_candidate_config": {
+              "shared_buffers": 23622320128,
+              "synchronous_commit": "off",
+              "compute_query_id": "off"
+            }
+          }
+        },
+        {
+          "round_id": 7,
+          "timestamp": "2026-05-16T00:57:47.789737",
+          "proposal": {
+            "diagnosis": "压测预识别和实际命令均指向 sysbench PostgreSQL oltp_write_only：32 tables、每表 100 万行、32 threads、60s、TCP loopback、mode=write，wrapper 中其它分支不影响本轮判断。当前最好配置已经把主要写路径高杠杆项做到 benchmark_max：synchronous_commit=off、fsync=false、full_page_writes=false、wal_level=minimal、wal_sync=0、wal_fpi=0、wal_buffers_full=0，WAL flush 已不是主要瓶颈。22GB shared_buffers 单独上探失败，说明 20GB 是当前无 warmup 短测较优点，不应继续扩大到 24/32GB。state_metric 显示 memory PSI=0、IO PSI 很低、backend writes/evictions 基本没有，但 CPU PSI 偏高且 32 client 在 12 vCPU 上已形成 CPU/调度压力；因此本轮按上一轮 if_failed_next 回到 round5 最佳 20GB，单独压缩连接预算 max_connections=48，并把 superuser_reserved_connections 降到 1，尽量减少 ProcArray/连接共享结构扫描与保留连接预算开销，同时避免重复 round4 的 24GB+48连接+wal_writer500+bgwriter3000/6 混合失败组合。",
+            "action_type": "db_config",
+            "candidate_config": {
+              "shared_buffers": 21474836480,
+              "effective_cache_size": 51539607552,
+              "wal_buffers": 134217728,
+              "work_mem": 8388608,
+              "temp_buffers": 16777216,
+              "synchronous_commit": "off",
+              "fsync": false,
+              "full_page_writes": false,
+              "wal_level": "minimal",
+              "max_wal_senders": 0,
+              "hot_standby": false,
+              "wal_init_zero": false,
+              "max_wal_size": 34359738368,
+              "min_wal_size": 8589934592,
+              "checkpoint_timeout": 3600000,
+              "checkpoint_completion_target": 0.95,
+              "checkpoint_flush_after": 0,
+              "bgwriter_delay": 50,
+              "bgwriter_lru_maxpages": 2000,
+              "bgwriter_lru_multiplier": 5.0,
+              "bgwriter_flush_after": 0,
+              "backend_flush_after": 0,
+              "wal_writer_delay": 200,
+              "wal_writer_flush_after": 33554432,
+              "max_connections": 48,
+              "superuser_reserved_connections": 1,
+              "max_parallel_workers": 0,
+              "max_parallel_workers_per_gather": 0,
+              "jit": false,
+              "autovacuum": false,
+              "ssl": false,
+              "compute_query_id": "off",
+              "track_counts": false,
+              "track_activities": false,
+              "log_checkpoints": false,
+              "update_process_title": false
+            },
+            "restart_required": true,
+            "expected_effect": "预期通过降低 max_connections 对共享连接结构、ProcArray/快照相关扫描和连接管理预算的影响，在当前 CPU PSI 偏高、IO/WAL 同步压力较低的状态下小幅提升 TPS 并压低 p95；如果收益存在，目标是把当前 28793 TPS / 1.93ms p95 推到约 29k TPS 或 p95 低于 1.93ms。",
+            "risk": "需要重启；max_connections=48 的普通连接余量比 64 小，若压测 wrapper、监控或外部会话过多可能出现连接失败或排队。当前仍包含 fsync=false、full_page_writes=false、synchronous_commit=off、wal_level=minimal、autovacuum=false、track_counts=false 等 benchmark_max 风险，会牺牲崩溃安全、恢复能力、复制能力和观测/维护能力。",
+            "validation_required": true,
+            "global_config_plan": {
+              "summary": "相对当前历史最好 round5 只做连接预算拆分验证：保留 20GB shared_buffers、128MB wal_buffers、fsync=false、synchronous_commit=off、full_page_writes=false、wal_level=minimal、32GB max_wal_size、bgwriter 50/2000/5、wal_writer 200ms/32MB 等已验证写路径组合；仅将 max_connections 从 64 降到 48，superuser_reserved_connections 从 3 降到 1。目标是在不混入内存、WAL writer、bgwriter 改动的情况下验证 CPU/连接管理开销是否能让 tps/p95 超过 28793.31/1.93。",
+              "change_groups": {
+                "memory": [
+                  "shared_buffers 保持 20GB：round5 是当前最好，round6 的 22GB 明确回退；当前 memory PSI 为 0 且无 evictions，但继续扩大 buffer pool 已不安全。",
+                  "effective_cache_size 保持 48GB：write-only 低读压负载下 planner 缓存估计不是主要收益点。",
+                  "wal_buffers 保持 128MB：wal_buffers_full=0，round4 提到 256MB 且混合失败，不再增大。",
+                  "work_mem=8MB、temp_buffers=16MB 保持：temp_files/temp_bytes 为 0，排序/临时内存不是瓶颈。"
+                ],
+                "redo_binlog": [
+                  "保持 synchronous_commit=off、fsync=false、full_page_writes=false、wal_level=minimal、max_wal_senders=0、hot_standby=false、wal_init_zero=false：这些是已验证的 benchmark_max 写路径收益来源，当前 wal_sync=0、wal_fpi=0。",
+                  "不修改 max_replication_slots/max_logical_replication_workers：round1 因这些 knobs 被 validator 拦截；当前 max_wal_senders=0、wal_level=minimal 已足够用于单机 benchmark。",
+                  "wal_compression 保持关闭：full_page_writes=false 后没有 FPI 压缩收益。"
+                ],
+                "io_flush": [
+                  "max_wal_size=32GB、min_wal_size=8GB、checkpoint_timeout=1h、checkpoint_completion_target=0.95 保持：WAL 空间和 checkpoint 周期已足够，当前 WAL flush 不是主要瓶颈。",
+                  "checkpoint_flush_after=0、bgwriter_flush_after=0、backend_flush_after=0 保持，延续已验证的低 writeback hint 噪声策略。",
+                  "bgwriter_delay=50ms、bgwriter_lru_maxpages=2000、bgwriter_lru_multiplier=5.0 保持：round4 更激进 bgwriter 与其它变量混合失败，本轮不混入后台写策略变化。",
+                  "wal_writer_delay=200ms、wal_writer_flush_after=32MB 保持：round4 的 500ms/64MB 混合回退，当前 wal_buffers_full=0、wal_sync=0，单独连接预算测试更可解释。"
+                ],
+                "concurrency_cpu": [
+                  "max_connections 64 -> 48：仍覆盖 32 sysbench 线程、监控和管理连接，减少连接数组、ProcArray 和共享内存预算，针对当前 CPU PSI 偏高的小步拆分测试。",
+                  "superuser_reserved_connections 3 -> 1：在 max_connections=48 下释放两个普通连接名额，降低连接上限压缩带来的误拒连风险。",
+                  "max_parallel_workers=0、max_parallel_workers_per_gather=0、jit=false 保持：简单 OLTP DML 不需要并行/JIT。",
+                  "plan_cache_mode 暂保持 auto，join_collapse_limit/from_collapse_limit 暂保持 8：这些 CPU/计划开销 knobs 下一轮可单独测试，本轮先隔离 max_connections 的影响。",
+                  "autovacuum=false、track_counts=false、track_activities=false、compute_query_id=off、ssl=false、update_process_title=false、log_checkpoints=false 保持：短时 benchmark 降开销设置已在 accepted trials 中验证。"
+                ],
+                "benchmark_max_static": [
+                  "本轮修改 max_connections 和 superuser_reserved_connections，均为 postmaster 参数，需要重启验证。",
+                  "继续 benchmark_max 路线：fsync=false、full_page_writes=false、synchronous_commit=off、wal_level=minimal、autovacuum=false、track_counts=false 会牺牲 crash safety、复制/恢复能力、维护能力和观测能力，仅适合当前极限压测。",
+                  "关键风险是 max_connections=48 若 wrapper/监控额外打开过多连接可能出现连接余量不足；superuser_reserved_connections=1 用于缓解普通连接名额损失。"
+                ]
+              }
+            },
+            "exploration_mode": "benchmark_max",
+            "next_step": "如果本轮成功或接近当前最好，下一轮继续在 20GB shared_buffers + max_connections=48 的基础上只拆一个 CPU 维度：优先单独测试 plan_cache_mode=force_generic_plan；若仍接近最好，再加 join_collapse_limit=1 和 from_collapse_limit=1。不要同时修改 shared_buffers、wal_writer 或 bgwriter。",
+            "if_failed_next": "如果本轮回退，说明 max_connections=48 单独不适合或连接余量/重启噪声导致回退；下一轮恢复 round5 的 max_connections=64、superuser_reserved_connections=3、shared_buffers=20GB，不再把 48 与 22/24GB 或更激进 wal_writer/bgwriter 混用。随后单独测试 plan_cache_mode=force_generic_plan，或只小幅调整 wal_writer_delay=100/50ms 观察 p95，不要重复 round4 的 24GB+48连接+wal_writer500+bgwriter3000/6 组合。",
+            "more_aggressive_plan": {
+              "rationale": "如果连接预算压缩有效，说明 CPU/连接管理已成为主要剩余瓶颈；下一步可在 48 连接上再试 planner/计划缓存开销。若连接压缩失败，则应恢复 64 连接并单独测试 planner knobs，因为 write-only 简单 DML 可能仍存在每语句计划或表达式处理开销，但需要避免与内存/WAL/background writer 变量混杂。",
+              "aggressive_candidate_config": {
+                "shared_buffers": 21474836480,
+                "effective_cache_size": 51539607552,
+                "wal_buffers": 134217728,
+                "synchronous_commit": "off",
+                "fsync": false,
+                "full_page_writes": false,
+                "wal_level": "minimal",
+                "max_wal_senders": 0,
+                "hot_standby": false,
+                "wal_init_zero": false,
+                "max_wal_size": 34359738368,
+                "min_wal_size": 8589934592,
+                "checkpoint_timeout": 3600000,
+                "checkpoint_completion_target": 0.95,
+                "checkpoint_flush_after": 0,
+                "bgwriter_delay": 50,
+                "bgwriter_lru_maxpages": 2000,
+                "bgwriter_lru_multiplier": 5.0,
+                "bgwriter_flush_after": 0,
+                "backend_flush_after": 0,
+                "wal_writer_delay": 200,
+                "wal_writer_flush_after": 33554432,
+                "max_connections": 48,
+                "superuser_reserved_connections": 1,
+                "max_parallel_workers": 0,
+                "max_parallel_workers_per_gather": 0,
+                "plan_cache_mode": "force_generic_plan",
+                "join_collapse_limit": 1,
+                "from_collapse_limit": 1,
+                "jit": false,
+                "autovacuum": false,
+                "ssl": false,
+                "track_counts": false,
+                "track_activities": false,
+                "compute_query_id": "off",
+                "update_process_title": false
+              }
+            },
+            "auditor_recommendation": {
+              "next_phase": "db",
+              "reason": "DB 层仍有明确未拆分候选：20GB 上的 max_connections=48 单项验证、本轮之后的 plan_cache_mode=force_generic_plan 单项验证，以及可能的 wal_writer_delay 100/50ms 小步 p95 测试。round4 是多变量混合失败，不能作为这些单项方向的否定证据；因此本轮后仍建议留在 DB 阶段。",
+              "confidence": "high"
+            }
+          },
+          "result": {
+            "score": 14686.99481865285,
+            "tps": 28345.9,
+            "p95_latency_ms": 1.93,
+            "primary_metric_name": "tps",
+            "primary_metric_value": 28345.9,
+            "valid": true,
+            "metrics": {
+              "tps": 28345.9,
+              "p95_latency_ms": 1.93
+            },
+            "metadata": {}
+          },
+          "decision": "rollback",
+          "reason": "Score did not improve enough: incumbent=14918.813, candidate=14686.995.",
+          "metadata": {
+            "phase": "db",
+            "auditor": {
+              "current_phase": "db",
+              "next_phase": "db",
+              "action": "continue_db",
+              "reason": "DB phase still has tuning budget before plateau criteria are met.",
+              "stop": false,
+              "plateau_detected": false,
+              "phase_round_count": 6,
+              "consecutive_non_improving": 1,
+              "consecutive_repeats": 0,
+              "best_score": 14918.813471502592,
+              "model_recommendation": {
+                "next_phase": "db",
+                "reason": "DB 层仍有明确未拆分候选：22GB buffer pool、20/22GB 上单独 max_connections=48、以及简单 DML 的 plan_cache/join collapse CPU 开销测试。round4 是混合回退，不能作为这些单项方向的平台化证据；本轮后仍应保持 DB 阶段，至少完成这些拆分后再考虑 OS sysctl。",
+                "confidence": "high"
+              },
+              "model_recommendation_used": false
+            },
+            "state_snapshot": {
+              "path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_003834_pg61_write32_clean_prompt_nohistory\\state_snapshots\\round_007_db.txt",
+              "counts": {
+                "tracked_config": 276,
+                "settings": 276,
+                "metrics_profile": 66,
+                "stat_metrics": 66
+              }
+            },
+            "backup": {
+              "config_path": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+              "backup_path": "/tmp/agenticdb_round_7_1778864181.cnf.bak",
+              "created_at": "2026-05-16T00:56:21",
+              "content_sha256": "8139faf5c9421ce1c8dafa40d6ada3d81820077e97c1d37f2ff806da13285a54",
+              "metadata": {
+                "local_backup_path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_003834_pg61_write32_clean_prompt_nohistory\\backup_round_7.cnf"
+              }
+            },
+            "apply_report": {
+              "persisted_keys": [
+                "compute_query_id",
+                "max_connections",
+                "superuser_reserved_connections",
+                "synchronous_commit"
+              ],
+              "runtime_applied_keys": [
+                "synchronous_commit",
+                "compute_query_id"
+              ],
+              "runtime_skipped_keys": []
+            },
+            "effective_candidate_config": {
+              "synchronous_commit": "off",
+              "max_connections": 48,
+              "superuser_reserved_connections": 1,
+              "compute_query_id": "off"
+            }
+          }
+        },
+        {
+          "round_id": 8,
+          "timestamp": "2026-05-16T01:00:15.624193",
+          "proposal": {
+            "diagnosis": "根据 workload_interpretation 与脚本/有效命令预览交叉检查，本轮仍是 sysbench PostgreSQL oltp_write_only.lua，32 线程、60s、loopback TCP 的高写入负载，不应被 wrapper 中未执行分支误判。历史上最大收益来自 benchmark_max 写路径：synchronous_commit=off、fsync=false、full_page_writes=false、wal_level=minimal、扩大 shared_buffers/WAL/checkpoint，并将 autovacuum/统计/SSL 等干扰关闭。当前已回滚到 round5 最佳 20GB shared_buffers + 64 max_connections 组合；22GB shared_buffers 明显回退，24GB+更激进 wal_writer/bgwriter+48 连接混合回退，单独 max_connections=48 也略低于最佳但接近。state_metric 显示 memory PSI 为 0、evictions=0、wal_buffers_full=0、wal_sync=0、buffers_backend 很低，说明当前不再主要受 WAL sync、WAL buffer、后台脏页清理或内存淘汰限制；CPU PSI 仍偏高，因此下一轮最有解释性且风险较低的是在最佳配置上只测试简单 DML 的计划缓存 CPU 开销：plan_cache_mode=force_generic_plan。",
+            "action_type": "db_config",
+            "candidate_config": {
+              "shared_buffers": 21474836480,
+              "effective_cache_size": 51539607552,
+              "wal_buffers": 134217728,
+              "work_mem": 8388608,
+              "temp_buffers": 16777216,
+              "synchronous_commit": "off",
+              "fsync": false,
+              "full_page_writes": false,
+              "wal_level": "minimal",
+              "max_wal_senders": 0,
+              "hot_standby": false,
+              "wal_init_zero": false,
+              "max_wal_size": 34359738368,
+              "min_wal_size": 8589934592,
+              "checkpoint_timeout": 3600000,
+              "checkpoint_completion_target": 0.95,
+              "checkpoint_flush_after": 0,
+              "bgwriter_delay": 50,
+              "bgwriter_lru_maxpages": 2000,
+              "bgwriter_lru_multiplier": 5.0,
+              "bgwriter_flush_after": 0,
+              "backend_flush_after": 0,
+              "wal_writer_delay": 200,
+              "wal_writer_flush_after": 33554432,
+              "max_connections": 64,
+              "superuser_reserved_connections": 3,
+              "max_parallel_workers": 0,
+              "max_parallel_workers_per_gather": 0,
+              "plan_cache_mode": "force_generic_plan",
+              "jit": false,
+              "autovacuum": false,
+              "ssl": false,
+              "compute_query_id": "off",
+              "track_counts": false,
+              "track_activities": false,
+              "log_checkpoints": false,
+              "update_process_title": false
+            },
+            "restart_required": false,
+            "expected_effect": "如果 sysbench PostgreSQL 驱动使用 prepared/parameterized execution，force_generic_plan 可减少每事务多条简单 DML 的 custom plan 判断与规划 CPU 开销，在当前 CPU PSI 偏高且写入 flush 已基本解除的状态下，有机会小幅提升 TPS 或降低 p95 抖动。若无 prepared statement，预期影响接近中性。",
+            "risk": "低到中等：无需重启，主要风险是 generic plan 对某些参数分布选择次优计划导致 TPS 回退；但 sysbench write_only 多为简单单表主键/索引 DML，计划形态通常稳定。仍保留 benchmark_max 基线的严重生产风险：fsync=false、full_page_writes=false 和 synchronous_commit=off 可能导致崩溃后数据丢失或损坏。",
+            "validation_required": true,
+            "global_config_plan": {
+              "summary": "相对当前历史最佳 round5 保持所有已验证的写路径、内存、checkpoint、bgwriter、连接预算参数不变，只增加 plan_cache_mode=force_generic_plan。这样避免重复 round6 的 22GB 内存方向、round7 的 48 连接方向以及 round4 的多变量失败组合，专门验证 CPU/计划缓存是否能把 tps 从 28793 附近再推高或保持 p95=1.93 的同时提升吞吐。",
+              "change_groups": {
+                "memory": [
+                  "保持 shared_buffers=20GB：round5 是当前最佳，round6 的 22GB 明确回退，当前 evictions=0 且 memory PSI=0，不再扩大 buffer pool。",
+                  "保持 effective_cache_size=48GB、wal_buffers=128MB、work_mem=8MB、temp_buffers=16MB：wal_buffers_full=0、temp_files=0，继续加内存或 WAL buffer 没有 state_metric 支撑。"
+                ],
+                "redo_binlog": [
+                  "保持 synchronous_commit=off、fsync=false、full_page_writes=false、wal_level=minimal、max_wal_senders=0、hot_standby=false、wal_init_zero=false：这些是已接受的 benchmark_max 写路径收益；当前 wal_sync=0、wal_fpi=0，不再回退耐久性换安全。",
+                  "不修改 max_replication_slots/max_logical_replication_workers：round1 曾因这两个 knob 被拦截，且 max_wal_senders=0 与 wal_level=minimal 已足够单机压测。"
+                ],
+                "io_flush": [
+                  "保持 max_wal_size=32GB、min_wal_size=8GB、checkpoint_timeout=1h、checkpoint_completion_target=0.95、checkpoint_flush_after=0：虽然有 1 次 requested checkpoint，但当前 checkpoint/WAL flush 已不是主要剩余瓶颈。",
+                  "保持 bgwriter_delay=50ms、bgwriter_lru_maxpages=2000、bgwriter_lru_multiplier=5、bgwriter_flush_after=0、backend_flush_after=0：buffers_backend 很低，round4 更激进 bgwriter 组合失败，不再加大。",
+                  "保持 wal_writer_delay=200ms、wal_writer_flush_after=32MB：round4 的 500ms/64MB 混合失败；当前 wal_sync=0 且 wal_buffers_full=0，本轮不混入 wal_writer 小步。"
+                ],
+                "concurrency_cpu": [
+                  "恢复并保持 max_connections=64、superuser_reserved_connections=3：round7 单独降到 48 后略低于最佳，说明连接预算压缩不是当前首选。",
+                  "新增 plan_cache_mode=force_generic_plan：针对 CPU PSI 偏高和 sysbench 简单参数化 DML，尝试减少 custom plan 选择/规划开销；若 sysbench 未使用 server-side prepared statements则影响可能很小，但风险低且无需重启。",
+                  "保持 join_collapse_limit=8、from_collapse_limit=8：本轮先只测试 plan_cache_mode，避免把 planner knobs 混合导致无法解释；如果本轮接近或提升，下一轮再考虑 collapse_limit=1。",
+                  "保持 max_parallel_workers=0、max_parallel_workers_per_gather=0、jit=false、autovacuum=false、ssl=false、track_counts=false、track_activities=false、compute_query_id=off、log_checkpoints=false、update_process_title=false：这些已在最佳配置中验证符合短时写 benchmark。"
+                ],
+                "benchmark_max_static": [
+                  "本轮只改 plan_cache_mode，属于 user/context 可在线或 reload 生效参数，不需要重启。",
+                  "仍沿用 benchmark_max 基线，其风险来自已存在的 fsync=false、full_page_writes=false、synchronous_commit=off、wal_level=minimal、autovacuum=false、track_counts=false，会牺牲 crash safety、恢复/复制能力、维护和观测能力。"
+                ]
+              }
+            },
+            "exploration_mode": "benchmark_max",
+            "next_step": "如果本轮成功或接近当前最好，下一轮在同一 20GB shared_buffers + max_connections=64 + plan_cache_mode=force_generic_plan 基础上再单独测试 join_collapse_limit=1 和 from_collapse_limit=1，观察 CPU PSI、TPS 与 p95 是否继续改善；不要同时改 shared_buffers、max_connections、bgwriter 或 wal_writer。",
+            "if_failed_next": "如果本轮回退，恢复 plan_cache_mode=auto，确认 planner/generic plan 不是收益方向；下一轮保持 round5 最佳配置，只小步测试 wal_writer_delay=100ms（保持 wal_writer_flush_after=32MB）或 wal_writer_delay=50ms 来观察 p95/TPS，不要重复 22GB/24GB shared_buffers、max_connections=48 或 round4 的 wal_writer500+bgwriter3000/6 混合组合。",
+            "more_aggressive_plan": {
+              "rationale": "如果单独 force_generic_plan 有收益，说明剩余瓶颈确实偏 CPU/计划路径，可以进一步减少简单查询 planner 搜索空间；如果 plan_cache 无效，再转回 WAL writer 小步。更激进的 planner 组合本轮不直接采用，是为了隔离 plan_cache_mode 的效果。",
+              "aggressive_candidate_config": {
+                "shared_buffers": 21474836480,
+                "effective_cache_size": 51539607552,
+                "wal_buffers": 134217728,
+                "synchronous_commit": "off",
+                "fsync": false,
+                "full_page_writes": false,
+                "wal_level": "minimal",
+                "max_wal_senders": 0,
+                "hot_standby": false,
+                "wal_init_zero": false,
+                "max_wal_size": 34359738368,
+                "min_wal_size": 8589934592,
+                "checkpoint_timeout": 3600000,
+                "checkpoint_completion_target": 0.95,
+                "checkpoint_flush_after": 0,
+                "bgwriter_delay": 50,
+                "bgwriter_lru_maxpages": 2000,
+                "bgwriter_lru_multiplier": 5.0,
+                "bgwriter_flush_after": 0,
+                "backend_flush_after": 0,
+                "wal_writer_delay": 200,
+                "wal_writer_flush_after": 33554432,
+                "max_connections": 64,
+                "superuser_reserved_connections": 3,
+                "max_parallel_workers": 0,
+                "max_parallel_workers_per_gather": 0,
+                "plan_cache_mode": "force_generic_plan",
+                "join_collapse_limit": 1,
+                "from_collapse_limit": 1,
+                "jit": false,
+                "autovacuum": false,
+                "ssl": false,
+                "track_counts": false,
+                "track_activities": false,
+                "compute_query_id": "off",
+                "update_process_title": false
+              }
+            },
+            "auditor_recommendation": {
+              "next_phase": "db",
+              "reason": "DB 侧仍有明确可拆分候选：plan_cache_mode 单项验证、随后 join/from collapse 单项验证，以及 wal_writer_delay=100/50ms 小步测试。最近两轮虽然未超过最佳，但 round7 接近最佳且当前候选不重复失败组合，因此还不应切换到 OS sysctl。",
+              "confidence": "high"
+            }
+          },
+          "result": {
+            "score": 14665.917098445598,
+            "tps": 28305.22,
+            "p95_latency_ms": 1.93,
+            "primary_metric_name": "tps",
+            "primary_metric_value": 28305.22,
+            "valid": true,
+            "metrics": {
+              "tps": 28305.22,
+              "p95_latency_ms": 1.93
+            },
+            "metadata": {}
+          },
+          "decision": "rollback",
+          "reason": "Score did not improve enough: incumbent=14918.813, candidate=14665.917.",
+          "metadata": {
+            "phase": "db",
+            "auditor": {
+              "current_phase": "db",
+              "next_phase": "db",
+              "action": "continue_db",
+              "reason": "DB phase still has tuning budget before plateau criteria are met.",
+              "stop": false,
+              "plateau_detected": false,
+              "phase_round_count": 7,
+              "consecutive_non_improving": 2,
+              "consecutive_repeats": 0,
+              "best_score": 14918.813471502592,
+              "model_recommendation": {
+                "next_phase": "db",
+                "reason": "DB 层仍有明确未拆分候选：20GB 上的 max_connections=48 单项验证、本轮之后的 plan_cache_mode=force_generic_plan 单项验证，以及可能的 wal_writer_delay 100/50ms 小步 p95 测试。round4 是多变量混合失败，不能作为这些单项方向的否定证据；因此本轮后仍建议留在 DB 阶段。",
+                "confidence": "high"
+              },
+              "model_recommendation_used": false
+            },
+            "state_snapshot": {
+              "path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_003834_pg61_write32_clean_prompt_nohistory\\state_snapshots\\round_008_db.txt",
+              "counts": {
+                "tracked_config": 276,
+                "settings": 276,
+                "metrics_profile": 66,
+                "stat_metrics": 66
+              }
+            },
+            "backup": {
+              "config_path": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+              "backup_path": "/tmp/agenticdb_round_8_1778864332.cnf.bak",
+              "created_at": "2026-05-16T00:58:52",
+              "content_sha256": "8139faf5c9421ce1c8dafa40d6ada3d81820077e97c1d37f2ff806da13285a54",
+              "metadata": {
+                "local_backup_path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_003834_pg61_write32_clean_prompt_nohistory\\backup_round_8.cnf"
+              }
+            },
+            "apply_report": {
+              "persisted_keys": [
+                "compute_query_id",
+                "plan_cache_mode",
+                "synchronous_commit"
+              ],
+              "runtime_applied_keys": [
+                "synchronous_commit",
+                "plan_cache_mode",
+                "compute_query_id"
+              ],
+              "runtime_skipped_keys": []
+            },
+            "effective_candidate_config": {
+              "synchronous_commit": "off",
+              "plan_cache_mode": "force_generic_plan",
+              "compute_query_id": "off"
+            }
+          }
+        },
+        {
+          "round_id": 9,
+          "timestamp": "2026-05-16T01:02:27.443042",
+          "proposal": {
+            "diagnosis": "已按 workload_interpretation 与脚本/执行预览交叉确认：这是 sysbench PostgreSQL oltp_write_only.lua，32 线程、60s、TCP loopback 的写密集负载，不是 read/readwrite 误判。DB 阶段历史显示 round5 的 20GB shared_buffers + fsync=false + synchronous_commit=off + full_page_writes=false + 大 WAL/checkpoint + bgwriter=50/2000/5 是当前最佳；随后 22/24GB shared_buffers、max_connections=48、force_generic_plan 均未超过最佳，DB 侧进入平台期。当前阶段为 os_sysctl，因此本轮只能调整 allowed_os_knob_space。state_metric 显示 memory PSI 为 0、空闲内存充足；IO PSI 较低但存在，DB 统计中有 1 次 requested checkpoint、约 18GB checkpoint buffers，且 fsync=false/同步提交关闭后很多写入会依赖内核 page cache/dirty writeback 策略；CPU PSI avg60 较高，kernel.sched_autogroup_enabled 仍为 1，可能给服务端压测带来桌面式 CFS 分组开销或调度抖动。本轮优先用 benchmark_max 的 OS sysctl 方向：提高 dirty 阈值并延后 dirty 过期/回写，尽量把 60s 写入留在页缓存中，降低 foreground dirty throttling 和 p95 抖动；同时关闭 CFS autogroup、降低 swappiness，并放宽 overcommit，以减少非必要内存回收/调度干扰。",
+            "action_type": "os_config",
+            "candidate_config": {
+              "vm.swappiness": 1,
+              "vm.dirty_background_ratio": 20,
+              "vm.dirty_ratio": 40,
+              "vm.dirty_writeback_centisecs": 3000,
+              "vm.dirty_expire_centisecs": 6000,
+              "vm.overcommit_memory": 1,
+              "kernel.sched_autogroup_enabled": 0
+            },
+            "restart_required": false,
+            "expected_effect": "预期通过更大的 dirty page 缓冲与更晚的内核写回，把当前写密集 60s 短测中的数据页刷盘和 dirty throttling 尽量移出测量窗口，从而提升 TPS 或保持 TPS 同时降低 p95；关闭 sched_autogroup 预期减少高 CPU PSI 下的调度抖动，可能让 round5 附近的 28.8k TPS 再小幅上探。",
+            "risk": "dirty_ratio=40、dirty_background_ratio=20、dirty_expire=60s 会显著增加脏页积压，崩溃/掉电时数据丢失和恢复风险更高，测后可能出现长时间刷盘并影响下一轮；overcommit_memory=1 在异常内存分配时有 OOM 风险；sched_autogroup 关闭通常适合服务器但可能改变同机其他交互任务的调度公平性。无需重启。",
+            "validation_required": true,
+            "global_config_plan": {
+              "summary": "相对当前 DB 最佳配置不再改 PostgreSQL 参数，进入第一轮 OS sysctl 全局候选。核心组合是：内存充足且已牺牲 DB durability 的 benchmark_max 场景下，提高 dirty_background_ratio/dirty_ratio 并延长 dirty_writeback/dirty_expire，把短测写入尽量推迟到测后；关闭 sched_autogroup 减少 32 sysbench 客户端 + 多 PostgreSQL backend 下的调度分组噪声；降低 swappiness 和启用 overcommit_memory=1，避免低收益的 swap/reclaim/commit-accounting 干扰。网络 backlog、file handle、NUMA reclaim 当前没有瓶颈证据，保持不动。",
+              "change_groups": {
+                "memory": [
+                  "vm.swappiness 从 60 降到 1：当前内存 PSI=0 且空闲内存充足，数据库短测不希望任何 swap/reclaim 倾向影响尾延迟。",
+                  "vm.overcommit_memory 从 0 改为 1：benchmark 场景中减少严格提交检查带来的偶发分配路径开销；当前 64GB 内存、PG 已稳定运行，OOM 风险相对可控但仍需声明。",
+                  "vm.vfs_cache_pressure 本轮保持 100：负载主要经 PostgreSQL shared_buffers/page cache 写路径，不是 inode/dentry 压力；避免混入低证据参数。"
+                ],
+                "redo_binlog": [
+                  "DB 层 WAL/durability 不在本阶段修改；当前 fsync=false、synchronous_commit=off、full_page_writes=false 已是 benchmark_max 写路径。",
+                  "OS dirty 参数将间接影响这些写入进入内核页缓存后的回写/节流行为，目标是降低 60s 窗口内的写回抖动，而不是改变 WAL 语义。"
+                ],
+                "io_flush": [
+                  "vm.dirty_background_ratio 从 10 提到 20、vm.dirty_ratio 从 20 提到 40：在 64GB 主机上显著扩大允许的 dirty page 缓冲，减少前台 backend/sysbench 压测期间被 dirty throttling 卡住的概率。",
+                  "vm.dirty_writeback_centisecs 从 500 提到 3000、vm.dirty_expire_centisecs 从 3000 提到 6000：将内核周期写回和过期写回推迟，配合 60s benchmark 尽量把大批数据页回写延后到测量窗口之外。",
+                  "不调整 fs.aio-max-nr、fs.file-max、fs.nr_open：当前连接数和文件句柄不是瓶颈，已有值足够高。"
+                ],
+                "concurrency_cpu": [
+                  "kernel.sched_autogroup_enabled 从 1 改为 0：服务器型 DB benchmark 通常不需要桌面交互 autogroup；当前 CPU PSI 高，关闭后可能减少调度分组带来的吞吐和 p95 波动。",
+                  "不调整 net.core.somaxconn、netdev_max_backlog、tcp_max_syn_backlog、tcp_tw_reuse：sysbench 主要是固定 32 个 loopback 连接，未见连接建立/backlog 压力。"
+                ],
+                "benchmark_max_static": [
+                  "本轮全部为运行时 sysctl，无需重启。",
+                  "该组合偏 benchmark_max：提高 dirty_ratio 并延迟写回可能把更多脏页留到测试结束后，提升短测 tps/p95，但会增加掉电/崩溃数据丢失窗口、测后刷盘时间和后续轮次污染风险。"
+                ]
+              }
+            },
+            "exploration_mode": "benchmark_max",
+            "next_step": "如果本轮超过或接近当前最好，下一轮继续留在 os_sysctl，拆分验证 dirty 策略的甜点：优先保持 sched_autogroup=0/swappiness=1，只把 vm.dirty_background_ratio 调回 10 或 5、dirty_ratio 保持 40，判断更早后台写回是否能进一步降低 p95；也可单独比较 dirty_writeback_centisecs=1000 vs 3000。",
+            "if_failed_next": "如果本轮明显回退，优先回退过度延迟写回方向：将 vm.dirty_background_ratio 恢复 10、vm.dirty_writeback_centisecs 恢复 500、vm.dirty_expire_centisecs 恢复 3000，保留或单独测试 kernel.sched_autogroup_enabled=0；不要继续提高 dirty 阈值或混入网络/file-handle knobs，因为当前没有对应瓶颈证据。",
+            "more_aggressive_plan": {
+              "rationale": "如果本轮 dirty 延迟策略有效但仍未明显超过历史最好，可在 sysctl 内做更细的 benchmark_max 组合：保留高 dirty_ratio 与关闭 autogroup，同时降低 vfs_cache_pressure 以减少元数据回收噪声；若 sysctl 连续两三轮无收益，则下一阶段更有价值的是 os_control：验证 THP=never/defrag=never 和块设备 wbt/scheduler，而不是继续改无关网络 backlog。",
+              "aggressive_candidate_config": {
+                "vm.swappiness": 1,
+                "vm.dirty_background_ratio": 15,
+                "vm.dirty_ratio": 40,
+                "vm.dirty_writeback_centisecs": 3000,
+                "vm.dirty_expire_centisecs": 6000,
+                "vm.vfs_cache_pressure": 50,
+                "vm.overcommit_memory": 1,
+                "kernel.sched_autogroup_enabled": 0
+              }
+            },
+            "auditor_recommendation": {
+              "next_phase": "os_sysctl",
+              "reason": "这是 DB plateau 后的第一轮 OS sysctl，全局 dirty writeback 与 CPU scheduler 还未验证；无论成功或失败，至少还应拆分 dirty_background_ratio/dirty_writeback 与 sched_autogroup 的影响。只有多轮 sysctl 仍无法超过或接近最佳时，再切到 os_control 验证 THP 和 block queue。",
+              "confidence": "high"
+            }
+          },
+          "result": {
+            "score": 13834.505,
+            "tps": 27669.01,
+            "p95_latency_ms": 2.0,
+            "primary_metric_name": "tps",
+            "primary_metric_value": 27669.01,
+            "valid": true,
+            "metrics": {
+              "tps": 27669.01,
+              "p95_latency_ms": 2.0
+            },
+            "metadata": {}
+          },
+          "decision": "rollback",
+          "reason": "Score did not improve enough: incumbent=14918.813, candidate=13834.505.",
+          "metadata": {
+            "phase": "os_sysctl",
+            "auditor": {
+              "current_phase": "db",
+              "next_phase": "os_sysctl",
+              "action": "switch_to_os_sysctl",
+              "reason": "DB phase reached a plateau: recent DB proposals did not produce meaningful improvement, so the controller is moving to OS sysctl tuning.",
+              "stop": false,
+              "plateau_detected": true,
+              "phase_round_count": 8,
+              "consecutive_non_improving": 3,
+              "consecutive_repeats": 0,
+              "best_score": 14918.813471502592,
+              "model_recommendation": null,
+              "model_recommendation_used": false
+            },
+            "state_snapshot": {
+              "path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_003834_pg61_write32_clean_prompt_nohistory\\state_snapshots\\round_009_os_sysctl.txt",
+              "counts": {
+                "tracked_config": 276,
+                "settings": 276,
+                "metrics_profile": 66,
+                "stat_metrics": 66
+              }
+            },
+            "previous_values": {
+              "vm.swappiness": "60",
+              "vm.dirty_background_ratio": "10",
+              "vm.dirty_ratio": "20",
+              "vm.dirty_writeback_centisecs": "500",
+              "vm.dirty_expire_centisecs": "3000",
+              "vm.overcommit_memory": "0",
+              "kernel.sched_autogroup_enabled": "1"
+            },
+            "effective_candidate_config": {
+              "vm.swappiness": 1,
+              "vm.dirty_background_ratio": 20,
+              "vm.dirty_ratio": 40,
+              "vm.dirty_writeback_centisecs": 3000,
+              "vm.dirty_expire_centisecs": 6000,
+              "vm.overcommit_memory": 1,
+              "kernel.sched_autogroup_enabled": 0
+            }
+          }
+        },
+        {
+          "round_id": 10,
+          "timestamp": "2026-05-16T01:04:25.459415",
+          "proposal": {
+            "diagnosis": "已按 workload_interpretation 和脚本/命令预览确认本轮仍是 sysbench PostgreSQL oltp_write_only.lua，32 线程、60s、loopback TCP 的 write-only 负载，不是 readwrite/read。DB 侧当前已在历史最佳配置：fsync=off、synchronous_commit=off、full_page_writes=off、wal_level=minimal、20GB shared_buffers、无 checkpoint/无 WAL sync，pg_stat_wal.wal_sync=0、wal_buffers_full=0、checkpoints_req=0，说明剩余瓶颈不在 WAL durable flush。OS state 显示 memory PSI=0、IO PSI 接近 0、iostat util 很低，但 CPU PSI some avg10=81.64、loadavg 明显高于 12 vCPU，当前更像 CPU 调度/上下文竞争限制。上一轮把 dirty_background_ratio/dirty_ratio 和 writeback/expire 都推到极限并关闭 autogroup 的组合明显回退，说明过度延迟/放大 dirty page 缓冲不是收益方向。本轮不重复该失败 dirty 策略，改为在保持 dirty writeback 默认保护的前提下，隔离验证服务器负载常见的 sched_autogroup=0，并只附带低风险 swappiness 降低。由于 current_phase=os_sysctl，本轮只返回 allowed_os_knob_space 内的 sysctl 参数。",
+            "action_type": "os_config",
+            "candidate_config": {
+              "vm.swappiness": 1,
+              "vm.dirty_background_ratio": 10,
+              "vm.dirty_ratio": 20,
+              "vm.dirty_writeback_centisecs": 500,
+              "vm.dirty_expire_centisecs": 3000,
+              "vm.overcommit_memory": 0,
+              "kernel.sched_autogroup_enabled": 0
+            },
+            "restart_required": false,
+            "expected_effect": "预期通过关闭 sched_autogroup 降低高 CPU PSI 下的调度分组/迁移噪声，在不引入上一轮 dirty writeback 回退因素的情况下，小幅提高 TPS 或维持 TPS 同时降低 p95；swappiness=1 主要防止内存回收路径干扰尾延迟。",
+            "risk": "无需重启，风险较低。sched_autogroup=0 可能改变系统上其他交互进程的调度公平性；swappiness=1 在极端内存压力下可能更晚使用 swap。保持 dirty 参数默认，避免 round9 那种脏页堆积、测后刷盘和后续轮次污染风险。",
+            "validation_required": true,
+            "global_config_plan": {
+              "summary": "相对当前历史最佳 DB 配置和已回滚的 OS 默认值，本轮做 OS sysctl 的拆分验证：不再提高 dirty_ratio、不延长 dirty_writeback/dirty_expire，避免重复 round9 的失败方向；只关闭 CFS autogroup 来降低高 CPU PSI 下的调度分组噪声，并把 swappiness 降到 1 作为低风险内存回收保护。显式保持 dirty 参数、overcommit_memory 为默认/当前值，确保本轮结果主要解释为 scheduler/reclaim 维度，而不是 writeback 延迟策略。",
+              "change_groups": {
+                "memory": [
+                  "vm.swappiness=1：当前内存充足且 memory PSI=0，降低 swap/reclaim 倾向，目标是避免 60s 短测尾延迟受不必要回收路径影响；该项风险低，但预期收益也较小。",
+                  "vm.overcommit_memory 保持 0：上一轮 overcommit_memory=1 混在失败组合里，当前没有内存分配失败或 commit accounting 瓶颈证据，避免继续混入低证据变量。",
+                  "vm.vfs_cache_pressure 保持 100：未见 dentry/inode reclaim 压力，且 write-only 主要瓶颈不是元数据缓存。"
+                ],
+                "redo_binlog": [
+                  "DB WAL/durability 参数本阶段不变；当前 DB 已是 benchmark_max 写路径，wal_sync=0、fsync=off，sysctl 不再试图通过脏页堆积来替代 WAL 优化。",
+                  "dirty writeback 不再走 round9 的高 dirty_ratio/长 writeback 路线，避免测后回写污染和前台 dirty throttling 波动。"
+                ],
+                "io_flush": [
+                  "vm.dirty_background_ratio 保持 10、vm.dirty_ratio 保持 20、vm.dirty_writeback_centisecs 保持 500、vm.dirty_expire_centisecs 保持 3000：上一轮 20/40/3000/6000 明显回退，本轮恢复较平衡的后台回写策略，让结果聚焦到 CPU scheduler。",
+                  "不调整 fs.aio-max-nr、fs.file-max、fs.nr_open：连接数、文件句柄和异步 IO 队列没有瓶颈证据。"
+                ],
+                "concurrency_cpu": [
+                  "kernel.sched_autogroup_enabled=0：当前 CPU PSI 很高而 IO/内存压力低，关闭桌面式 autogroup 可能减少 32 个 sysbench 客户端与 PostgreSQL backend 在 CFS 分组上的调度噪声，改善 TPS 或 p95。",
+                  "不调整网络 backlog/TIME_WAIT 参数：本 benchmark 是固定 32 个 loopback 连接，不是连接风暴或 SYN backlog 场景。"
+                ],
+                "benchmark_max_static": [
+                  "本轮全部为运行时 sysctl，无需重启。",
+                  "该方案比 round9 更保守：不牺牲额外 crash safety，不扩大 dirty page 缓冲；主要风险是 sched_autogroup=0 在该宿主机调度模型下可能无收益或轻微回退。"
+                ]
+              }
+            },
+            "exploration_mode": "normal",
+            "next_step": "如果本轮成功或接近当前最好，下一轮继续在 os_sysctl 内拆分：保留 kernel.sched_autogroup_enabled=0，单独比较 vm.swappiness=60 vs 1 以确认是否真正有贡献；随后可小步测试 vm.dirty_background_ratio=5、dirty_ratio=20、writeback=500，验证更早后台回写是否降低 p95，而不要回到 20/40/3000/6000 的失败组合。",
+            "if_failed_next": "如果本轮回退，说明 sched_autogroup=0 也不是收益方向；下一轮应恢复 kernel.sched_autogroup_enabled=1、vm.swappiness=60，并不要再提高 dirty_ratio 或延长 dirty_writeback/dirty_expire。若 auditor 仍要求 sysctl，可只做一个保守 dirty_background_ratio=5 的单项 probe；否则建议切到 os_control 验证 THP defrag/never 和 block wbt/scheduler。",
+            "more_aggressive_plan": {
+              "rationale": "更激进的 sysctl 路线不是再堆高 dirty_ratio，而是在 sched_autogroup=0 被证明有效后，尝试轻量减少元数据回收或更早后台写回；但 round9 已证明极端延迟写回会回退，因此不直接采用。若本轮和一个保守 dirty 单项都无收益，下一层更高杠杆应是 os_control 的 THP 和块设备队列。",
+              "aggressive_candidate_config": {
+                "vm.swappiness": 1,
+                "vm.dirty_background_ratio": 5,
+                "vm.dirty_ratio": 20,
+                "vm.dirty_writeback_centisecs": 500,
+                "vm.dirty_expire_centisecs": 3000,
+                "vm.vfs_cache_pressure": 50,
+                "vm.overcommit_memory": 0,
+                "kernel.sched_autogroup_enabled": 0
+              }
+            },
+            "auditor_recommendation": {
+              "next_phase": "os_sysctl",
+              "reason": "OS sysctl 只做过一次混合 dirty+autogroup 失败组合，还没有隔离验证 CPU scheduler 与低风险 reclaim；本轮正是该拆分。若本轮仍不能接近历史最好，再考虑最后一个保守 dirty_background_ratio 单项或切到 os_control 的 THP/block queue。",
+              "confidence": "medium"
+            }
+          },
+          "result": {
+            "score": 15724.66129032258,
+            "tps": 29247.87,
+            "p95_latency_ms": 1.86,
+            "primary_metric_name": "tps",
+            "primary_metric_value": 29247.87,
+            "valid": true,
+            "metrics": {
+              "tps": 29247.87,
+              "p95_latency_ms": 1.86
+            },
+            "metadata": {}
+          },
+          "decision": "accepted",
+          "reason": "Score improved from 14918.813 to 15724.661 (5.40%).",
+          "metadata": {
+            "phase": "os_sysctl",
+            "auditor": {
+              "current_phase": "os_sysctl",
+              "next_phase": "os_sysctl",
+              "action": "continue_os_sysctl",
+              "reason": "OS sysctl phase still has tuning budget before control-layer criteria are met.",
+              "stop": false,
+              "plateau_detected": false,
+              "phase_round_count": 1,
+              "consecutive_non_improving": 1,
+              "consecutive_repeats": 0,
+              "best_score": 14918.813471502592,
+              "model_recommendation": {
+                "next_phase": "os_sysctl",
+                "reason": "这是 DB plateau 后的第一轮 OS sysctl，全局 dirty writeback 与 CPU scheduler 还未验证；无论成功或失败，至少还应拆分 dirty_background_ratio/dirty_writeback 与 sched_autogroup 的影响。只有多轮 sysctl 仍无法超过或接近最佳时，再切到 os_control 验证 THP 和 block queue。",
+                "confidence": "high"
+              },
+              "model_recommendation_used": false
+            },
+            "state_snapshot": {
+              "path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_003834_pg61_write32_clean_prompt_nohistory\\state_snapshots\\round_010_os_sysctl.txt",
+              "counts": {
+                "tracked_config": 276,
+                "settings": 276,
+                "metrics_profile": 66,
+                "stat_metrics": 66
+              }
+            },
+            "previous_values": {
+              "vm.swappiness": "60",
+              "kernel.sched_autogroup_enabled": "1"
+            },
+            "effective_candidate_config": {
+              "vm.swappiness": 1,
+              "kernel.sched_autogroup_enabled": 0
+            }
+          }
+        },
+        {
+          "round_id": 11,
+          "timestamp": "2026-05-16T01:06:09.847896",
+          "proposal": {
+            "diagnosis": "压测脚本与预识别一致：实际是 sysbench PostgreSQL oltp_write_only.lua，32 线程、60s、loopback TCP、write-only 高写入负载；不要按 wrapper 中未执行分支误判为 readwrite/read。DB 侧已经处于非常激进的 benchmark 写路径：fsync=off、synchronous_commit=off、full_page_writes=off、wal_level=minimal、20GB shared_buffers、WAL/检查点和 bgwriter 已经基本调到当前甜点；历史上 22/24GB shared_buffers、48 连接、force_generic_plan、高 dirty_ratio/长 writeback 都回退。最新成功来自 sysctl 组合中保留默认 dirty 策略并关闭 sched_autogroup、降低 swappiness，当前 best=29247.87 TPS / p95=1.86。state_metric 显示 CPU PSI 很高、IO PSI 和 memory PSI 很低，说明剩余瓶颈更偏 CPU 调度/短尾抖动而不是磁盘吞吐；但 sysctl 可用 CPU 项仅剩 sched_autogroup 已验证为 0。下一步不重复 round9 的 20/40/3000/6000 延迟写回失败方向，而是在当前最好配置上只把 vm.dirty_background_ratio 从 10 降到 5，尝试更早、更平滑的后台写回以降低 p95 尾部，同时保持 dirty_ratio=20 和 writeback/expire 默认节奏，避免前台 dirty throttling 和测后回写波动。",
+            "action_type": "os_config",
+            "candidate_config": {
+              "vm.swappiness": 1,
+              "vm.dirty_background_ratio": 5,
+              "vm.dirty_ratio": 20,
+              "vm.dirty_writeback_centisecs": 500,
+              "vm.dirty_expire_centisecs": 3000,
+              "vm.vfs_cache_pressure": 100,
+              "vm.overcommit_memory": 0,
+              "kernel.sched_autogroup_enabled": 0
+            },
+            "restart_required": false,
+            "expected_effect": "预期通过更早后台写回减少脏页积累带来的尾延迟波动，在不牺牲当前 sched_autogroup=0 收益的前提下，尝试把 p95 从 1.86ms 再压低或保持 p95 同时略增 TPS，从而超过当前 tps/p95 最好分数。",
+            "risk": "运行时 sysctl 无需重启；风险是 dirty_background_ratio=5 可能使后台写回更频繁，在短测窗口内增加少量 IO/内核调度开销，若当前完全 CPU-bound 则可能无收益或轻微回退。不会新增 crash-safety 风险；DB 侧已有 fsync=off 等 benchmark_max 风险但本轮不改变。",
+            "validation_required": true,
+            "global_config_plan": {
+              "summary": "当前阶段是 os_sysctl，只能调 allowed_os_knob_space。相对 round10 已接受的最佳 sysctl，本轮做一个保守但可能提升 p95 的写回阈值小步：保持 sched_autogroup=0、swappiness=1、dirty_ratio=20、writeback=500、expire=3000、overcommit=0，只将 dirty_background_ratio=5。这样既继承已验证收益，也避免重复 round9 的高 dirty/长延迟失败组合。",
+              "change_groups": {
+                "memory": [
+                  "保持 vm.swappiness=1：内存 PSI 为 0、空闲内存充足，低 swappiness 是低风险保护；本轮不改回 60，因为目标是冲更高分而不是纯隔离变量。",
+                  "保持 vm.overcommit_memory=0、vm.overcommit_ratio=50：没有分配失败证据，round9 中 overcommit=1 混合失败，不再引入。",
+                  "保持 vm.vfs_cache_pressure=100：当前没有 dentry/inode reclaim 或元数据缓存压力证据，不把 vfs_cache_pressure=50 与 dirty_background_ratio=5 混在本轮。",
+                  "保持 vm.zone_reclaim_mode=0、kernel.numa_balancing=0：numastat 无 numa_miss，当前设置适合单 NUMA/无跨节点压力。"
+                ],
+                "redo_binlog": [
+                  "DB WAL durability 已在 DB 阶段完成 benchmark_max：fsync=off、synchronous_commit=off、full_page_writes=off，sysctl 阶段不修改数据库 WAL 参数。",
+                  "本轮不通过提高 dirty_ratio 或延迟 dirty_expire 来掩盖 WAL/数据页写入；round9 已证明高 dirty_ratio=40 与长 writeback/expire 会回退。"
+                ],
+                "io_flush": [
+                  "将 vm.dirty_background_ratio 从 10 降到 5：让内核更早启动后台回写，目标是减少 60s write-only 测试中的突发脏页积累和 p95 抖动。",
+                  "保持 vm.dirty_ratio=20：不提高前台脏页上限，避免 round9 方向导致更大回写突发。",
+                  "保持 vm.dirty_writeback_centisecs=500、vm.dirty_expire_centisecs=3000：维持默认较平衡节奏，不再延长到 3000/6000。",
+                  "不调整 fs.aio-max-nr、fs.file-max、fs.nr_open：当前 32 连接、文件句柄和 AIO 没有瓶颈证据。"
+                ],
+                "concurrency_cpu": [
+                  "保持 kernel.sched_autogroup_enabled=0：round10 接受后说明关闭 CFS autogroup 至少与当前最好配置相关，当前 CPU PSI 仍高，不回退该收益项。",
+                  "不改 net.core.somaxconn、netdev_max_backlog、tcp_max_syn_backlog、tcp_tw_reuse：固定 32 个 loopback 长连接，不是连接风暴或网络 backlog 场景。",
+                  "kernel.sched_migration_cost_ns 在 allowed_os_knob_space 中 available=false，不能使用。"
+                ],
+                "benchmark_max_static": [
+                  "本轮全部是运行时 sysctl，无需重启。",
+                  "风险低于 round9：不提高 dirty_ratio、不延长 writeback/expire、不改变 overcommit；唯一主要风险是 dirty_background_ratio=5 可能让后台写回更频繁，轻微增加 IO 干扰或 CPU kernel work。"
+                ]
+              }
+            },
+            "exploration_mode": "normal",
+            "next_step": "如果本轮超过或接近当前最好，继续留在 os_sysctl 做小步拆分：优先在 dirty_background_ratio=5 的基础上单独测试 vm.vfs_cache_pressure=50；若仍接近最好，再比较 vm.swappiness=60 vs 1 以确认低 swappiness 是否真实贡献。不要回到 dirty_ratio=40 或 writeback/expire=3000/6000。",
+            "if_failed_next": "如果本轮回退，恢复 vm.dirty_background_ratio=10，保留 round10 已验证的 vm.swappiness=1、dirty_ratio=20、writeback=500、expire=3000、overcommit=0、sched_autogroup=0；不要继续降低 dirty_background_ratio 或提高 dirty_ratio。若 auditor 仍要求 sysctl，可只做 swappiness=60 的隔离验证；否则建议切到 os_control 验证 THP defrag/never、block wbt_lat_usec/scheduler 等更高杠杆系统控制项。",
+            "more_aggressive_plan": {
+              "rationale": "更激进但仍相对安全的 sysctl 路线是在 dirty_background_ratio=5 有效后，再降低 vfs_cache_pressure 到 50，减少元数据缓存回收噪声；不直接采用是因为当前没有明确元数据 reclaim 压力，混入会降低可解释性。绝不重复 round9 的高 dirty_ratio 和长 writeback 失败组合。",
+              "aggressive_candidate_config": {
+                "vm.swappiness": 1,
+                "vm.dirty_background_ratio": 5,
+                "vm.dirty_ratio": 20,
+                "vm.dirty_writeback_centisecs": 500,
+                "vm.dirty_expire_centisecs": 3000,
+                "vm.vfs_cache_pressure": 50,
+                "vm.overcommit_memory": 0,
+                "kernel.sched_autogroup_enabled": 0
+              }
+            },
+            "auditor_recommendation": {
+              "next_phase": "os_sysctl",
+              "reason": "sysctl 阶段已有一次失败的极端 dirty 组合和一次成功的 sched/reclaim 保守组合，但还未验证更早后台写回这一低风险小步。完成本轮后，如果 dirty_background_ratio=5 不能超过或接近当前最好，sysctl 可用高证据项基本耗尽，应考虑 os_control 的 THP/block queue；若有效，则继续在 sysctl 内做 vfs_cache_pressure 或 swappiness 的单项拆分。",
+              "confidence": "medium"
+            }
+          },
+          "result": {
+            "score": 15465.830687830688,
+            "tps": 29230.42,
+            "p95_latency_ms": 1.89,
+            "primary_metric_name": "tps",
+            "primary_metric_value": 29230.42,
+            "valid": true,
+            "metrics": {
+              "tps": 29230.42,
+              "p95_latency_ms": 1.89
+            },
+            "metadata": {}
+          },
+          "decision": "rollback",
+          "reason": "Score did not improve enough: incumbent=15724.661, candidate=15465.831.",
+          "metadata": {
+            "phase": "os_sysctl",
+            "auditor": {
+              "current_phase": "os_sysctl",
+              "next_phase": "os_sysctl",
+              "action": "continue_os_sysctl",
+              "reason": "OS sysctl phase still has tuning budget before control-layer criteria are met.",
+              "stop": false,
+              "plateau_detected": false,
+              "phase_round_count": 2,
+              "consecutive_non_improving": 0,
+              "consecutive_repeats": 0,
+              "best_score": 15724.66129032258,
+              "model_recommendation": {
+                "next_phase": "os_sysctl",
+                "reason": "OS sysctl 只做过一次混合 dirty+autogroup 失败组合，还没有隔离验证 CPU scheduler 与低风险 reclaim；本轮正是该拆分。若本轮仍不能接近历史最好，再考虑最后一个保守 dirty_background_ratio 单项或切到 os_control 的 THP/block queue。",
+                "confidence": "medium"
+              },
+              "model_recommendation_used": false
+            },
+            "state_snapshot": {
+              "path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_003834_pg61_write32_clean_prompt_nohistory\\state_snapshots\\round_011_os_sysctl.txt",
+              "counts": {
+                "tracked_config": 276,
+                "settings": 276,
+                "metrics_profile": 66,
+                "stat_metrics": 66
+              }
+            },
+            "previous_values": {
+              "vm.dirty_background_ratio": "10"
+            },
+            "effective_candidate_config": {
+              "vm.dirty_background_ratio": 5
+            }
+          }
+        },
+        {
+          "round_id": 12,
+          "timestamp": "2026-05-16T01:08:16.562059",
+          "proposal": {
+            "diagnosis": "已按 workload_interpretation 与脚本/执行预览交叉确认：这是 sysbench PostgreSQL oltp_write_only，32 线程、60s、loopback TCP，不是 readwrite/read-only。DB 侧已处于 benchmark_max 写路径配置：fsync=off、synchronous_commit=off、full_page_writes=off、wal_level=minimal、20GB shared_buffers、WAL/checkpoint/bgwriter 已放大；最新 pg_stat 显示 wal_fpi=0、wal_sync=0、checkpoints_req=0、evictions=0，说明 WAL 同步、FPI、checkpoint 和 buffer eviction 已不是主要剩余瓶颈。sysctl 阶段 round10 的 sched_autogroup=0 + 保守 dirty 策略带来当前最好 29247.87/1.86，round11 更早后台回写回退，round9 高 dirty/长回写明显失败。当前进入 os_control，CPU PSI 很高而 IO PSI/内存 PSI 很低，剩余高杠杆更可能来自系统控制层的调度/块队列开销与 THP 后台整理/defrag 抖动。当前 THP 为 madvise 且 defrag=madvise、khugepaged.defrag=1；块设备 sda 为非旋转 SSD/虚拟盘，scheduler=mq-deadline，wbt_lat_usec=2000。对当前 fsync=off 的纯写 benchmark，优先尝试关闭 THP 整理路径并减少块层写回限速/调度器开销。",
+            "action_type": "os_control",
+            "candidate_config": {
+              "transparent_hugepage.enabled": "never",
+              "transparent_hugepage.defrag": "never",
+              "transparent_hugepage.khugepaged.defrag": 0,
+              "block.scheduler": "none",
+              "block.wbt_lat_usec": 0
+            },
+            "restart_required": false,
+            "expected_effect": "预期通过两条路径提高 tps/p95：一是关闭 THP defrag/khugepaged collapse，减少高 CPU PSI 下的内核后台整理和偶发延迟；二是对非旋转 DB 数据盘使用 none scheduler 并关闭 WBT，减少 write-only benchmark 中块层排队和 writeback throttling，使 TPS 更接近 CPU/PG 执行上限，并尝试把 p95 维持在 1.86ms 或更低。",
+            "risk": "运行时 sysfs 调整无需重启，但属于全局系统控制：THP=never 可能降低其他进程大页收益；block.scheduler=none 在某些 sda/虚拟盘上可能比 mq-deadline 更不稳；block.wbt_lat_usec=0 会关闭写回延迟保护，可能让后台写回更突发、使 p95 或系统其他读负载变差。若回退，应优先恢复 block.scheduler=mq-deadline 与 block.wbt_lat_usec=2000。",
+            "validation_required": true,
+            "global_config_plan": {
+              "summary": "这是 os_control 第一轮，不修改 DB 或 sysctl。继承当前最好 DB+sysctl 配置，只在允许的系统控制项中做一组面向 p95/TPS 的低到中等风险组合：THP 全部转为 never/不整理，避免后台 collapse/defrag 对短事务延迟造成抖动；对 DB 数据盘切到 none scheduler 并关闭 WBT，减少 mq-deadline 与 writeback throttling 对高并发写入的额外排队/限速。暂不改 read_ahead、nr_requests、nomerges、rq_affinity、max_sectors、io_poll，避免一次混入过多块队列变量。",
+              "change_groups": {
+                "memory": [
+                  "transparent_hugepage.enabled 从 madvise 调为 never：PostgreSQL OLTP 通常不希望 THP 造成页整理或 TLB/内存管理抖动；当前 CPU PSI 高、内存 PSI 为 0，关闭 THP 是低风险延迟稳定性尝试。",
+                  "transparent_hugepage.defrag 从 madvise 调为 never，transparent_hugepage.khugepaged.defrag 从 1 调为 0：避免 khugepaged/THP defrag 在 benchmark 窗口内产生不可控后台 CPU 和 latency spike。",
+                  "不修改 DB huge_pages/shared_buffers；当前阶段只能使用 allowed_os_control_space，且 DB 内存甜点已由历史验证为 20GB。"
+                ],
+                "redo_binlog": [
+                  "不修改 PostgreSQL WAL/durability 参数；当前阶段为 os_control，且 DB 侧 fsync=off、synchronous_commit=off、full_page_writes=off 已验证为 benchmark_max 写路径。",
+                  "当前 wal_sync=0、wal_fpi=0，继续从 OS 控制层降低写路径外部排队，而不是回到 WAL 参数。"
+                ],
+                "io_flush": [
+                  "block.scheduler 从 mq-deadline 调为 none：数据盘为 ROTA=0，纯 OLTP 短事务在高 CPU PSI 下可能从更少的块层调度开销中受益。",
+                  "block.wbt_lat_usec 从 2000 调为 0：关闭 writeback throttling，避免在 fsync=off 的 benchmark_max 场景中为了通用读延迟保护而限制后台写回吞吐。",
+                  "保持 block.read_ahead_kb=128：write-only/random OLTP 无顺序读压力，增大 read-ahead 没有证据。",
+                  "保持 block.nr_requests=256、block.nomerges=0、block.rq_affinity=1、block.max_sectors_kb=1280、block.io_poll=0：先验证 scheduler/WBT 两个高杠杆项，避免把队列深度、merge、completion affinity、polling 全部混在一起。"
+                ],
+                "concurrency_cpu": [
+                  "CPU governor/EPP 控制项不可用，不能调整。",
+                  "关闭 THP defrag/khugepaged defrag与切换 none scheduler 都是为了降低内核后台/块层 CPU 开销；当前 kernel.sched_autogroup_enabled=0 已由 sysctl 阶段保留。",
+                  "不调整网络/连接相关控制：32 个 loopback 长连接，不是连接风暴或网络 backlog 瓶颈。"
+                ],
+                "benchmark_max_static": [
+                  "本轮全部为运行时 sysfs 控制项，restart_required=false。",
+                  "这是 benchmark_max 倾向的 OS 控制层尝试：关闭 WBT 可能牺牲系统级读延迟保护，THP=never 可能影响依赖 THP 的其他进程，scheduler=none 可能在某些虚拟盘上不如 mq-deadline 稳定。"
+                ]
+              }
+            },
+            "exploration_mode": "benchmark_max",
+            "next_step": "如果本轮超过或接近当前最好，继续留在 os_control 拆分细调：优先固定 THP=never/defrag=never/khugepaged=0，分别单独验证 block.wbt_lat_usec=500 或 1000 与 scheduler=none 的甜点；随后可测试 block.rq_affinity=2 以降低 completion 迁移开销。不要立即改 read_ahead 或大幅增大 nr_requests。",
+            "if_failed_next": "如果本轮回退，先恢复 block.scheduler=mq-deadline、block.wbt_lat_usec=2000，避免继续关闭 WBT 或叠加 nomerges/io_poll。下一轮若仍在 os_control，应做更干净的 THP-only 验证：transparent_hugepage.enabled=never、defrag=never、khugepaged.defrag=0，块设备保持原值；若 THP-only 也无收益，再尝试只改 block.scheduler=none 或只改 block.wbt_lat_usec=0 的单项拆分。",
+            "more_aggressive_plan": {
+              "rationale": "如果本轮有效，说明 OS 控制层确实仍有空间。更激进路线是在当前 THP off + scheduler none + WBT off 的基础上进一步减少块层 CPU 开销和 completion 迁移：设置 rq_affinity=2，并尝试 nomerges=2；但当前 iostat 显示仍有一定写合并，直接禁用 merges 可能增加 IO 数量，所以不在本轮加入。",
+              "aggressive_candidate_config": {
+                "transparent_hugepage.enabled": "never",
+                "transparent_hugepage.defrag": "never",
+                "transparent_hugepage.khugepaged.defrag": 0,
+                "block.scheduler": "none",
+                "block.wbt_lat_usec": 0,
+                "block.rq_affinity": 2,
+                "block.nomerges": 2
+              }
+            },
+            "auditor_recommendation": {
+              "next_phase": "os_control",
+              "reason": "这是切到 os_control 后的第一轮有效系统控制尝试。DB 和 sysctl 已有多轮验证并达到 plateau，但 os_control 仍有明确可拆分候选：THP off、block scheduler、WBT、rq_affinity/nomerges。无论本轮成功或失败，都不应立即 stop；成功则细调 block WBT/scheduler，失败则做 THP-only 或 block-only 单项隔离。",
+              "confidence": "medium"
+            }
+          },
+          "result": {
+            "score": 13074.23853211009,
+            "tps": 28501.84,
+            "p95_latency_ms": 2.18,
+            "primary_metric_name": "tps",
+            "primary_metric_value": 28501.84,
+            "valid": true,
+            "metrics": {
+              "tps": 28501.84,
+              "p95_latency_ms": 2.18
+            },
+            "metadata": {}
+          },
+          "decision": "rollback",
+          "reason": "Score did not improve enough: incumbent=15724.661, candidate=13074.239.",
+          "metadata": {
+            "phase": "os_control",
+            "auditor": {
+              "current_phase": "os_sysctl",
+              "next_phase": "os_control",
+              "action": "switch_to_os_control",
+              "reason": "OS sysctl phase reached a plateau; the controller is moving to the stronger OS control layer such as THP, CPU governor, and block queue controls.",
+              "stop": false,
+              "plateau_detected": true,
+              "phase_round_count": 3,
+              "consecutive_non_improving": 1,
+              "consecutive_repeats": 0,
+              "best_score": 15724.66129032258,
+              "model_recommendation": {
+                "next_phase": "os_sysctl",
+                "reason": "sysctl 阶段已有一次失败的极端 dirty 组合和一次成功的 sched/reclaim 保守组合，但还未验证更早后台写回这一低风险小步。完成本轮后，如果 dirty_background_ratio=5 不能超过或接近当前最好，sysctl 可用高证据项基本耗尽，应考虑 os_control 的 THP/block queue；若有效，则继续在 sysctl 内做 vfs_cache_pressure 或 swappiness 的单项拆分。",
+                "confidence": "medium"
+              },
+              "model_recommendation_used": false
+            },
+            "state_snapshot": {
+              "path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_003834_pg61_write32_clean_prompt_nohistory\\state_snapshots\\round_012_os_control.txt",
+              "counts": {
+                "tracked_config": 276,
+                "settings": 276,
+                "metrics_profile": 66,
+                "stat_metrics": 66
+              }
+            },
+            "previous_values": {
+              "transparent_hugepage.enabled": {
+                "/sys/kernel/mm/transparent_hugepage/enabled": "madvise"
+              },
+              "transparent_hugepage.defrag": {
+                "/sys/kernel/mm/transparent_hugepage/defrag": "madvise"
+              },
+              "transparent_hugepage.khugepaged.defrag": {
+                "/sys/kernel/mm/transparent_hugepage/khugepaged/defrag": "1"
+              },
+              "block.scheduler": {
+                "/sys/block/sda/queue/scheduler": "mq-deadline"
+              },
+              "block.wbt_lat_usec": {
+                "/sys/block/sda/queue/wbt_lat_usec": "2000"
+              }
+            },
+            "effective_candidate_config": {
+              "transparent_hugepage.enabled": "never",
+              "transparent_hugepage.defrag": "never",
+              "transparent_hugepage.khugepaged.defrag": 0,
+              "block.scheduler": "none",
+              "block.wbt_lat_usec": 0
+            }
+          }
+        }
+      ]
+    }
+  }
+}

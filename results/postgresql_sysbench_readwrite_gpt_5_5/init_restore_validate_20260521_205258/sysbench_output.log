@@ -1,0 +1,38 @@
+[INFO] sysbench(pg) log => /tmp/restore_initial_validate_1779367997.log
+[INFO] Connected. Server version:
+[INFO]   16.13 (Ubuntu 16.13-0ubuntu0.24.04.1)
+[INFO] Ensure database exists: sbtest
+[INFO] Check prepared tables in db=sbtest (expect 32 tables, size=1000000)
+[INFO] Prepared tables already present: 32/32.
+[INFO] Running benchmark: mode=readwrite threads=32 time_s=60 report_interval=5 rate=0
+[INFO] Done. Tail of log:
+[LOG] [ 45s ] thds: 32 tps: 1928.23 qps: 38580.51 (r/w/o: 27004.55/7719.50/3856.45) lat (ms,95%): 27.17 err/s: 0.00 reconn/s: 0.00
+[LOG] [ 50s ] thds: 32 tps: 2084.61 qps: 41714.86 (r/w/o: 29193.38/8352.25/4169.23) lat (ms,95%): 23.10 err/s: 0.00 reconn/s: 0.00
+[LOG] [ 55s ] thds: 32 tps: 2113.60 qps: 42234.57 (r/w/o: 29572.38/8434.99/4227.20) lat (ms,95%): 21.11 err/s: 0.00 reconn/s: 0.00
+[LOG] [ 60s ] thds: 32 tps: 1961.20 qps: 39227.80 (r/w/o: 27459.80/7845.60/3922.40) lat (ms,95%): 25.74 err/s: 0.00 reconn/s: 0.00
+[LOG] SQL statistics:
+[LOG]     queries performed:
+[LOG]         read:                            1644804
+[LOG]         write:                           469944
+[LOG]         other:                           234972
+[LOG]         total:                           2349720
+[LOG]     transactions:                        117486 (1957.28 per sec.)
+[LOG]     queries:                             2349720 (39145.65 per sec.)
+[LOG]     ignored errors:                      0      (0.00 per sec.)
+[LOG]     reconnects:                          0      (0.00 per sec.)
+[LOG] 
+[LOG] General statistics:
+[LOG]     total time:                          60.0246s
+[LOG]     total number of events:              117486
+[LOG] 
+[LOG] Latency (ms):
+[LOG]          min:                                    4.59
+[LOG]          avg:                                   16.34
+[LOG]          max:                                  131.27
+[LOG]          95th percentile:                       26.20
+[LOG]          sum:                              1919968.12
+[LOG] 
+[LOG] Threads fairness:
+[LOG]     events (avg/stddev):           3671.4375/26.30
+[LOG]     execution time (avg/stddev):   59.9990/0.01
+[LOG] 

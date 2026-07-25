@@ -1,0 +1,22 @@
+[mysqld]
+innodb_buffer_pool_size = 42949672960
+innodb_parallel_read_threads = 12
+innodb_io_capacity = 4000
+innodb_io_capacity_max = 8000
+innodb_read_ahead_threshold = 8
+innodb_random_read_ahead = ON
+innodb_old_blocks_pct = 20
+sort_buffer_size = 67108864
+join_buffer_size = 67108864
+read_buffer_size = 8388608
+read_rnd_buffer_size = 16777216
+tmp_table_size = 1073741824
+max_heap_table_size = 1073741824
+temptable_max_ram = 8589934592
+temptable_max_mmap = 8589934592
+range_optimizer_max_mem_size = 268435456
+optimizer_search_depth = 0
+optimizer_switch = index_merge=on,index_merge_union=on,index_merge_sort_union=on,index_merge_intersection=on,engine_condition_pushdown=on,index_condition_pushdown=on,mrr=on,mrr_cost_based=off,block_nested_loop=on,batched_key_access=on,materialization=on,semijoin=on,loosescan=on,firstmatch=on,duplicateweedout=on,subquery_materialization_cost_based=on,use_index_extensions=on,condition_fanout_filter=on,derived_merge=on,use_invisible_indexes=off,skip_scan=on,hash_join=on,subquery_to_derived=off,prefer_ordering_index=off,hypergraph_optimizer=off,derived_condition_pushdown=on
+innodb_buffer_pool_instances = 1
+performance_schema = OFF
+innodb_read_io_threads = 8

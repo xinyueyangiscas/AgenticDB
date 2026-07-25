@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="420" viewBox="0 0 920 420">
+<style>
+text { font-family: Segoe UI, Arial, sans-serif; fill: #172033; font-size: 13px; }
+.grid { stroke: #d9e0ea; stroke-width: 1; }
+.phase-line { stroke: #7c8798; stroke-width: 1.6; stroke-dasharray: 7 6; }
+.phase-label { fill: #475569; font-size: 12px; font-weight: 650; }
+.phase-label-bg { fill: #fbf7ef; stroke: #d9e0ea; stroke-width: 1; }
+.axis { stroke: #5d6b82; stroke-width: 1.4; }
+.curve { fill: none; stroke: #0f766e; stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
+.dot { fill: #f97316; stroke: white; stroke-width: 2; }
+</style>
+<rect x="0" y="0" width="920" height="420" rx="18" fill="#fbf7ef"/>
+<text x="72" y="26" font-size="18" font-weight="700">TPS / p95 over elapsed time</text>
+<line class="grid" x1="72.00" y1="42" x2="72.00" y2="358"/>
+<text x="72.00" y="396" text-anchor="middle">0.0m</text>
+<line class="grid" x1="277.00" y1="42" x2="277.00" y2="358"/>
+<text x="277.00" y="396" text-anchor="middle">6.4m</text>
+<line class="grid" x1="482.00" y1="42" x2="482.00" y2="358"/>
+<text x="482.00" y="396" text-anchor="middle">12.7m</text>
+<line class="grid" x1="687.00" y1="42" x2="687.00" y2="358"/>
+<text x="687.00" y="396" text-anchor="middle">19.1m</text>
+<line class="grid" x1="892.00" y1="42" x2="892.00" y2="358"/>
+<text x="892.00" y="396" text-anchor="middle">25.4m</text>
+<line class="grid" x1="72" y1="358.00" x2="892" y2="358.00"/>
+<text x="62" y="362.00" text-anchor="end">400.64</text>
+<line class="grid" x1="72" y1="279.00" x2="892" y2="279.00"/>
+<text x="62" y="283.00" text-anchor="end">584.79</text>
+<line class="grid" x1="72" y1="200.00" x2="892" y2="200.00"/>
+<text x="62" y="204.00" text-anchor="end">768.93</text>
+<line class="grid" x1="72" y1="121.00" x2="892" y2="121.00"/>
+<text x="62" y="125.00" text-anchor="end">953.08</text>
+<line class="grid" x1="72" y1="42.00" x2="892" y2="42.00"/>
+<text x="62" y="46.00" text-anchor="end">1137.22</text>
+<line class="phase-line" x1="780.75" y1="42" x2="780.75" y2="358"/>
+<line class="phase-line" x1="892.00" y1="42" x2="892.00" y2="358"/>
+<rect class="phase-label-bg" x="654.15" y="47.00" width="123.60" height="17" rx="6"/>
+<text class="phase-label" x="772.75" y="60.00" text-anchor="end">os_sysctl starts</text>
+<rect class="phase-label-bg" x="758.30" y="66.00" width="130.70" height="17" rx="6"/>
+<text class="phase-label" x="884.00" y="79.00" text-anchor="end">os_control starts</text>
+<line class="axis" x1="72" y1="358" x2="892" y2="358"/>
+<line class="axis" x1="72" y1="42" x2="72" y2="358"/>
+<text x="482.00" y="414" text-anchor="middle">elapsed time</text>
+<text transform="translate(20 200.00) rotate(-90)" text-anchor="middle">TPS / p95</text>
+<polyline class="curve" points="72.00,332.00 191.57,336.21 263.42,190.12 349.12,197.76 436.98,74.82 508.49,65.00 575.57,68.18 644.99,86.89 723.59,67.06 780.75,65.72 834.90,67.56 892.00,63.79"/>
+<circle class="dot" cx="72.00" cy="332.00" r="5"><title>baseline: 461.24</title></circle>
+<circle class="dot" cx="191.57" cy="336.21" r="5"><title>round 1: 451.44</title></circle>
+<circle class="dot" cx="263.42" cy="190.12" r="5"><title>round 2: 791.96</title></circle>
+<circle class="dot" cx="349.12" cy="197.76" r="5"><title>round 3: 774.15</title></circle>
+<circle class="dot" cx="436.98" cy="74.82" r="5"><title>round 4: 1060.73</title></circle>
+<circle class="dot" cx="508.49" cy="65.00" r="5"><title>round 5: 1083.60</title></circle>
+<circle class="dot" cx="575.57" cy="68.18" r="5"><title>round 6: 1076.19</title></circle>
+<circle class="dot" cx="644.99" cy="86.89" r="5"><title>round 7: 1032.59</title></circle>
+<circle class="dot" cx="723.59" cy="67.06" r="5"><title>round 8: 1078.80</title></circle>
+<circle class="dot" cx="780.75" cy="65.72" r="5"><title>round 9: 1081.93</title></circle>
+<circle class="dot" cx="834.90" cy="67.56" r="5"><title>round 10: 1077.66</title></circle>
+<circle class="dot" cx="892.00" cy="63.79" r="5"><title>round 11: 1086.42</title></circle>
+</svg>

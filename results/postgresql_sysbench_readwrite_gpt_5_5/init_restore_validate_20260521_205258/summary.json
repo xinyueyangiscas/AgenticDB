@@ -1,0 +1,30 @@
+{
+  "artifact_dir": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260515_233108_pg59_rw_clean_prompt_nohistory\\init_restore_validate_20260521_205258",
+  "restored_at": "2026-05-21 20:54:18",
+  "permission_fix_stdout": "-rw------- 1 postgres postgres 7920 May 21 12:53 /var/lib/postgresql/16/main/postgresql.auto.conf",
+  "restore_fail_count": 0,
+  "verified_settings": {
+    "listen_addresses": "localhost",
+    "shared_buffers": "128MB",
+    "effective_cache_size": "4GB",
+    "effective_io_concurrency": "1",
+    "max_connections": "100",
+    "checkpoint_timeout": "5min",
+    "autovacuum": "on",
+    "fsync": "on",
+    "full_page_writes": "on",
+    "ssl": "on",
+    "synchronous_commit": "on",
+    "track_activities": "on",
+    "track_counts": "on",
+    "compute_query_id": "auto",
+    "wal_compression": "off",
+    "work_mem": "4MB",
+    "wal_buffers": "4MB"
+  },
+  "tps": 1957.28,
+  "p95_ms": 26.2,
+  "score": 74.70534351145038,
+  "ignored_errors": 0,
+  "elapsed_s_total": 79.30471420288086
+}

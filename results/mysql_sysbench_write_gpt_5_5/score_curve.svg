@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="420" viewBox="0 0 920 420">
+<style>
+text { font-family: Segoe UI, Arial, sans-serif; fill: #172033; font-size: 13px; }
+.grid { stroke: #d9e0ea; stroke-width: 1; }
+.phase-line { stroke: #7c8798; stroke-width: 1.6; stroke-dasharray: 7 6; }
+.phase-label { fill: #475569; font-size: 12px; font-weight: 650; }
+.phase-label-bg { fill: #fbf7ef; stroke: #d9e0ea; stroke-width: 1; }
+.axis { stroke: #5d6b82; stroke-width: 1.4; }
+.curve { fill: none; stroke: #0f766e; stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
+.dot { fill: #f97316; stroke: white; stroke-width: 2; }
+</style>
+<rect x="0" y="0" width="920" height="420" rx="18" fill="#fbf7ef"/>
+<text x="72" y="26" font-size="18" font-weight="700">TPS / p95 over elapsed time</text>
+<line class="grid" x1="72.00" y1="42" x2="72.00" y2="358"/>
+<text x="72.00" y="396" text-anchor="middle">0.0m</text>
+<line class="grid" x1="277.00" y1="42" x2="277.00" y2="358"/>
+<text x="277.00" y="396" text-anchor="middle">9.2m</text>
+<line class="grid" x1="482.00" y1="42" x2="482.00" y2="358"/>
+<text x="482.00" y="396" text-anchor="middle">18.5m</text>
+<line class="grid" x1="687.00" y1="42" x2="687.00" y2="358"/>
+<text x="687.00" y="396" text-anchor="middle">27.7m</text>
+<line class="grid" x1="892.00" y1="42" x2="892.00" y2="358"/>
+<text x="892.00" y="396" text-anchor="middle">37.0m</text>
+<line class="grid" x1="72" y1="358.00" x2="892" y2="358.00"/>
+<text x="62" y="362.00" text-anchor="end">-508.09</text>
+<line class="grid" x1="72" y1="279.00" x2="892" y2="279.00"/>
+<text x="62" y="283.00" text-anchor="end">1554.13</text>
+<line class="grid" x1="72" y1="200.00" x2="892" y2="200.00"/>
+<text x="62" y="204.00" text-anchor="end">3616.36</text>
+<line class="grid" x1="72" y1="121.00" x2="892" y2="121.00"/>
+<text x="62" y="125.00" text-anchor="end">5678.58</text>
+<line class="grid" x1="72" y1="42.00" x2="892" y2="42.00"/>
+<text x="62" y="46.00" text-anchor="end">7740.80</text>
+<line class="phase-line" x1="675.21" y1="42" x2="675.21" y2="358"/>
+<line class="phase-line" x1="892.00" y1="42" x2="892.00" y2="358"/>
+<rect class="phase-label-bg" x="678.21" y="47.00" width="123.60" height="17" rx="6"/>
+<text class="phase-label" x="683.21" y="60.00" text-anchor="start">os_sysctl starts</text>
+<rect class="phase-label-bg" x="758.30" y="66.00" width="130.70" height="17" rx="6"/>
+<text class="phase-label" x="884.00" y="79.00" text-anchor="end">os_control starts</text>
+<line class="axis" x1="72" y1="358" x2="892" y2="358"/>
+<line class="axis" x1="72" y1="42" x2="72" y2="358"/>
+<text x="482.00" y="414" text-anchor="middle">elapsed time</text>
+<text transform="translate(20 200.00) rotate(-90)" text-anchor="middle">TPS / p95</text>
+<polyline class="curve" points="72.00,336.21 195.72,240.26 271.98,153.97 347.63,120.90 422.62,116.95 499.93,126.16 604.05,136.29 675.21,142.80 727.42,71.63 783.75,63.79 834.52,68.10 892.00,65.42"/>
+<circle class="dot" cx="72.00" cy="336.21" r="5"><title>baseline: 60.80</title></circle>
+<circle class="dot" cx="195.72" cy="240.26" r="5"><title>round 1: 2565.30</title></circle>
+<circle class="dot" cx="271.98" cy="153.97" r="5"><title>round 2: 4817.83</title></circle>
+<circle class="dot" cx="347.63" cy="120.90" r="5"><title>round 3: 5681.26</title></circle>
+<circle class="dot" cx="422.62" cy="116.95" r="5"><title>round 4: 5784.22</title></circle>
+<circle class="dot" cx="499.93" cy="126.16" r="5"><title>round 5: 5543.99</title></circle>
+<circle class="dot" cx="604.05" cy="136.29" r="5"><title>round 7: 5279.54</title></circle>
+<circle class="dot" cx="675.21" cy="142.80" r="5"><title>round 8: 5109.59</title></circle>
+<circle class="dot" cx="727.42" cy="71.63" r="5"><title>round 9: 6967.33</title></circle>
+<circle class="dot" cx="783.75" cy="63.79" r="5"><title>round 10: 7171.91</title></circle>
+<circle class="dot" cx="834.52" cy="68.10" r="5"><title>round 11: 7059.43</title></circle>
+<circle class="dot" cx="892.00" cy="65.42" r="5"><title>round 12: 7129.51</title></circle>
+</svg>

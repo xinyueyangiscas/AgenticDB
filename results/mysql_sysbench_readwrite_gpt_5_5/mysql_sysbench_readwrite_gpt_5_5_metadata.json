@@ -1,0 +1,35 @@
+{
+  "experiment_id": "mysql_sysbench_readwrite_gpt_5_5",
+  "title": "MySQL Sysbench ReadWrite - GPT-5.5",
+  "dbms": "MySQL",
+  "workload": "Sysbench ReadWrite",
+  "llm_backend": "GPT-5.5",
+  "paper_label": "GPT-5.5",
+  "cross_task_experience_memory": false,
+  "roles": [
+    "main effectiveness"
+  ],
+  "source_run_id": "20260515_164013_mysql55_rw_494curated",
+  "curve_file": "mysql_sysbench_readwrite_gpt_5_5/mysql_sysbench_readwrite_gpt_5_5_curve.csv",
+  "curve_columns": [
+    "step",
+    "elapsed_minutes",
+    "score",
+    "best_so_far",
+    "tps",
+    "p95_latency_ms",
+    "phase"
+  ],
+  "curve_points": 10,
+  "end_minutes": 24.500379,
+  "final_best_so_far": 470.4510595358224,
+  "notes": "",
+  "source_directory": "runs/20260515_164013_mysql55_rw_494curated",
+  "excluded_private_files": [
+    "trace.jsonl",
+    "report.json"
+  ],
+  "privacy_sanitization": "Sensitive deployment values were replaced with placeholders.",
+  "original_files_copied": 44,
+  "original_files_excluded": 2
+}

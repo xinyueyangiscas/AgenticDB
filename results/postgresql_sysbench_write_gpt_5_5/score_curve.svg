@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="420" viewBox="0 0 920 420">
+<style>
+text { font-family: Segoe UI, Arial, sans-serif; fill: #172033; font-size: 13px; }
+.grid { stroke: #d9e0ea; stroke-width: 1; }
+.phase-line { stroke: #7c8798; stroke-width: 1.6; stroke-dasharray: 7 6; }
+.phase-label { fill: #475569; font-size: 12px; font-weight: 650; }
+.phase-label-bg { fill: #fbf7ef; stroke: #d9e0ea; stroke-width: 1; }
+.axis { stroke: #5d6b82; stroke-width: 1.4; }
+.curve { fill: none; stroke: #0f766e; stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
+.dot { fill: #f97316; stroke: white; stroke-width: 2; }
+</style>
+<rect x="0" y="0" width="920" height="420" rx="18" fill="#fbf7ef"/>
+<text x="72" y="26" font-size="18" font-weight="700">TPS / p95 over elapsed time</text>
+<line class="grid" x1="72.00" y1="42" x2="72.00" y2="358"/>
+<text x="72.00" y="396" text-anchor="middle">0.0m</text>
+<line class="grid" x1="277.00" y1="42" x2="277.00" y2="358"/>
+<text x="277.00" y="396" text-anchor="middle">7.4m</text>
+<line class="grid" x1="482.00" y1="42" x2="482.00" y2="358"/>
+<text x="482.00" y="396" text-anchor="middle">14.9m</text>
+<line class="grid" x1="687.00" y1="42" x2="687.00" y2="358"/>
+<text x="687.00" y="396" text-anchor="middle">22.3m</text>
+<line class="grid" x1="892.00" y1="42" x2="892.00" y2="358"/>
+<text x="892.00" y="396" text-anchor="middle">29.7m</text>
+<line class="grid" x1="72" y1="358.00" x2="892" y2="358.00"/>
+<text x="62" y="362.00" text-anchor="end">-262.63</text>
+<line class="grid" x1="72" y1="279.00" x2="892" y2="279.00"/>
+<text x="62" y="283.00" text-anchor="end">4030.25</text>
+<line class="grid" x1="72" y1="200.00" x2="892" y2="200.00"/>
+<text x="62" y="204.00" text-anchor="end">8323.14</text>
+<line class="grid" x1="72" y1="121.00" x2="892" y2="121.00"/>
+<text x="62" y="125.00" text-anchor="end">12616.02</text>
+<line class="grid" x1="72" y1="42.00" x2="892" y2="42.00"/>
+<text x="62" y="46.00" text-anchor="end">16908.91</text>
+<line class="phase-line" x1="731.39" y1="42" x2="731.39" y2="358"/>
+<line class="phase-line" x1="892.00" y1="42" x2="892.00" y2="358"/>
+<rect class="phase-label-bg" x="734.39" y="47.00" width="123.60" height="17" rx="6"/>
+<text class="phase-label" x="739.39" y="60.00" text-anchor="start">os_sysctl starts</text>
+<rect class="phase-label-bg" x="758.30" y="66.00" width="130.70" height="17" rx="6"/>
+<text class="phase-label" x="884.00" y="79.00" text-anchor="end">os_control starts</text>
+<line class="axis" x1="72" y1="358" x2="892" y2="358"/>
+<line class="axis" x1="72" y1="42" x2="72" y2="358"/>
+<text x="482.00" y="414" text-anchor="middle">elapsed time</text>
+<text transform="translate(20 200.00) rotate(-90)" text-anchor="middle">TPS / p95</text>
+<polyline class="curve" points="72.00,336.21 209.14,138.86 279.05,95.37 370.73,134.08 450.29,78.62 533.55,151.25 602.74,82.89 670.75,83.28 731.39,98.58 785.68,63.79 833.71,68.56 892.00,112.57"/>
+<circle class="dot" cx="72.00" cy="336.21" r="5"><title>baseline: 921.61</title></circle>
+<circle class="dot" cx="209.14" cy="138.86" r="5"><title>round 2: 11645.48</title></circle>
+<circle class="dot" cx="279.05" cy="95.37" r="5"><title>round 3: 14008.95</title></circle>
+<circle class="dot" cx="370.73" cy="134.08" r="5"><title>round 4: 11905.16</title></circle>
+<circle class="dot" cx="450.29" cy="78.62" r="5"><title>round 5: 14918.81</title></circle>
+<circle class="dot" cx="533.55" cy="151.25" r="5"><title>round 6: 10972.26</title></circle>
+<circle class="dot" cx="602.74" cy="82.89" r="5"><title>round 7: 14686.99</title></circle>
+<circle class="dot" cx="670.75" cy="83.28" r="5"><title>round 8: 14665.92</title></circle>
+<circle class="dot" cx="731.39" cy="98.58" r="5"><title>round 9: 13834.50</title></circle>
+<circle class="dot" cx="785.68" cy="63.79" r="5"><title>round 10: 15724.66</title></circle>
+<circle class="dot" cx="833.71" cy="68.56" r="5"><title>round 11: 15465.83</title></circle>
+<circle class="dot" cx="892.00" cy="112.57" r="5"><title>round 12: 13074.24</title></circle>
+</svg>

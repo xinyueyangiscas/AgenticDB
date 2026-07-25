@@ -1,0 +1,557 @@
+{
+  "before": [
+    [
+      "bgwriter_lru_maxpages",
+      "100",
+      null,
+      "sighup",
+      "default",
+      "",
+      false
+    ],
+    [
+      "checkpoint_timeout",
+      "300",
+      "s",
+      "sighup",
+      "default",
+      "",
+      false
+    ],
+    [
+      "commit_delay",
+      "0",
+      null,
+      "superuser",
+      "default",
+      "",
+      false
+    ],
+    [
+      "commit_siblings",
+      "5",
+      null,
+      "user",
+      "default",
+      "",
+      false
+    ],
+    [
+      "compute_query_id",
+      "auto",
+      null,
+      "superuser",
+      "default",
+      "",
+      false
+    ],
+    [
+      "effective_cache_size",
+      "524288",
+      "8kB",
+      "user",
+      "default",
+      "",
+      false
+    ],
+    [
+      "effective_io_concurrency",
+      "1",
+      null,
+      "user",
+      "default",
+      "",
+      false
+    ],
+    [
+      "huge_pages",
+      "try",
+      null,
+      "postmaster",
+      "default",
+      "",
+      false
+    ],
+    [
+      "jit",
+      "on",
+      null,
+      "user",
+      "default",
+      "",
+      false
+    ],
+    [
+      "log_checkpoints",
+      "on",
+      null,
+      "sighup",
+      "default",
+      "",
+      false
+    ],
+    [
+      "maintenance_work_mem",
+      "65536",
+      "kB",
+      "user",
+      "default",
+      "",
+      false
+    ],
+    [
+      "max_connections",
+      "100",
+      null,
+      "postmaster",
+      "configuration file",
+      "/etc/postgresql/16/main/postgresql.conf",
+      false
+    ],
+    [
+      "max_parallel_workers_per_gather",
+      "2",
+      null,
+      "user",
+      "default",
+      "",
+      false
+    ],
+    [
+      "max_wal_senders",
+      "10",
+      null,
+      "postmaster",
+      "default",
+      "",
+      false
+    ],
+    [
+      "max_wal_size",
+      "1024",
+      "MB",
+      "sighup",
+      "configuration file",
+      "/etc/postgresql/16/main/postgresql.conf",
+      false
+    ],
+    [
+      "min_wal_size",
+      "80",
+      "MB",
+      "sighup",
+      "configuration file",
+      "/etc/postgresql/16/main/postgresql.conf",
+      false
+    ],
+    [
+      "plan_cache_mode",
+      "auto",
+      null,
+      "user",
+      "default",
+      "",
+      false
+    ],
+    [
+      "random_page_cost",
+      "4",
+      null,
+      "user",
+      "default",
+      "",
+      false
+    ],
+    [
+      "shared_buffers",
+      "16384",
+      "8kB",
+      "postmaster",
+      "configuration file",
+      "/etc/postgresql/16/main/postgresql.conf",
+      false
+    ],
+    [
+      "ssl",
+      "on",
+      null,
+      "sighup",
+      "configuration file",
+      "/etc/postgresql/16/main/postgresql.conf",
+      false
+    ],
+    [
+      "track_activities",
+      "on",
+      null,
+      "superuser",
+      "default",
+      "",
+      false
+    ],
+    [
+      "track_counts",
+      "on",
+      null,
+      "superuser",
+      "default",
+      "",
+      false
+    ],
+    [
+      "update_process_title",
+      "on",
+      null,
+      "superuser",
+      "default",
+      "",
+      false
+    ],
+    [
+      "wal_buffers",
+      "512",
+      "8kB",
+      "postmaster",
+      "default",
+      "",
+      false
+    ],
+    [
+      "wal_writer_delay",
+      "200",
+      "ms",
+      "sighup",
+      "default",
+      "",
+      false
+    ],
+    [
+      "work_mem",
+      "4096",
+      "kB",
+      "user",
+      "default",
+      "",
+      false
+    ]
+  ],
+  "restore_stdout": "vm.nr_hugepages = 0\r\r\ntry\r\n128MB\r\n4GB\r\non\r\non\r\non\r\n100\r\n4\r\n1\r\non\r\n4MB\r\nauto\r\non\r\nauto\r\nHugePages_Total:       0\r\nHugePages_Free:        0\r\nHugePages_Rsvd:        0\r\nHugetlb:               0 kB\r\n",
+  "restore_stderr": "",
+  "after": [
+    [
+      "bgwriter_lru_maxpages",
+      "100",
+      null,
+      "sighup",
+      "default",
+      "",
+      false
+    ],
+    [
+      "checkpoint_timeout",
+      "300",
+      "s",
+      "sighup",
+      "default",
+      "",
+      false
+    ],
+    [
+      "commit_delay",
+      "0",
+      null,
+      "superuser",
+      "default",
+      "",
+      false
+    ],
+    [
+      "commit_siblings",
+      "5",
+      null,
+      "user",
+      "default",
+      "",
+      false
+    ],
+    [
+      "compute_query_id",
+      "auto",
+      null,
+      "superuser",
+      "default",
+      "",
+      false
+    ],
+    [
+      "effective_cache_size",
+      "524288",
+      "8kB",
+      "user",
+      "default",
+      "",
+      false
+    ],
+    [
+      "effective_io_concurrency",
+      "1",
+      null,
+      "user",
+      "default",
+      "",
+      false
+    ],
+    [
+      "huge_pages",
+      "try",
+      null,
+      "postmaster",
+      "default",
+      "",
+      false
+    ],
+    [
+      "jit",
+      "on",
+      null,
+      "user",
+      "default",
+      "",
+      false
+    ],
+    [
+      "log_checkpoints",
+      "on",
+      null,
+      "sighup",
+      "default",
+      "",
+      false
+    ],
+    [
+      "maintenance_work_mem",
+      "65536",
+      "kB",
+      "user",
+      "default",
+      "",
+      false
+    ],
+    [
+      "max_connections",
+      "100",
+      null,
+      "postmaster",
+      "configuration file",
+      "/etc/postgresql/16/main/postgresql.conf",
+      false
+    ],
+    [
+      "max_parallel_workers_per_gather",
+      "2",
+      null,
+      "user",
+      "default",
+      "",
+      false
+    ],
+    [
+      "max_wal_senders",
+      "10",
+      null,
+      "postmaster",
+      "default",
+      "",
+      false
+    ],
+    [
+      "max_wal_size",
+      "1024",
+      "MB",
+      "sighup",
+      "configuration file",
+      "/etc/postgresql/16/main/postgresql.conf",
+      false
+    ],
+    [
+      "min_wal_size",
+      "80",
+      "MB",
+      "sighup",
+      "configuration file",
+      "/etc/postgresql/16/main/postgresql.conf",
+      false
+    ],
+    [
+      "plan_cache_mode",
+      "auto",
+      null,
+      "user",
+      "default",
+      "",
+      false
+    ],
+    [
+      "random_page_cost",
+      "4",
+      null,
+      "user",
+      "default",
+      "",
+      false
+    ],
+    [
+      "shared_buffers",
+      "16384",
+      "8kB",
+      "postmaster",
+      "configuration file",
+      "/etc/postgresql/16/main/postgresql.conf",
+      false
+    ],
+    [
+      "ssl",
+      "on",
+      null,
+      "sighup",
+      "configuration file",
+      "/etc/postgresql/16/main/postgresql.conf",
+      false
+    ],
+    [
+      "track_activities",
+      "on",
+      null,
+      "superuser",
+      "default",
+      "",
+      false
+    ],
+    [
+      "track_counts",
+      "on",
+      null,
+      "superuser",
+      "default",
+      "",
+      false
+    ],
+    [
+      "update_process_title",
+      "on",
+      null,
+      "superuser",
+      "default",
+      "",
+      false
+    ],
+    [
+      "wal_buffers",
+      "512",
+      "8kB",
+      "postmaster",
+      "default",
+      "",
+      false
+    ],
+    [
+      "wal_writer_delay",
+      "200",
+      "ms",
+      "sighup",
+      "default",
+      "",
+      false
+    ],
+    [
+      "work_mem",
+      "4096",
+      "kB",
+      "user",
+      "default",
+      "",
+      false
+    ]
+  ],
+  "bench_stdout": "[INFO] sysbench(pg) log => /tmp/sb_pg_restore_verify_20260521.log\r\n[INFO] Connected. Server version:\r\n[INFO]   16.13 (Ubuntu 16.13-0ubuntu0.24.04.1)\r\n[INFO] Ensure database exists: sbtest\r\n[INFO] Check prepared tables in db=sbtest (expect 32 tables, size=1000000)\r\n[INFO] Prepared tables already present: 32/32.\r\n[INFO] Running benchmark: mode=read threads=64 time_s=60 report_interval=5 rate=0\r\n[INFO] Done. Tail of log:\r\n[LOG] [ 45s ] thds: 64 tps: 6446.20 qps: 103159.01 (r/w/o: 90266.01/0.00/12893.00) lat (ms,95%): 13.46 err/s: 0.00 reconn/s: 0.00\r\n[LOG] [ 50s ] thds: 64 tps: 6436.40 qps: 102970.32 (r/w/o: 90097.93/0.00/12872.39) lat (ms,95%): 13.46 err/s: 0.00 reconn/s: 0.00\r\n[LOG] [ 55s ] thds: 64 tps: 6438.00 qps: 103005.64 (r/w/o: 90129.23/0.00/12876.40) lat (ms,95%): 13.46 err/s: 0.00 reconn/s: 0.00\r\n[LOG] [ 60s ] thds: 64 tps: 6421.12 qps: 102727.34 (r/w/o: 89885.50/0.00/12841.84) lat (ms,95%): 13.46 err/s: 0.00 reconn/s: 0.00\r\n[LOG] SQL statistics:\r\n[LOG]     queries performed:\r\n[LOG]         read:                            5355392\r\n[LOG]         write:                           0\r\n[LOG]         other:                           765056\r\n[LOG]         total:                           6120448\r\n[LOG]     transactions:                        382528 (6372.08 per sec.)\r\n[LOG]     queries:                             6120448 (101953.32 per sec.)\r\n[LOG]     ignored errors:                      0      (0.00 per sec.)\r\n[LOG]     reconnects:                          0      (0.00 per sec.)\r\n[LOG] \r\n[LOG] General statistics:\r\n[LOG]     total time:                          60.0315s\r\n[LOG]     total number of events:              382528\r\n[LOG] \r\n[LOG] Latency (ms):\r\n[LOG]          min:                                    1.66\r\n[LOG]          avg:                                   10.04\r\n[LOG]          max:                                   27.11\r\n[LOG]          95th percentile:                       13.70\r\n[LOG]          sum:                              3839784.21\r\n[LOG] \r\n[LOG] Threads fairness:\r\n[LOG]     events (avg/stddev):           5977.0000/145.89\r\n[LOG]     execution time (avg/stddev):   59.9966/0.01\r\n[LOG] \r\n__LOG__\r\n$ sysbench /usr/share/sysbench/oltp_read_only.lua --db-driver=pgsql --threads=64 --time=60 run\r\nsysbench 1.0.20 (using system LuaJIT 2.1.0-beta3)\r\n\r\nRunning the test with following options:\r\nNumber of threads: 64\r\nReport intermediate results every 5 second(s)\r\nInitializing random number generator from current time\r\n\r\n\r\nInitializing worker threads...\r\n\r\nThreads started!\r\n\r\n[ 5s ] thds: 64 tps: 5887.38 qps: 94323.79 (r/w/o: 82537.24/0.00/11786.55) lat (ms,95%): 15.83 err/s: 0.00 reconn/s: 0.00\r\n[ 10s ] thds: 64 tps: 6300.25 qps: 100804.57 (r/w/o: 88203.08/0.00/12601.50) lat (ms,95%): 14.21 err/s: 0.00 reconn/s: 0.00\r\n[ 15s ] thds: 64 tps: 6389.79 qps: 102222.59 (r/w/o: 89443.82/0.00/12778.77) lat (ms,95%): 13.70 err/s: 0.00 reconn/s: 0.00\r\n[ 20s ] thds: 64 tps: 6419.21 qps: 102722.16 (r/w/o: 89883.74/0.00/12838.42) lat (ms,95%): 13.46 err/s: 0.00 reconn/s: 0.00\r\n[ 25s ] thds: 64 tps: 6437.61 qps: 102990.77 (r/w/o: 90114.95/0.00/12875.82) lat (ms,95%): 13.70 err/s: 0.00 reconn/s: 0.00\r\n[ 30s ] thds: 64 tps: 6431.20 qps: 102908.98 (r/w/o: 90046.98/0.00/12862.00) lat (ms,95%): 13.95 err/s: 0.00 reconn/s: 0.00\r\n[ 35s ] thds: 64 tps: 6444.68 qps: 103124.70 (r/w/o: 90235.34/0.00/12889.36) lat (ms,95%): 13.46 err/s: 0.00 reconn/s: 0.00\r\n[ 40s ] thds: 64 tps: 6440.72 qps: 103035.94 (r/w/o: 90154.49/0.00/12881.44) lat (ms,95%): 13.95 err/s: 0.00 reconn/s: 0.00\r\n[ 45s ] thds: 64 tps: 6446.20 qps: 103159.01 (r/w/o: 90266.01/0.00/12893.00) lat (ms,95%): 13.46 err/s: 0.00 reconn/s: 0.00\r\n[ 50s ] thds: 64 tps: 6436.40 qps: 102970.32 (r/w/o: 90097.93/0.00/12872.39) lat (ms,95%): 13.46 err/s: 0.00 reconn/s: 0.00\r\n[ 55s ] thds: 64 tps: 6438.00 qps: 103005.64 (r/w/o: 90129.23/0.00/12876.40) lat (ms,95%): 13.46 err/s: 0.00 reconn/s: 0.00\r\n[ 60s ] thds: 64 tps: 6421.12 qps: 102727.34 (r/w/o: 89885.50/0.00/12841.84) lat (ms,95%): 13.46 err/s: 0.00 reconn/s: 0.00\r\nSQL statistics:\r\n    queries performed:\r\n        read:                            5355392\r\n        write:                           0\r\n        other:                           765056\r\n        total:                           6120448\r\n    transactions:                        382528 (6372.08 per sec.)\r\n    queries:                             6120448 (101953.32 per sec.)\r\n    ignored errors:                      0      (0.00 per sec.)\r\n    reconnects:                          0      (0.00 per sec.)\r\n\r\nGeneral statistics:\r\n    total time:                          60.0315s\r\n    total number of events:              382528\r\n\r\nLatency (ms):\r\n         min:                                    1.66\r\n         avg:                                   10.04\r\n         max:                                   27.11\r\n         95th percentile:                       13.70\r\n         sum:                              3839784.21\r\n\r\nThreads fairness:\r\n    events (avg/stddev):           5977.0000/145.89\r\n    execution time (avg/stddev):   59.9966/0.01\r\n\r\n",
+  "bench_stderr": "",
+  "bench_parsed": {
+    "summary_tps": 6372.08,
+    "summary_p95": 13.7,
+    "summary_score": 465.1153284671533,
+    "intervals": [
+      {
+        "sec": 5,
+        "tps": 5887.38,
+        "lat": 15.83,
+        "score": 371.9128237523689
+      },
+      {
+        "sec": 10,
+        "tps": 6300.25,
+        "lat": 14.21,
+        "score": 443.3673469387755
+      },
+      {
+        "sec": 15,
+        "tps": 6389.79,
+        "lat": 13.7,
+        "score": 466.40802919708034
+      },
+      {
+        "sec": 20,
+        "tps": 6419.21,
+        "lat": 13.46,
+        "score": 476.91010401188703
+      },
+      {
+        "sec": 25,
+        "tps": 6437.61,
+        "lat": 13.7,
+        "score": 469.8985401459854
+      },
+      {
+        "sec": 30,
+        "tps": 6431.2,
+        "lat": 13.95,
+        "score": 461.0179211469534
+      },
+      {
+        "sec": 35,
+        "tps": 6444.68,
+        "lat": 13.46,
+        "score": 478.80237741456165
+      },
+      {
+        "sec": 40,
+        "tps": 6440.72,
+        "lat": 13.95,
+        "score": 461.70035842293913
+      },
+      {
+        "sec": 45,
+        "tps": 6446.2,
+        "lat": 13.46,
+        "score": 478.9153046062407
+      },
+      {
+        "sec": 50,
+        "tps": 6436.4,
+        "lat": 13.46,
+        "score": 478.187221396731
+      },
+      {
+        "sec": 55,
+        "tps": 6438.0,
+        "lat": 13.46,
+        "score": 478.30609212481426
+      },
+      {
+        "sec": 60,
+        "tps": 6421.12,
+        "lat": 13.46,
+        "score": 477.05200594353636
+      }
+    ]
+  }
+}

@@ -1,0 +1,196 @@
+{
+  "artifact_dir": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260515_233108_pg59_rw_clean_prompt_nohistory\\init_restore_validate_20260521_205258",
+  "restored_at": "2026-05-21 20:54:18",
+  "run_dir": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260515_233108_pg59_rw_clean_prompt_nohistory",
+  "local_csv": "<PAPER_WORKSPACE>\\pg_knobs_initial.csv",
+  "remote_csv": "/tmp/pg_knobs_initial_1779367979.csv",
+  "permission_fix_stdout": "-rw------- 1 postgres postgres 7920 May 21 12:53 /var/lib/postgresql/16/main/postgresql.auto.conf\n",
+  "permission_fix_stderr": "",
+  "restore_log": "/tmp/pg_restore_1779367981.log",
+  "restore_fail_count": 0,
+  "restore_fail_lines_head": "",
+  "verified_settings": {
+    "listen_addresses": "localhost",
+    "shared_buffers": "128MB",
+    "effective_cache_size": "4GB",
+    "effective_io_concurrency": "1",
+    "max_connections": "100",
+    "checkpoint_timeout": "5min",
+    "autovacuum": "on",
+    "fsync": "on",
+    "full_page_writes": "on",
+    "ssl": "on",
+    "synchronous_commit": "on",
+    "track_activities": "on",
+    "track_counts": "on",
+    "compute_query_id": "auto",
+    "wal_compression": "off",
+    "work_mem": "4MB",
+    "wal_buffers": "4MB"
+  },
+  "setting_sources": [
+    {
+      "name": "autovacuum",
+      "source": "configuration file",
+      "sourcefile": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+      "pending_restart": false
+    },
+    {
+      "name": "checkpoint_timeout",
+      "source": "configuration file",
+      "sourcefile": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+      "pending_restart": false
+    },
+    {
+      "name": "compute_query_id",
+      "source": "configuration file",
+      "sourcefile": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+      "pending_restart": false
+    },
+    {
+      "name": "effective_cache_size",
+      "source": "configuration file",
+      "sourcefile": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+      "pending_restart": false
+    },
+    {
+      "name": "effective_io_concurrency",
+      "source": "configuration file",
+      "sourcefile": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+      "pending_restart": false
+    },
+    {
+      "name": "fsync",
+      "source": "configuration file",
+      "sourcefile": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+      "pending_restart": false
+    },
+    {
+      "name": "full_page_writes",
+      "source": "configuration file",
+      "sourcefile": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+      "pending_restart": false
+    },
+    {
+      "name": "max_connections",
+      "source": "configuration file",
+      "sourcefile": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+      "pending_restart": false
+    },
+    {
+      "name": "shared_buffers",
+      "source": "configuration file",
+      "sourcefile": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+      "pending_restart": false
+    },
+    {
+      "name": "ssl",
+      "source": "configuration file",
+      "sourcefile": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+      "pending_restart": false
+    },
+    {
+      "name": "synchronous_commit",
+      "source": "configuration file",
+      "sourcefile": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+      "pending_restart": false
+    },
+    {
+      "name": "track_activities",
+      "source": "configuration file",
+      "sourcefile": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+      "pending_restart": false
+    },
+    {
+      "name": "track_counts",
+      "source": "configuration file",
+      "sourcefile": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+      "pending_restart": false
+    },
+    {
+      "name": "wal_buffers",
+      "source": "configuration file",
+      "sourcefile": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+      "pending_restart": false
+    },
+    {
+      "name": "wal_compression",
+      "source": "configuration file",
+      "sourcefile": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+      "pending_restart": false
+    },
+    {
+      "name": "work_mem",
+      "source": "configuration file",
+      "sourcefile": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+      "pending_restart": false
+    }
+  ],
+  "listen_socket_check": [
+    "LISTEN 0      200        127.0.0.1:5432       0.0.0.0:*"
+  ],
+  "benchmark": {
+    "mode": "readwrite",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "seconds": 60,
+    "tps": 1957.28,
+    "p95_ms": 26.2,
+    "score": 74.70534351145038,
+    "avg_latency_ms": 16.34,
+    "total_time_s": 60.0246,
+    "ignored_errors": 0,
+    "remote_log": "/tmp/restore_initial_validate_1779367997.log"
+  },
+  "metrics": {
+    "pg_stat_database": {
+      "numbackends": 0,
+      "xact_commit": 469327,
+      "xact_rollback": 0,
+      "blks_read": 51413531,
+      "blks_hit": 169514290,
+      "tup_returned": 187394703,
+      "tup_fetched": 186314758,
+      "tup_inserted": 450696,
+      "tup_updated": 901390,
+      "tup_deleted": 450696,
+      "temp_files": 0,
+      "temp_bytes": 0,
+      "deadlocks": 0,
+      "blk_read_time": 0,
+      "blk_write_time": 0,
+      "session_time": 3854165.605,
+      "active_time": 2053610.297,
+      "idle_in_transaction_time": 1541132.148,
+      "sessions": 66,
+      "sessions_abandoned": 0,
+      "sessions_fatal": 0,
+      "sessions_killed": 0
+    },
+    "pg_stat_bgwriter": {
+      "checkpoints_timed": 0,
+      "checkpoints_req": 8,
+      "checkpoint_write_time": 36704,
+      "checkpoint_sync_time": 14483,
+      "buffers_checkpoint": 20,
+      "buffers_clean": 29200,
+      "maxwritten_clean": 292,
+      "buffers_backend": 1331701,
+      "buffers_backend_fsync": 0,
+      "buffers_alloc": 51407682
+    },
+    "pg_stat_wal": {
+      "wal_records": 1198458,
+      "wal_fpi": 817342,
+      "wal_bytes": 5165681167,
+      "wal_buffers_full": 0,
+      "wal_write": 48312,
+      "wal_sync": 47382,
+      "wal_write_time": 0,
+      "wal_sync_time": 0
+    }
+  },
+  "elapsed_s_total": 79.30471420288086,
+  "restore_stdout": "[info] PG: 127.0.0.1:5432 user=postgres  CSV=/tmp/pg_knobs_initial_1779367979.csv\n[info] log: /tmp/pg_restore_1779367981.log\n[info] RESET_ALL=1 => ALTER SYSTEM RESET ALL\n[set] allow_in_place_tablespaces=off\n[set] allow_system_table_mods=off\n[set] archive_timeout=0\n[set] array_nulls=on\n[set] authentication_timeout=1min\n[set] autovacuum=on\n[set] autovacuum_analyze_scale_factor=0.1\n[set] autovacuum_analyze_threshold=50\n[set] autovacuum_freeze_max_age=200000000\n[set] autovacuum_max_workers=3\n[set] autovacuum_multixact_freeze_max_age=400000000\n[set] autovacuum_naptime=1min\n[set] autovacuum_vacuum_cost_delay=2ms\n[set] autovacuum_vacuum_cost_limit=-1\n[set] autovacuum_vacuum_insert_scale_factor=0.2\n[set] autovacuum_vacuum_insert_threshold=1000\n[set] autovacuum_vacuum_scale_factor=0.2\n[set] autovacuum_vacuum_threshold=50\n[set] autovacuum_work_mem=-1\n[set] backend_flush_after=0\n[set] backslash_quote=safe_encoding\n[set] bgwriter_delay=200ms\n[set] bgwriter_flush_after=512kB\n[set] bgwriter_lru_maxpages=100\n[set] bgwriter_lru_multiplier=2\n[set] bonjour=off\n[set] bytea_output=hex\n[set] check_function_bodies=on\n[set] checkpoint_completion_target=0.9\n[set] checkpoint_flush_after=256kB\n[set] checkpoint_timeout=5min\n[set] checkpoint_warning=30s\n[set] client_connection_check_interval=0\n[set] client_min_messages=notice\n[set] commit_delay=0\n[set] commit_siblings=5\n[set] compute_query_id=auto\n[set] constraint_exclusion=partition\n[set] cpu_index_tuple_cost=0.005\n[set] cpu_operator_cost=0.0025\n[set] cpu_tuple_cost=0.01\n[set] cursor_tuple_fraction=0.1\n[set] data_sync_retry=off\n[set] db_user_namespace=off\n[set] deadlock_timeout=1s\n[set] debug_discard_caches=0\n[set] debug_logical_replication_streaming=buffered\n[set] debug_parallel_query=off\n[set] debug_pretty_print=on\n[set] debug_print_parse=off\n[set] debug_print_plan=off\n[set] debug_print_rewritten=off\n[set] default_statistics_target=100\n[set] default_toast_compression=pglz\n[set] default_transaction_deferrable=off\n[set] default_transaction_isolation=read committed\n[set] default_transaction_read_only=off\n[set] dynamic_shared_memory_type=posix\n[set] effective_cache_size=4GB\n[set] effective_io_concurrency=1\n[set] enable_async_append=on\n[set] enable_bitmapscan=on\n[set] enable_gathermerge=on\n[set] enable_hashagg=on\n[set] enable_hashjoin=on\n[set] enable_incremental_sort=on\n[set] enable_indexonlyscan=on\n[set] enable_indexscan=on\n[set] enable_material=on\n[set] enable_memoize=on\n[set] enable_mergejoin=on\n[set] enable_nestloop=on\n[set] enable_parallel_append=on\n[set] enable_parallel_hash=on\n[set] enable_partition_pruning=on\n[set] enable_partitionwise_aggregate=off\n[set] enable_partitionwise_join=off\n[set] enable_presorted_aggregate=on\n[set] enable_seqscan=on\n[set] enable_sort=on\n[set] enable_tidscan=on\n[set] escape_string_warning=on\n[set] exit_on_error=off\n[set] extra_float_digits=1\n[set] from_collapse_limit=8\n[set] fsync=on\n[set] full_page_writes=on\n[set] geqo=on\n[set] geqo_effort=5\n[set] geqo_generations=0\n[set] geqo_pool_size=0\n[set] geqo_seed=0\n[set] geqo_selection_bias=2\n[set] geqo_threshold=12\n[set] gin_fuzzy_search_limit=0\n[set] gin_pending_list_limit=4MB\n[set] gss_accept_delegation=off\n[set] hash_mem_multiplier=2\n[set] hot_standby=on\n[set] hot_standby_feedback=off\n[set] huge_pages=try\n[set] huge_page_size=0\n[set] icu_validation_level=warning\n[set] idle_in_transaction_session_timeout=0\n[set] idle_session_timeout=0\n[set] ignore_checksum_failure=off\n[set] ignore_invalid_pages=off\n[set] ignore_system_indexes=off\n[set] IntervalStyle=postgres\n[set] jit=on\n[set] jit_above_cost=100000\n[set] jit_debugging_support=off\n[set] jit_dump_bitcode=off\n[set] jit_expressions=on\n[set] jit_inline_above_cost=500000\n[set] jit_optimize_above_cost=500000\n[set] jit_profiling_support=off\n[set] jit_tuple_deforming=on\n[set] join_collapse_limit=8\n[set] krb_caseins_users=off\n[set] lock_timeout=0\n[set] lo_compat_privileges=off\n[set] log_autovacuum_min_duration=10min\n[set] log_checkpoints=on\n[set] log_connections=off\n[set] log_disconnections=off\n[set] log_duration=off\n[set] log_error_verbosity=default\n[set] log_executor_stats=off\n[set] logging_collector=off\n[set] log_hostname=off\n[set] logical_decoding_work_mem=64MB\n[set] log_lock_waits=off\n[set] log_min_duration_sample=-1\n[set] log_min_duration_statement=-1\n[set] log_min_error_statement=error\n[set] log_min_messages=warning\n[set] log_parameter_max_length=-1\n[set] log_parameter_max_length_on_error=0\n[set] log_parser_stats=off\n[set] log_planner_stats=off\n[set] log_recovery_conflict_waits=off\n[set] log_replication_commands=off\n[set] log_rotation_age=1d\n[set] log_rotation_size=10MB\n[set] log_startup_progress_interval=10s\n[set] log_statement=none\n[set] log_statement_sample_rate=1\n[set] log_statement_stats=off\n[set] log_temp_files=-1\n[set] log_transaction_sample_rate=0\n[set] log_truncate_on_rotation=off\n[set] maintenance_io_concurrency=10\n[set] maintenance_work_mem=64MB\n[set] max_connections=100\n[set] max_files_per_process=1000\n[set] max_locks_per_transaction=64\n[set] max_logical_replication_workers=4\n[set] max_parallel_apply_workers_per_subscription=2\n[set] max_parallel_maintenance_workers=2\n[set] max_parallel_workers=8\n[set] max_parallel_workers_per_gather=2\n[set] max_pred_locks_per_page=2\n[set] max_pred_locks_per_relation=-2\n[set] max_pred_locks_per_transaction=64\n[set] max_prepared_transactions=0\n[set] max_replication_slots=10\n[set] max_slot_wal_keep_size=-1\n[set] max_stack_depth=2MB\n[set] max_standby_archive_delay=30s\n[set] max_standby_streaming_delay=30s\n[set] max_sync_workers_per_subscription=2\n[set] max_wal_senders=10\n[set] max_wal_size=1GB\n[set] max_worker_processes=8\n[set] min_dynamic_shared_memory=0\n[set] min_parallel_index_scan_size=512kB\n[set] min_parallel_table_scan_size=8MB\n[set] min_wal_size=80MB\n[set] old_snapshot_threshold=-1\n[set] parallel_leader_participation=on\n[set] parallel_setup_cost=1000\n[set] parallel_tuple_cost=0.1\n[set] password_encryption=scram-sha-256\n[set] plan_cache_mode=auto\n[set] port=5432\n[set] post_auth_delay=0\n[set] pre_auth_delay=0\n[set] quote_all_identifiers=off\n[set] random_page_cost=4\n[set] recovery_init_sync_method=fsync\n[set] recovery_min_apply_delay=0\n[set] recovery_prefetch=try\n[set] recovery_target_action=pause\n[set] recovery_target_inclusive=on\n[set] recursive_worktable_factor=10\n[set] remove_temp_files_after_crash=on\n[set] reserved_connections=0\n[set] restart_after_crash=on\n[set] row_security=on\n[set] scram_iterations=4096\n[set] send_abort_for_crash=off\n[set] send_abort_for_kill=off\n[set] seq_page_cost=1\n[set] session_replication_role=origin\n[set] shared_buffers=128MB\n[set] shared_memory_type=mmap\n[set] ssl=on\n[set] ssl_min_protocol_version=TLSv1.2\n[set] ssl_passphrase_command_supports_reload=off\n[set] ssl_prefer_server_ciphers=on\n[set] standard_conforming_strings=on\n[set] statement_timeout=0\n[set] stats_fetch_consistency=cache\n[set] superuser_reserved_connections=3\n[set] synchronize_seqscans=on\n[set] synchronous_commit=on\n[set] syslog_facility=local0\n[set] syslog_sequence_numbers=on\n[set] syslog_split_messages=on\n[set] tcp_keepalives_count=9\n[set] tcp_keepalives_idle=7200\n[set] tcp_keepalives_interval=75\n[set] tcp_user_timeout=0\n[set] temp_buffers=8MB\n[set] temp_file_limit=-1\n[set] trace_notify=off\n[set] trace_recovery_messages=log\n[set] trace_sort=off\n[set] track_activities=on\n[set] track_activity_query_size=1kB\n[set] track_commit_timestamp=off\n[set] track_counts=on\n[set] track_functions=none\n[set] track_io_timing=off\n[set] track_wal_io_timing=off\n[set] transform_null_equals=off\n[set] update_process_title=on\n[set] vacuum_buffer_usage_limit=256kB\n[set] vacuum_cost_delay=0\n[set] vacuum_cost_limit=200\n[set] vacuum_cost_page_dirty=20\n[set] vacuum_cost_page_hit=1\n[set] vacuum_cost_page_miss=2\n[set] vacuum_failsafe_age=1600000000\n[set] vacuum_freeze_min_age=50000000\n[set] vacuum_freeze_table_age=150000000\n[set] vacuum_multixact_failsafe_age=1600000000\n[set] vacuum_multixact_freeze_min_age=5000000\n[set] vacuum_multixact_freeze_table_age=150000000\n[set] wal_buffers=4MB\n[set] wal_compression=off\n[set] wal_decode_buffer_size=512kB\n[set] wal_init_zero=on\n[set] wal_keep_size=0\n[set] wal_log_hints=off\n[set] wal_receiver_create_temp_slot=off\n[set] wal_receiver_status_interval=10s\n[set] wal_receiver_timeout=1min\n[set] wal_recycle=on\n[set] wal_retrieve_retry_interval=5s\n[set] wal_sender_timeout=1min\n[set] wal_skip_threshold=2MB\n[set] wal_sync_method=fdatasync\n[set] wal_writer_delay=200ms\n[set] wal_writer_flush_after=1MB\n[set] work_mem=4MB\n[set] xmlbinary=base64\n[set] xmloption=content\n[set] zero_damaged_pages=off\n[info] pg_reload_conf()\n[done] restore finished. log=/tmp/pg_restore_1779367981.log\n[note] 部分参数需要重启 PostgreSQL 才生效（context=postmaster）。\n",
+  "sysbench_output": "[INFO] sysbench(pg) log => /tmp/restore_initial_validate_1779367997.log\n[INFO] Connected. Server version:\n[INFO]   16.13 (Ubuntu 16.13-0ubuntu0.24.04.1)\n[INFO] Ensure database exists: sbtest\n[INFO] Check prepared tables in db=sbtest (expect 32 tables, size=1000000)\n[INFO] Prepared tables already present: 32/32.\n[INFO] Running benchmark: mode=readwrite threads=32 time_s=60 report_interval=5 rate=0\n[INFO] Done. Tail of log:\n[LOG] [ 45s ] thds: 32 tps: 1928.23 qps: 38580.51 (r/w/o: 27004.55/7719.50/3856.45) lat (ms,95%): 27.17 err/s: 0.00 reconn/s: 0.00\n[LOG] [ 50s ] thds: 32 tps: 2084.61 qps: 41714.86 (r/w/o: 29193.38/8352.25/4169.23) lat (ms,95%): 23.10 err/s: 0.00 reconn/s: 0.00\n[LOG] [ 55s ] thds: 32 tps: 2113.60 qps: 42234.57 (r/w/o: 29572.38/8434.99/4227.20) lat (ms,95%): 21.11 err/s: 0.00 reconn/s: 0.00\n[LOG] [ 60s ] thds: 32 tps: 1961.20 qps: 39227.80 (r/w/o: 27459.80/7845.60/3922.40) lat (ms,95%): 25.74 err/s: 0.00 reconn/s: 0.00\n[LOG] SQL statistics:\n[LOG]     queries performed:\n[LOG]         read:                            1644804\n[LOG]         write:                           469944\n[LOG]         other:                           234972\n[LOG]         total:                           2349720\n[LOG]     transactions:                        117486 (1957.28 per sec.)\n[LOG]     queries:                             2349720 (39145.65 per sec.)\n[LOG]     ignored errors:                      0      (0.00 per sec.)\n[LOG]     reconnects:                          0      (0.00 per sec.)\n[LOG] \n[LOG] General statistics:\n[LOG]     total time:                          60.0246s\n[LOG]     total number of events:              117486\n[LOG] \n[LOG] Latency (ms):\n[LOG]          min:                                    4.59\n[LOG]          avg:                                   16.34\n[LOG]          max:                                  131.27\n[LOG]          95th percentile:                       26.20\n[LOG]          sum:                              1919968.12\n[LOG] \n[LOG] Threads fairness:\n[LOG]     events (avg/stddev):           3671.4375/26.30\n[LOG]     execution time (avg/stddev):   59.9990/0.01\n[LOG] \n"
+}

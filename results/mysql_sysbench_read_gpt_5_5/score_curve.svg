@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="420" viewBox="0 0 920 420">
+<style>
+text { font-family: Segoe UI, Arial, sans-serif; fill: #172033; font-size: 13px; }
+.grid { stroke: #d9e0ea; stroke-width: 1; }
+.phase-line { stroke: #7c8798; stroke-width: 1.6; stroke-dasharray: 7 6; }
+.phase-label { fill: #475569; font-size: 12px; font-weight: 650; }
+.phase-label-bg { fill: #fbf7ef; stroke: #d9e0ea; stroke-width: 1; }
+.axis { stroke: #5d6b82; stroke-width: 1.4; }
+.curve { fill: none; stroke: #0f766e; stroke-width: 3; stroke-linejoin: round; stroke-linecap: round; }
+.dot { fill: #f97316; stroke: white; stroke-width: 2; }
+</style>
+<rect x="0" y="0" width="920" height="420" rx="18" fill="#fbf7ef"/>
+<text x="72" y="26" font-size="18" font-weight="700">TPS / p95 over elapsed time</text>
+<line class="grid" x1="72.00" y1="42" x2="72.00" y2="358"/>
+<text x="72.00" y="396" text-anchor="middle">0.0m</text>
+<line class="grid" x1="277.00" y1="42" x2="277.00" y2="358"/>
+<text x="277.00" y="396" text-anchor="middle">7.0m</text>
+<line class="grid" x1="482.00" y1="42" x2="482.00" y2="358"/>
+<text x="482.00" y="396" text-anchor="middle">14.0m</text>
+<line class="grid" x1="687.00" y1="42" x2="687.00" y2="358"/>
+<text x="687.00" y="396" text-anchor="middle">20.9m</text>
+<line class="grid" x1="892.00" y1="42" x2="892.00" y2="358"/>
+<text x="892.00" y="396" text-anchor="middle">27.9m</text>
+<line class="grid" x1="72" y1="358.00" x2="892" y2="358.00"/>
+<text x="62" y="362.00" text-anchor="end">265.33</text>
+<line class="grid" x1="72" y1="279.00" x2="892" y2="279.00"/>
+<text x="62" y="283.00" text-anchor="end">300.81</text>
+<line class="grid" x1="72" y1="200.00" x2="892" y2="200.00"/>
+<text x="62" y="204.00" text-anchor="end">336.30</text>
+<line class="grid" x1="72" y1="121.00" x2="892" y2="121.00"/>
+<text x="62" y="125.00" text-anchor="end">371.78</text>
+<line class="grid" x1="72" y1="42.00" x2="892" y2="42.00"/>
+<text x="62" y="46.00" text-anchor="end">407.27</text>
+<line class="phase-line" x1="749.18" y1="42" x2="749.18" y2="358"/>
+<line class="phase-line" x1="892.00" y1="42" x2="892.00" y2="358"/>
+<rect class="phase-label-bg" x="752.18" y="47.00" width="123.60" height="17" rx="6"/>
+<text class="phase-label" x="757.18" y="60.00" text-anchor="start">os_sysctl starts</text>
+<rect class="phase-label-bg" x="758.30" y="66.00" width="130.70" height="17" rx="6"/>
+<text class="phase-label" x="884.00" y="79.00" text-anchor="end">os_control starts</text>
+<line class="axis" x1="72" y1="358" x2="892" y2="358"/>
+<line class="axis" x1="72" y1="42" x2="72" y2="358"/>
+<text x="482.00" y="414" text-anchor="middle">elapsed time</text>
+<text transform="translate(20 200.00) rotate(-90)" text-anchor="middle">TPS / p95</text>
+<polyline class="curve" points="72.00,336.21 223.03,82.78 318.97,84.67 406.81,63.79 485.69,79.34 572.12,101.30 655.98,81.59 749.18,84.44 820.34,104.99 892.00,86.26"/>
+<circle class="dot" cx="72.00" cy="336.21" r="5"><title>baseline: 275.12</title></circle>
+<circle class="dot" cx="223.03" cy="82.78" r="5"><title>round 1: 388.95</title></circle>
+<circle class="dot" cx="318.97" cy="84.67" r="5"><title>round 2: 388.10</title></circle>
+<circle class="dot" cx="406.81" cy="63.79" r="5"><title>round 3: 397.48</title></circle>
+<circle class="dot" cx="485.69" cy="79.34" r="5"><title>round 4: 390.50</title></circle>
+<circle class="dot" cx="572.12" cy="101.30" r="5"><title>round 5: 380.63</title></circle>
+<circle class="dot" cx="655.98" cy="81.59" r="5"><title>round 6: 389.48</title></circle>
+<circle class="dot" cx="749.18" cy="84.44" r="5"><title>round 7: 388.20</title></circle>
+<circle class="dot" cx="820.34" cy="104.99" r="5"><title>round 8: 378.98</title></circle>
+<circle class="dot" cx="892.00" cy="86.26" r="5"><title>round 9: 387.39</title></circle>
+</svg>

@@ -1,0 +1,3112 @@
+# AgenticDB State Snapshot
+
+captured_at	2026-05-28T13:34:13
+round_id	2
+phase	db
+dbms	mysql
+db_version	8.0.45-0ubuntu0.24.04.1
+workload	sysbench_read
+
+## Candidate Knob Values
+
+activate_all_roles_on_login	False
+auto_increment_increment	1
+auto_increment_offset	1
+autocommit	True
+automatic_sp_privileges	True
+avoid_temporal_upgrade	False
+back_log	1024
+big_tables	False
+binlog_cache_size	32768
+binlog_checksum	CRC32
+binlog_direct_non_transactional_updates	False
+binlog_encryption	False
+binlog_error_action	ABORT_SERVER
+binlog_expire_logs_auto_purge	True
+binlog_expire_logs_seconds	2592000
+binlog_format	ROW
+binlog_group_commit_sync_delay	0
+binlog_group_commit_sync_no_delay_count	0
+binlog_max_flush_queue_time	0
+binlog_order_commits	True
+binlog_row_image	FULL
+binlog_row_metadata	MINIMAL
+binlog_row_value_options	
+binlog_rows_query_log_events	False
+binlog_stmt_cache_size	32768
+binlog_transaction_compression	False
+binlog_transaction_compression_level_zstd	3
+binlog_transaction_dependency_history_size	25000
+binlog_transaction_dependency_tracking	COMMIT_ORDER
+block_encryption_mode	aes-128-ecb
+bulk_insert_buffer_size	8388608
+completion_type	NO_CHAIN
+concurrent_insert	AUTO
+connect_timeout	10
+connection_memory_chunk_size	8192
+connection_memory_limit	18446744073709551615
+cte_max_recursion_depth	1000
+default_password_lifetime	0
+default_storage_engine	InnoDB
+default_table_encryption	False
+default_tmp_storage_engine	InnoDB
+default_week_format	0
+delay_key_write	True
+delayed_insert_limit	100
+delayed_insert_timeout	300
+delayed_queue_size	1000
+div_precision_increment	4
+end_markers_in_json	False
+enforce_gtid_consistency	False
+eq_range_index_dive_limit	200
+event_scheduler	True
+expire_logs_days	0
+explain_format	TRADITIONAL
+flush	False
+flush_time	0
+foreign_key_checks	True
+ft_boolean_syntax	+ -><()~*:""&|
+generated_random_password_length	20
+global_connection_memory_limit	18446744073709551615
+global_connection_memory_tracking	False
+group_concat_max_len	1024
+histogram_generation_max_mem_size	20000000
+host_cache_size	384
+information_schema_stats_expiry	86400
+init_connect	
+innodb_adaptive_flushing	True
+innodb_adaptive_flushing_lwm	10
+innodb_adaptive_hash_index	False
+innodb_adaptive_hash_index_parts	64
+innodb_adaptive_max_sleep_delay	150000
+innodb_api_bk_commit_interval	5
+innodb_api_trx_level	0
+innodb_autoextend_increment	64
+innodb_autoinc_lock_mode	2
+innodb_buffer_pool_chunk_size	134217728
+innodb_buffer_pool_dump_at_shutdown	True
+innodb_buffer_pool_dump_now	False
+innodb_buffer_pool_dump_pct	25
+innodb_buffer_pool_filename	ib_buffer_pool
+innodb_buffer_pool_instances	8
+innodb_buffer_pool_load_abort	False
+innodb_buffer_pool_load_now	False
+innodb_buffer_pool_size	51539607552
+innodb_change_buffer_max_size	25
+innodb_change_buffering	all
+innodb_checksum_algorithm	crc32
+innodb_cmp_per_index_enabled	False
+innodb_commit_concurrency	0
+innodb_compression_failure_threshold_pct	5
+innodb_compression_level	6
+innodb_compression_pad_pct_max	50
+innodb_concurrency_tickets	5000
+innodb_ddl_buffer_size	1048576
+innodb_ddl_threads	4
+innodb_deadlock_detect	True
+innodb_default_row_format	dynamic
+innodb_disable_sort_file_cache	False
+innodb_doublewrite	True
+innodb_doublewrite_batch_size	0
+innodb_doublewrite_files	2
+innodb_doublewrite_pages	4
+innodb_extend_and_initialize	True
+innodb_fast_shutdown	1
+innodb_file_per_table	True
+innodb_fill_factor	100
+innodb_flush_log_at_timeout	1
+innodb_flush_log_at_trx_commit	1
+innodb_flush_method	fsync
+innodb_flush_neighbors	0
+innodb_flush_sync	True
+innodb_flushing_avg_loops	30
+innodb_fsync_threshold	0
+innodb_ft_aux_table	
+innodb_ft_cache_size	8000000
+innodb_ft_enable_diag_print	False
+innodb_ft_enable_stopword	True
+innodb_ft_num_word_optimize	2000
+innodb_ft_result_cache_limit	2000000000
+innodb_ft_server_stopword_table	
+innodb_ft_sort_pll_degree	2
+innodb_ft_total_cache_size	640000000
+innodb_ft_user_stopword_table	
+innodb_idle_flush_pct	100
+innodb_io_capacity	200
+innodb_io_capacity_max	2000
+innodb_lock_wait_timeout	50
+innodb_log_buffer_size	16777216
+innodb_log_checksums	True
+innodb_log_compressed_pages	True
+innodb_log_file_size	50331648
+innodb_log_files_in_group	2
+innodb_log_spin_cpu_abs_lwm	80
+innodb_log_spin_cpu_pct_hwm	50
+innodb_log_wait_for_flush_spin_hwm	400
+innodb_log_write_ahead_size	8192
+innodb_log_writer_threads	True
+innodb_lru_scan_depth	1024
+innodb_max_dirty_pages_pct	90.0
+innodb_max_dirty_pages_pct_lwm	10.0
+innodb_max_purge_lag	0
+innodb_max_purge_lag_delay	0
+innodb_max_undo_log_size	1073741824
+innodb_monitor_enable	
+innodb_numa_interleave	False
+innodb_old_blocks_pct	20
+innodb_old_blocks_time	1000
+innodb_online_alter_log_max_size	134217728
+innodb_open_files	8192
+innodb_optimize_fulltext_only	False
+innodb_page_cleaners	4
+innodb_parallel_read_threads	4
+innodb_print_all_deadlocks	False
+innodb_print_ddl_logs	False
+innodb_purge_batch_size	300
+innodb_purge_rseg_truncate_frequency	128
+innodb_purge_threads	4
+innodb_random_read_ahead	False
+innodb_read_ahead_threshold	16
+innodb_read_io_threads	8
+innodb_redo_log_archive_dirs	
+innodb_redo_log_capacity	1073741824
+innodb_redo_log_encrypt	False
+innodb_replication_delay	0
+innodb_rollback_segments	128
+innodb_segment_reserve_factor	12.5
+innodb_sort_buffer_size	1048576
+innodb_spin_wait_delay	6
+innodb_spin_wait_pause_multiplier	50
+innodb_stats_auto_recalc	True
+innodb_stats_include_delete_marked	False
+innodb_stats_method	nulls_equal
+innodb_stats_on_metadata	False
+innodb_stats_persistent	True
+innodb_stats_persistent_sample_pages	20
+innodb_stats_transient_sample_pages	8
+innodb_status_output	False
+innodb_status_output_locks	False
+innodb_strict_mode	True
+innodb_sync_array_size	16
+innodb_sync_spin_loops	30
+innodb_table_locks	True
+innodb_thread_concurrency	0
+innodb_thread_sleep_delay	10000
+innodb_tmpdir	
+innodb_undo_log_encrypt	False
+innodb_undo_log_truncate	True
+innodb_undo_tablespaces	2
+innodb_use_fdatasync	False
+innodb_use_native_aio	True
+innodb_write_io_threads	4
+interactive_timeout	28800
+internal_tmp_mem_storage_engine	TempTable
+join_buffer_size	262144
+keep_files_on_create	False
+key_buffer_size	8388608
+key_cache_age_threshold	300
+key_cache_block_size	1024
+key_cache_division_limit	100
+lc_messages	en_US
+lc_time_names	en_US
+lock_wait_timeout	31536000
+log_bin_trust_function_creators	False
+log_bin_use_v1_row_events	False
+log_error_services	log_filter_internal; log_sink_internal
+log_error_suppression_list	
+log_error_verbosity	2
+log_queries_not_using_indexes	False
+log_slow_admin_statements	False
+log_slow_extra	False
+log_statements_unsafe_for_binlog	True
+log_throttle_queries_not_using_indexes	0
+long_query_time	10.0
+low_priority_updates	False
+mandatory_roles	
+max_allowed_packet	67108864
+max_binlog_cache_size	18446744073709547520
+max_binlog_size	1073741824
+max_binlog_stmt_cache_size	18446744073709547520
+max_connect_errors	100
+max_connections	256
+max_delayed_threads	20
+max_digest_length	1024
+max_error_count	1024
+max_execution_time	0
+max_heap_table_size	16777216
+max_insert_delayed_threads	20
+max_join_size	18446744073709551615
+max_length_for_sort_data	4096
+max_points_in_geometry	65536
+max_prepared_stmt_count	16382
+max_relay_log_size	0
+max_seeks_for_key	18446744073709551615
+max_sort_length	1024
+max_sp_recursion_depth	0
+max_user_connections	0
+max_write_lock_count	18446744073709551615
+min_examined_row_limit	0
+mysql_native_password_proxy_users	False
+net_buffer_length	16384
+net_read_timeout	30
+net_retry_count	10
+net_write_timeout	60
+new	False
+offline_mode	False
+open_files_limit	10000
+optimizer_max_subgraph_pairs	100000
+optimizer_prune_level	1
+optimizer_search_depth	62
+optimizer_switch	index_merge=on,index_merge_union=on,index_merge_sort_union=on,index_merge_intersection=on,engine_condition_pushdown=on,index_condition_pushdown=on,mrr=on,mrr_cost_based=on,block_nested_loop=on,batched_key_access=off,materialization=on,semijoin=on,loosescan=on,firstmatch=on,duplicateweedout=on,subquery_materialization_cost_based=on,use_index_extensions=on,condition_fanout_filter=on,derived_merge=on,use_invisible_indexes=off,skip_scan=on,hash_join=on,subquery_to_derived=off,prefer_ordering_index=on,hypergraph_optimizer=off,derived_condition_pushdown=on
+parser_max_mem_size	18446744073709551615
+partial_revokes	False
+performance_schema	False
+performance_schema_max_digest_length	0
+performance_schema_max_digest_sample_age	60
+performance_schema_max_table_handles	0
+performance_schema_max_table_instances	0
+performance_schema_max_thread_classes	0
+performance_schema_max_thread_instances	0
+preload_buffer_size	32768
+print_identified_with_as_hex	False
+protocol_compression_algorithms	zlib,zstd,uncompressed
+query_alloc_block_size	8192
+query_prealloc_size	8192
+range_alloc_block_size	4096
+range_optimizer_max_mem_size	8388608
+read_buffer_size	262144
+read_rnd_buffer_size	524288
+regexp_stack_limit	8000000
+regexp_time_limit	32
+schema_definition_cache	256
+secondary_engine_cost_threshold	100000.0
+select_into_buffer_size	131072
+select_into_disk_sync	False
+select_into_disk_sync_delay	0
+sha256_password_proxy_users	False
+skip-innodb-doublewrite	False
+skip-log-bin	False
+skip_name_resolve	False
+slow_launch_time	2
+slow_query_log	False
+sort_buffer_size	262144
+source_verify_checksum	False
+sql_buffer_result	False
+stored_program_cache	256
+stored_program_definition_cache	256
+sync_binlog	1
+table_definition_cache	4096
+table_open_cache	4867
+table_open_cache_instances	32
+tablespace_definition_cache	256
+temptable_max_mmap	1073741824
+temptable_max_ram	1073741824
+temptable_use_mmap	True
+thread_cache_size	128
+tmp_table_size	16777216
+transaction_alloc_block_size	8192
+transaction_isolation	REPEATABLE-READ
+transaction_prealloc_size	4096
+transaction_read_only	False
+transaction_write_set_extraction	XXHASH64
+unique_checks	True
+updatable_views_with_limit	False
+wait_timeout	28800
+windowing_use_high_precision	True
+xa_detach_on_prepare	True
+
+## Prompt MySQL Status Metrics
+
+Created_tmp_disk_tables	0
+Innodb_buffer_pool_reads	328703
+Innodb_row_lock_time_avg	0
+Queries	7409704
+Threads_running	2
+Uptime	112
+
+## Prompt MySQL Variable Metrics
+
+innodb_buffer_pool_size	51539607552
+innodb_flush_log_at_trx_commit	1
+innodb_io_capacity	200
+innodb_io_capacity_max	2000
+max_connections	256
+
+## Prompt InnoDB Metric Profile
+
+metadata_mem_pool_size
+lock_row_lock_time_max
+lock_row_lock_time_avg
+buffer_pool_size
+buffer_pool_pages_total
+buffer_pool_pages_misc
+buffer_pool_pages_data
+buffer_pool_bytes_data
+buffer_pool_pages_dirty
+buffer_pool_bytes_dirty
+buffer_pool_pages_free
+trx_rseg_history_len
+file_num_open_files
+innodb_page_size
+lock_row_lock_current_waits
+buffer_pool_read_ahead_evicted
+ibuf_merges_discard_delete_mark
+innodb_rwlock_s_spin_rounds
+innodb_rwlock_x_spin_rounds
+innodb_rwlock_s_os_waits
+innodb_rwlock_x_os_waits
+innodb_dblwr_pages_written
+innodb_rwlock_s_spin_waits
+innodb_rwlock_x_spin_waits
+ibuf_merges_discard_delete
+buffer_pool_read_requests
+buffer_pool_write_requests
+lock_row_lock_time
+lock_row_lock_waits
+buffer_pool_wait_free
+buffer_pool_read_ahead
+adaptive_hash_searches
+adaptive_hash_searches_btree
+ibuf_merges_delete_mark
+ibuf_merges_discard_insert
+os_log_pending_fsyncs
+os_log_pending_writes
+os_log_bytes_written
+innodb_activity_count
+buffer_pages_written
+buffer_pages_read
+buffer_data_reads
+buffer_data_written
+ibuf_merges_insert
+ibuf_merges_delete
+innodb_dblwr_writes
+buffer_pool_reads
+buffer_pages_created
+log_write_requests
+os_data_reads
+os_data_writes
+os_data_fsyncs
+os_log_fsyncs
+lock_deadlocks
+lock_timeouts
+log_waits
+log_writes
+ibuf_merges
+ibuf_size
+dml_reads
+dml_inserts
+dml_deletes
+dml_updates
+
+## Prompt InnoDB Metrics (Whitelist)
+
+adaptive_hash_searches	0
+adaptive_hash_searches_btree	10133573
+buffer_data_reads	7213943296
+buffer_data_written	3173376
+buffer_pages_created	143
+buffer_pages_read	440344
+buffer_pages_written	189
+buffer_pool_bytes_data	7216939008
+buffer_pool_bytes_dirty	0
+buffer_pool_pages_data	440487
+buffer_pool_pages_dirty	0
+buffer_pool_pages_free	2704960
+buffer_pool_pages_misc	281
+buffer_pool_pages_total	3145728
+buffer_pool_read_ahead	111623
+buffer_pool_read_ahead_evicted	0
+buffer_pool_read_requests	45937509
+buffer_pool_reads	328703
+buffer_pool_size	51539607552
+buffer_pool_wait_free	0
+buffer_pool_write_requests	1896
+dml_deletes	0
+dml_inserts	0
+dml_reads	0
+dml_updates	0
+file_num_open_files	47
+ibuf_merges	0
+ibuf_merges_delete	0
+ibuf_merges_delete_mark	0
+ibuf_merges_discard_delete	0
+ibuf_merges_discard_delete_mark	0
+ibuf_merges_discard_insert	0
+ibuf_merges_insert	0
+ibuf_size	1
+innodb_activity_count	114
+innodb_dblwr_pages_written	48
+innodb_dblwr_writes	16
+innodb_page_size	16384
+innodb_rwlock_s_os_waits	0
+innodb_rwlock_s_spin_rounds	0
+innodb_rwlock_s_spin_waits	0
+innodb_rwlock_x_os_waits	0
+innodb_rwlock_x_spin_rounds	0
+innodb_rwlock_x_spin_waits	0
+lock_deadlocks	0
+lock_row_lock_current_waits	0
+lock_row_lock_time	0
+lock_row_lock_time_avg	0
+lock_row_lock_time_max	0
+lock_row_lock_waits	0
+lock_timeouts	0
+log_waits	0
+log_write_requests	838
+log_writes	28
+metadata_mem_pool_size	0
+os_data_fsyncs	107
+os_data_reads	440358
+os_data_writes	260
+os_log_bytes_written	54784
+os_log_fsyncs	25
+os_log_pending_fsyncs	0
+os_log_pending_writes	0
+trx_rseg_history_len	5
+
+## OS Metrics
+
+{
+  "controls": {
+    "block.io_poll": {
+      "available": true,
+      "current_value": "0",
+      "raw_value": "0",
+      "raw_values": {
+        "/sys/block/sda/queue/io_poll": "0"
+      },
+      "target_scope": "db_data_device",
+      "targets": [
+        "/sys/block/sda/queue/io_poll"
+      ],
+      "values": {
+        "/sys/block/sda/queue/io_poll": "0"
+      }
+    },
+    "block.io_poll_delay": {
+      "available": true,
+      "current_value": "-1",
+      "raw_value": "-1",
+      "raw_values": {
+        "/sys/block/sda/queue/io_poll_delay": "-1"
+      },
+      "target_scope": "db_data_device",
+      "targets": [
+        "/sys/block/sda/queue/io_poll_delay"
+      ],
+      "values": {
+        "/sys/block/sda/queue/io_poll_delay": "-1"
+      }
+    },
+    "block.max_sectors_kb": {
+      "available": true,
+      "current_value": "1280",
+      "raw_value": "1280",
+      "raw_values": {
+        "/sys/block/sda/queue/max_sectors_kb": "1280"
+      },
+      "target_scope": "db_data_device",
+      "targets": [
+        "/sys/block/sda/queue/max_sectors_kb"
+      ],
+      "values": {
+        "/sys/block/sda/queue/max_sectors_kb": "1280"
+      }
+    },
+    "block.nomerges": {
+      "available": true,
+      "current_value": "0",
+      "raw_value": "0",
+      "raw_values": {
+        "/sys/block/sda/queue/nomerges": "0"
+      },
+      "target_scope": "db_data_device",
+      "targets": [
+        "/sys/block/sda/queue/nomerges"
+      ],
+      "values": {
+        "/sys/block/sda/queue/nomerges": "0"
+      }
+    },
+    "block.nr_requests": {
+      "available": true,
+      "current_value": "256",
+      "raw_value": "256",
+      "raw_values": {
+        "/sys/block/sda/queue/nr_requests": "256"
+      },
+      "target_scope": "db_data_device",
+      "targets": [
+        "/sys/block/sda/queue/nr_requests"
+      ],
+      "values": {
+        "/sys/block/sda/queue/nr_requests": "256"
+      }
+    },
+    "block.read_ahead_kb": {
+      "available": true,
+      "current_value": "128",
+      "raw_value": "128",
+      "raw_values": {
+        "/sys/block/sda/queue/read_ahead_kb": "128"
+      },
+      "target_scope": "db_data_device",
+      "targets": [
+        "/sys/block/sda/queue/read_ahead_kb"
+      ],
+      "values": {
+        "/sys/block/sda/queue/read_ahead_kb": "128"
+      }
+    },
+    "block.rq_affinity": {
+      "available": true,
+      "current_value": "1",
+      "raw_value": "1",
+      "raw_values": {
+        "/sys/block/sda/queue/rq_affinity": "1"
+      },
+      "target_scope": "db_data_device",
+      "targets": [
+        "/sys/block/sda/queue/rq_affinity"
+      ],
+      "values": {
+        "/sys/block/sda/queue/rq_affinity": "1"
+      }
+    },
+    "block.scheduler": {
+      "available": true,
+      "current_value": "mq-deadline",
+      "raw_value": "none [mq-deadline]",
+      "raw_values": {
+        "/sys/block/sda/queue/scheduler": "none [mq-deadline]"
+      },
+      "target_scope": "db_data_device",
+      "targets": [
+        "/sys/block/sda/queue/scheduler"
+      ],
+      "values": {
+        "/sys/block/sda/queue/scheduler": "mq-deadline"
+      }
+    },
+    "block.wbt_lat_usec": {
+      "available": true,
+      "current_value": "2000",
+      "raw_value": "2000",
+      "raw_values": {
+        "/sys/block/sda/queue/wbt_lat_usec": "2000"
+      },
+      "target_scope": "db_data_device",
+      "targets": [
+        "/sys/block/sda/queue/wbt_lat_usec"
+      ],
+      "values": {
+        "/sys/block/sda/queue/wbt_lat_usec": "2000"
+      }
+    },
+    "cpu.energy_performance_preference": {
+      "available": false,
+      "current_value": null,
+      "raw_value": null,
+      "raw_values": {},
+      "target_scope": null,
+      "targets": [],
+      "values": {}
+    },
+    "cpu.scaling_governor": {
+      "available": false,
+      "current_value": null,
+      "raw_value": null,
+      "raw_values": {},
+      "target_scope": null,
+      "targets": [],
+      "values": {}
+    },
+    "transparent_hugepage.defrag": {
+      "available": true,
+      "current_value": "madvise",
+      "raw_value": "always defer defer+madvise [madvise] never",
+      "raw_values": {
+        "/sys/kernel/mm/transparent_hugepage/defrag": "always defer defer+madvise [madvise] never"
+      },
+      "target_scope": null,
+      "targets": [
+        "/sys/kernel/mm/transparent_hugepage/defrag"
+      ],
+      "values": {
+        "/sys/kernel/mm/transparent_hugepage/defrag": "madvise"
+      }
+    },
+    "transparent_hugepage.enabled": {
+      "available": true,
+      "current_value": "madvise",
+      "raw_value": "always [madvise] never",
+      "raw_values": {
+        "/sys/kernel/mm/transparent_hugepage/enabled": "always [madvise] never"
+      },
+      "target_scope": null,
+      "targets": [
+        "/sys/kernel/mm/transparent_hugepage/enabled"
+      ],
+      "values": {
+        "/sys/kernel/mm/transparent_hugepage/enabled": "madvise"
+      }
+    },
+    "transparent_hugepage.khugepaged.defrag": {
+      "available": true,
+      "current_value": "1",
+      "raw_value": "1",
+      "raw_values": {
+        "/sys/kernel/mm/transparent_hugepage/khugepaged/defrag": "1"
+      },
+      "target_scope": null,
+      "targets": [
+        "/sys/kernel/mm/transparent_hugepage/khugepaged/defrag"
+      ],
+      "values": {
+        "/sys/kernel/mm/transparent_hugepage/khugepaged/defrag": "1"
+      }
+    }
+  },
+  "cpu_cores": 12,
+  "disk_free_bytes": 81311387648,
+  "disk_total_bytes": 125114646528,
+  "disk_used_bytes": 37400498176,
+  "loadavg_15m": 10.55,
+  "loadavg_1m": 48.58,
+  "loadavg_5m": 24.44,
+  "memory_free_bytes": 29912141824,
+  "memory_total_bytes": 67425562624,
+  "memory_used_bytes": 13258809344,
+  "observability": {
+    "iostat_x": "Linux 6.8.0-79-generic (yangxinyue241-ubuntu-08) \t05/28/2026 \t_x86_64_\t(12 CPU)\n\navg-cpu:  %user   %nice %system %iowait  %steal   %idle\n           3.30    0.00    1.95    0.08    0.00   94.67\n\nDevice            r/s     rkB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wkB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dkB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util\nsda              0.50      9.05     0.01   1.89    0.40    17.98  175.91   2558.62    77.85  30.68    0.11    14.54    0.00     39.82     0.00  19.93    0.17 16953.93    0.00    0.00    0.02   0.50\n\n\navg-cpu:  %user   %nice %system %iowait  %steal   %idle\n           0.00    0.00    0.08    0.00    0.00   99.92\n\nDevice            r/s     rkB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wkB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dkB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util\nsda              0.00      0.00     0.00   0.00    0.00     0.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00    0.00    0.00   0.00",
+    "lsblk": "NAME   TYPE   SIZE ROTA  RA RO MOUNTPOINTS\nsda    disk   120G    0 128  0 \n├─sda1 part     1G    0 128  0 /boot/efi\n└─sda2 part 118.9G    0 128  0 /\nsr0    rom   1024M    1 128  0",
+    "numastat": "node0\nnuma_hit             37677536963\nnuma_miss                      0\nnuma_foreign                   0\ninterleave_hit               840\nlocal_node           37676776986\nother_node                     0",
+    "psi": {
+      "cpu": "some avg10=43.74 avg60=67.12 avg300=35.67 total=905104114344\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=0",
+      "io": "some avg10=0.00 avg60=0.00 avg300=0.00 total=30213299228\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=20249748516",
+      "memory": "some avg10=0.00 avg60=0.00 avg300=0.00 total=9273659\nfull avg10=0.00 avg60=0.00 avg300=0.00 total=9140837"
+    },
+    "storage": {
+      "block_device": "sda",
+      "data_block_devices": [
+        "sda"
+      ],
+      "data_directory": "/var/lib/mysql/",
+      "fstype": "ext4",
+      "mountpoint": "/",
+      "options": "rw,relatime",
+      "resolved_device": "/dev/sda2",
+      "source": "/dev/sda2"
+    },
+    "vmstat_last_sample": "0  0   1536 29208676 427748 23995228    0    0     0     0  290  462  0  0 100  0  0  0"
+  },
+  "storage": {
+    "block_device": "sda",
+    "data_block_devices": [
+      "sda"
+    ],
+    "data_directory": "/var/lib/mysql/",
+    "fstype": "ext4",
+    "mountpoint": "/",
+    "options": "rw,relatime",
+    "resolved_device": "/dev/sda2",
+    "source": "/dev/sda2"
+  },
+  "sysctl": {
+    "fs.aio-max-nr": "65536",
+    "fs.file-max": "6000000",
+    "fs.nr_open": "6000000",
+    "kernel.numa_balancing": "0",
+    "kernel.sched_autogroup_enabled": "1",
+    "net.core.netdev_max_backlog": "1000",
+    "net.core.somaxconn": "4096",
+    "net.ipv4.tcp_max_syn_backlog": "4096",
+    "net.ipv4.tcp_tw_reuse": "2",
+    "vm.dirty_background_ratio": "10",
+    "vm.dirty_expire_centisecs": "3000",
+    "vm.dirty_ratio": "20",
+    "vm.dirty_writeback_centisecs": "500",
+    "vm.min_free_kbytes": "67584",
+    "vm.overcommit_memory": "0",
+    "vm.overcommit_ratio": "50",
+    "vm.swappiness": "60",
+    "vm.vfs_cache_pressure": "100",
+    "vm.zone_reclaim_mode": "0"
+  },
+  "uptime": "up 36 weeks, 34 minutes"
+}
+
+## DB Runtime
+
+{
+  "benchmark": {
+    "benchmark_config_path": "<LOCAL_USER_HOME>\\Desktop\\zh-agenticDB\\agenticDB\\config\\benchmark_mysql_10_20_173_57_read64.yaml",
+    "benchmark_config_text": "[full content was provided in round 1]",
+    "command_template": "cd ~/L2TTune && SYSBENCH_TEE=1 bash scripts/run_sysbench.sh read {host_quoted} {port} {password_quoted} {duration} {output_path_quoted}",
+    "database": "sbtest",
+    "db_driver": "mysql",
+    "duration_seconds": 60,
+    "effective_command_preview": "cd ~/L2TTune && SYSBENCH_TEE=1 bash scripts/run_sysbench.sh read {host_quoted} {port} {password_quoted} {duration} {output_path_quoted}",
+    "estimated_total_rows": 32000000,
+    "host": "127.0.0.1",
+    "kind": "shell",
+    "mode": "read",
+    "objective": {
+      "direction": "maximize",
+      "formula": "tps_over_p95",
+      "latency_metric": "p95_latency_ms",
+      "min_improvement_ratio": 0.01,
+      "primary_metric": "tps"
+    },
+    "output_path": "/tmp/sb.log",
+    "planner_instruction": "Use workload_interpretation as the controller's preflight workload classification. You may cross-check it against benchmark_config_text, script_content, and effective_command_preview, but do not relabel a configured read workload as readwrite just because a wrapper script contains an unused readwrite branch.",
+    "port": 3306,
+    "reference_files": [
+      {
+        "content": "[full content was provided in round 1]",
+        "path": "<LOCAL_USER_HOME>\\Desktop\\zh-agenticDB\\agenticDB\\config\\benchmark_mysql_10_20_173_57_read64.yaml",
+        "role": "benchmark_config"
+      },
+      {
+        "content": null,
+        "path": "<LOCAL_USER_HOME>\\Desktop\\zh-agenticDB\\scripts\\run_sysbench.sh",
+        "role": "benchmark_script"
+      },
+      {
+        "content": "[full content was provided in round 1]",
+        "path": "<LOCAL_USER_HOME>\\Desktop\\zh-agenticDB\\llm_init\\mysql_knobs_266.csv",
+        "role": "knob_space_file"
+      },
+      {
+        "content": "[full content was provided in round 1]",
+        "path": "<LOCAL_USER_HOME>\\Desktop\\zh-agenticDB\\llm_init\\metrics_whitelist.py",
+        "role": "state_metric_whitelist"
+      }
+    ],
+    "report_interval_seconds": 10,
+    "script_content": null,
+    "script_path": null,
+    "table_size": 1000000,
+    "tables": 32,
+    "threads": 64,
+    "warmup_seconds": 20,
+    "workload_interpretation": {
+      "access_patterns": [
+        "short_transaction",
+        "point_lookup",
+        "range_scan",
+        "index_scan"
+      ],
+      "auditor_policy": {
+        "db_plateau_patience_hint": 3,
+        "min_db_rounds_hint": 6,
+        "reason": "Read-only sysbench usually needs several DB-side checks around cache, AHI, performance_schema, and thread concurrency before switching to OS layers."
+      },
+      "base_type": "read_only",
+      "bottleneck_signals": [
+        "buffer_cache_miss",
+        "cpu_saturation",
+        "connection_pressure"
+      ],
+      "classification_source": "benchmark.mode",
+      "client_transport": "tcp_loopback",
+      "confidence": "high",
+      "evidence": [
+        "benchmark.mode=read",
+        "lua_script inferred from mode=oltp_read_only.lua",
+        "report_interval=10",
+        "client_transport=tcp_loopback",
+        "db_family=mysql"
+      ],
+      "first_round_guidance": [
+        "Do not describe this workload as readwrite when benchmark.mode is read.",
+        "Treat redo/binlog/flush knobs as secondary unless state metrics show real writes.",
+        "For DB tuning, prioritize cache residency, read-path contention, instrumentation overhead, thread/concurrency balance, and read-ahead behavior.",
+        "For benchmark maximum, consider restart-required instrumentation or startup tradeoffs only if allowed_knob_space and state/history justify them."
+      ],
+      "knobs_to_deprioritize": [
+        "sql_buffer_result",
+        "innodb_flush_log_at_trx_commit",
+        "sync_binlog",
+        "innodb_redo_log_capacity",
+        "innodb_log_buffer_size",
+        "innodb_io_capacity",
+        "innodb_io_capacity_max",
+        "skip-log-bin",
+        "skip-innodb-doublewrite",
+        "innodb_doublewrite"
+      ],
+      "knobs_to_prioritize": [
+        "performance_schema",
+        "innodb_buffer_pool_size",
+        "innodb_buffer_pool_instances",
+        "innodb_adaptive_hash_index",
+        "innodb_adaptive_hash_index_parts",
+        "innodb_sync_array_size",
+        "innodb_thread_concurrency",
+        "innodb_read_io_threads",
+        "innodb_read_ahead_threshold",
+        "innodb_random_read_ahead",
+        "innodb_old_blocks_pct",
+        "innodb_old_blocks_time",
+        "read_buffer_size",
+        "read_rnd_buffer_size",
+        "thread_cache_size",
+        "table_open_cache",
+        "table_open_cache_instances",
+        "table_definition_cache",
+        "skip_name_resolve",
+        "back_log"
+      ],
+      "layered_tags": {
+        "access_patterns": [
+          "short_transaction",
+          "point_lookup",
+          "range_scan",
+          "index_scan"
+        ],
+        "base_type": "read_only",
+        "bottleneck_signals": [
+          "buffer_cache_miss",
+          "cpu_saturation",
+          "connection_pressure"
+        ],
+        "objective_tags": [
+          "benchmark_max",
+          "throughput_sensitive",
+          "latency_sensitive"
+        ],
+        "workload_class": "oltp"
+      },
+      "low_priority_directions": [
+        "redo_binlog_flush_durability",
+        "dirty_page_writeback",
+        "doublewrite_and_write_io_threads"
+      ],
+      "lua_script": "oltp_read_only.lua",
+      "mode": "read",
+      "objective_tags": [
+        "benchmark_max",
+        "throughput_sensitive",
+        "latency_sensitive"
+      ],
+      "primary_tuning_directions": [
+        "memory_and_buffer_pool_residency",
+        "read_path_latch_and_cache_contention",
+        "performance_schema_overhead",
+        "thread_concurrency_and_scheduler_balance",
+        "read_ahead_and_old_blocks_policy"
+      ],
+      "read_intensity": "high",
+      "report_interval": 10,
+      "workload_class": "oltp",
+      "workload_family": "sysbench",
+      "workload_type": "sysbench_oltp_read_only",
+      "write_intensity": "none_or_negligible"
+    },
+    "workload_script": null
+  },
+  "db_version": "8.0.45-0ubuntu0.24.04.1",
+  "dbms": "mysql",
+  "hardware": {
+    "cpu": "12 vCPU",
+    "disk": "116GB SSD",
+    "memory": "64GB"
+  },
+  "knob_selection": {
+    "benchmark_startup_knobs": [
+      "back_log",
+      "innodb_adaptive_hash_index_parts",
+      "innodb_autoinc_lock_mode",
+      "innodb_buffer_pool_chunk_size",
+      "innodb_buffer_pool_instances",
+      "innodb_doublewrite",
+      "innodb_doublewrite_batch_size",
+      "innodb_doublewrite_files",
+      "innodb_doublewrite_pages",
+      "innodb_flush_method",
+      "innodb_ft_cache_size",
+      "innodb_ft_sort_pll_degree",
+      "innodb_ft_total_cache_size",
+      "innodb_log_file_size",
+      "innodb_log_files_in_group",
+      "innodb_numa_interleave",
+      "innodb_open_files",
+      "innodb_page_cleaners",
+      "innodb_purge_threads",
+      "innodb_read_io_threads",
+      "innodb_sort_buffer_size",
+      "innodb_sync_array_size",
+      "innodb_use_native_aio",
+      "innodb_write_io_threads",
+      "max_digest_length",
+      "open_files_limit",
+      "performance_schema",
+      "performance_schema_max_digest_length",
+      "performance_schema_max_table_handles",
+      "performance_schema_max_table_instances",
+      "performance_schema_max_thread_classes",
+      "performance_schema_max_thread_instances",
+      "skip-innodb-doublewrite",
+      "skip-log-bin",
+      "skip_name_resolve",
+      "table_open_cache_instances"
+    ],
+    "curated_494_knobs": [
+      "back_log",
+      "innodb_adaptive_hash_index_parts",
+      "innodb_autoinc_lock_mode",
+      "innodb_buffer_pool_chunk_size",
+      "innodb_buffer_pool_instances",
+      "innodb_doublewrite_batch_size",
+      "innodb_doublewrite_files",
+      "innodb_doublewrite_pages",
+      "innodb_ft_cache_size",
+      "innodb_ft_sort_pll_degree",
+      "innodb_ft_total_cache_size",
+      "innodb_log_file_size",
+      "innodb_log_files_in_group",
+      "innodb_numa_interleave",
+      "innodb_open_files",
+      "innodb_page_cleaners",
+      "innodb_purge_threads",
+      "innodb_sort_buffer_size",
+      "innodb_sync_array_size",
+      "innodb_use_native_aio",
+      "max_digest_length",
+      "open_files_limit",
+      "optimizer_switch",
+      "performance_schema_max_digest_length",
+      "performance_schema_max_digest_sample_age",
+      "performance_schema_max_table_handles",
+      "performance_schema_max_table_instances",
+      "performance_schema_max_thread_classes",
+      "performance_schema_max_thread_instances",
+      "skip_name_resolve",
+      "slow_query_log",
+      "sql_buffer_result",
+      "table_open_cache_instances"
+    ],
+    "excluded_count": 0,
+    "mode": "configured_csv_global_space_plus_curated_494_and_startup_options",
+    "path": "<LOCAL_USER_HOME>\\Desktop\\zh-agenticDB\\agenticDB\\runs\\20260528_132840_mysql57_read64_fresh_no_memory_gpt55_rcouyi_20260528_132840\\knob_selection.json",
+    "rationale": "No LLM knob-space compression is applied. The planner receives the CSV-defined global knob space with current values refreshed from DB, plus any configured restart-required or curated supplemental knobs. The applied DBMS, valid knob names, value types, and ranges are enforced by the configured knob space and validators rather than prompt examples.",
+    "selected_count": 305
+  },
+  "objective": {
+    "direction": "maximize",
+    "formula": "tps_over_p95",
+    "primary_metric": "tps"
+  },
+  "os_control_count": 14,
+  "os_controls_path": "<LOCAL_USER_HOME>\\Desktop\\zh-agenticDB\\agenticDB\\config\\os_controls.yaml",
+  "os_knobs_path": "<LOCAL_USER_HOME>\\Desktop\\zh-agenticDB\\agenticDB\\config\\os_knobs.yaml",
+  "os_parameter_count": 19,
+  "parameter_count": 305,
+  "parameter_metadata": {
+    "activate_all_roles_on_login": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "auto_increment_increment": {
+      "current_value": "1",
+      "max": 65535,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "auto_increment_offset": {
+      "current_value": "1",
+      "max": 65535,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "autocommit": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "automatic_sp_privileges": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "avoid_temporal_upgrade": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "back_log": {
+      "current_value": "151",
+      "max": 65535,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "big_tables": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "binlog_cache_size": {
+      "current_value": "32768",
+      "max": 18446744073709547520,
+      "min": 4096,
+      "source": "COMPILED"
+    },
+    "binlog_checksum": {
+      "current_value": "CRC32",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "binlog_direct_non_transactional_updates": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "binlog_encryption": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "binlog_error_action": {
+      "current_value": "ABORT_SERVER",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "binlog_expire_logs_auto_purge": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "binlog_expire_logs_seconds": {
+      "current_value": "2592000",
+      "max": 4294967295,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "binlog_format": {
+      "current_value": "ROW",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "binlog_group_commit_sync_delay": {
+      "current_value": "0",
+      "max": 1000000,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "binlog_group_commit_sync_no_delay_count": {
+      "current_value": "0",
+      "max": 100000,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "binlog_max_flush_queue_time": {
+      "current_value": "0",
+      "max": 100000,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "binlog_order_commits": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "binlog_row_image": {
+      "current_value": "FULL",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "binlog_row_metadata": {
+      "current_value": "MINIMAL",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "binlog_row_value_options": {
+      "current_value": "",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "binlog_rows_query_log_events": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "binlog_stmt_cache_size": {
+      "current_value": "32768",
+      "max": 18446744073709547520,
+      "min": 4096,
+      "source": "COMPILED"
+    },
+    "binlog_transaction_compression": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "binlog_transaction_compression_level_zstd": {
+      "current_value": "3",
+      "max": 22,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "binlog_transaction_dependency_history_size": {
+      "current_value": "25000",
+      "max": 1000000,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "binlog_transaction_dependency_tracking": {
+      "current_value": "COMMIT_ORDER",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "block_encryption_mode": {
+      "current_value": "aes-128-ecb",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "bulk_insert_buffer_size": {
+      "current_value": "8388608",
+      "max": 18446744073709551615,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "completion_type": {
+      "current_value": "NO_CHAIN",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "concurrent_insert": {
+      "current_value": "AUTO",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "connect_timeout": {
+      "current_value": "10",
+      "max": 31536000,
+      "min": 2,
+      "source": "COMPILED"
+    },
+    "connection_memory_chunk_size": {
+      "current_value": "8192",
+      "max": 536870912,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "connection_memory_limit": {
+      "current_value": "18446744073709551615",
+      "max": 18446744073709551615,
+      "min": 2097152,
+      "source": "COMPILED"
+    },
+    "cte_max_recursion_depth": {
+      "current_value": "1000",
+      "max": 4294967295,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "default_password_lifetime": {
+      "current_value": "0",
+      "max": 65535,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "default_storage_engine": {
+      "current_value": "InnoDB",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "default_table_encryption": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "default_tmp_storage_engine": {
+      "current_value": "InnoDB",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "default_week_format": {
+      "current_value": "0",
+      "max": 7,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "delay_key_write": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "delayed_insert_limit": {
+      "current_value": "100",
+      "max": 18446744073709551615,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "delayed_insert_timeout": {
+      "current_value": "300",
+      "max": 31536000,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "delayed_queue_size": {
+      "current_value": "1000",
+      "max": 18446744073709551615,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "div_precision_increment": {
+      "current_value": "4",
+      "max": 30,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "end_markers_in_json": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "enforce_gtid_consistency": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "eq_range_index_dive_limit": {
+      "current_value": "200",
+      "max": 4294967295,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "event_scheduler": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "expire_logs_days": {
+      "current_value": "0",
+      "max": 99,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "explain_format": {
+      "current_value": "TRADITIONAL",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "flush": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "flush_time": {
+      "current_value": "0",
+      "max": 31536000,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "foreign_key_checks": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "DYNAMIC"
+    },
+    "ft_boolean_syntax": {
+      "current_value": "+ -><()~*:\"\"&|",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "generated_random_password_length": {
+      "current_value": "20",
+      "max": 255,
+      "min": 5,
+      "source": "COMPILED"
+    },
+    "global_connection_memory_limit": {
+      "current_value": "18446744073709551615",
+      "max": 18446744073709551615,
+      "min": 16777216,
+      "source": "COMPILED"
+    },
+    "global_connection_memory_tracking": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "group_concat_max_len": {
+      "current_value": "1024",
+      "max": 18446744073709551615,
+      "min": 4,
+      "source": "COMPILED"
+    },
+    "histogram_generation_max_mem_size": {
+      "current_value": "20000000",
+      "max": 18446744073709551615,
+      "min": 1000000,
+      "source": "COMPILED"
+    },
+    "host_cache_size": {
+      "current_value": "279",
+      "max": 65536,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "information_schema_stats_expiry": {
+      "current_value": "86400",
+      "max": 31536000,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "init_connect": {
+      "current_value": "",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_adaptive_flushing": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_adaptive_flushing_lwm": {
+      "current_value": "10",
+      "max": 70,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_adaptive_hash_index": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_adaptive_hash_index_parts": {
+      "current_value": "8",
+      "max": 512,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "innodb_adaptive_max_sleep_delay": {
+      "current_value": "150000",
+      "max": 1000000,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_api_bk_commit_interval": {
+      "current_value": "5",
+      "max": 1073741824,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "innodb_api_trx_level": {
+      "current_value": "0",
+      "max": 3,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_autoextend_increment": {
+      "current_value": "64",
+      "max": 1000,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "innodb_autoinc_lock_mode": {
+      "current_value": "2",
+      "max": 2,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_buffer_pool_chunk_size": {
+      "current_value": "134217728",
+      "max": 144115188075855871,
+      "min": 1048576,
+      "source": "COMPILED"
+    },
+    "innodb_buffer_pool_dump_at_shutdown": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_buffer_pool_dump_now": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_buffer_pool_dump_pct": {
+      "current_value": "25",
+      "max": 100,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "innodb_buffer_pool_filename": {
+      "current_value": "ib_buffer_pool",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_buffer_pool_instances": {
+      "current_value": "1",
+      "max": 64,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_buffer_pool_load_abort": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_buffer_pool_load_now": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_buffer_pool_size": {
+      "current_value": "134217728",
+      "max": 9223372036854775807,
+      "min": 5242880,
+      "source": "COMPILED"
+    },
+    "innodb_change_buffer_max_size": {
+      "current_value": "25",
+      "max": 50,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_change_buffering": {
+      "current_value": "all",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_checksum_algorithm": {
+      "current_value": "crc32",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_cmp_per_index_enabled": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_commit_concurrency": {
+      "current_value": "0",
+      "max": 1000,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_compression_failure_threshold_pct": {
+      "current_value": "5",
+      "max": 100,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_compression_level": {
+      "current_value": "6",
+      "max": 9,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_compression_pad_pct_max": {
+      "current_value": "50",
+      "max": 75,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_concurrency_tickets": {
+      "current_value": "5000",
+      "max": 4294967295,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "innodb_ddl_buffer_size": {
+      "current_value": "1048576",
+      "max": 4294967295,
+      "min": 65536,
+      "source": "COMPILED"
+    },
+    "innodb_ddl_threads": {
+      "current_value": "4",
+      "max": 64,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "innodb_deadlock_detect": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_default_row_format": {
+      "current_value": "dynamic",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_disable_sort_file_cache": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_doublewrite": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_doublewrite_batch_size": {
+      "current_value": "0",
+      "max": 256,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_doublewrite_files": {
+      "current_value": "2",
+      "max": 256,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_doublewrite_pages": {
+      "current_value": "4",
+      "max": 512,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_extend_and_initialize": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_fast_shutdown": {
+      "current_value": "1",
+      "max": 2,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_file_per_table": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_fill_factor": {
+      "current_value": "100",
+      "max": 100,
+      "min": 10,
+      "source": "COMPILED"
+    },
+    "innodb_flush_log_at_timeout": {
+      "current_value": "1",
+      "max": 2700,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_flush_log_at_trx_commit": {
+      "current_value": "1",
+      "max": 2,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_flush_method": {
+      "current_value": "fsync",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_flush_neighbors": {
+      "current_value": "0",
+      "max": 2,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_flush_sync": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_flushing_avg_loops": {
+      "current_value": "30",
+      "max": 1000,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "innodb_fsync_threshold": {
+      "current_value": "0",
+      "max": 18446744073709551615,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_ft_aux_table": {
+      "current_value": "",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_ft_cache_size": {
+      "current_value": "8000000",
+      "max": 80000000,
+      "min": 1600000,
+      "source": "COMPILED"
+    },
+    "innodb_ft_enable_diag_print": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_ft_enable_stopword": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_ft_num_word_optimize": {
+      "current_value": "2000",
+      "max": 10000,
+      "min": 1000,
+      "source": "COMPILED"
+    },
+    "innodb_ft_result_cache_limit": {
+      "current_value": "2000000000",
+      "max": 4294967295,
+      "min": 1000000,
+      "source": "COMPILED"
+    },
+    "innodb_ft_server_stopword_table": {
+      "current_value": "",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_ft_sort_pll_degree": {
+      "current_value": "2",
+      "max": 16,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "innodb_ft_total_cache_size": {
+      "current_value": "640000000",
+      "max": 1600000000,
+      "min": 32000000,
+      "source": "COMPILED"
+    },
+    "innodb_ft_user_stopword_table": {
+      "current_value": "",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_idle_flush_pct": {
+      "current_value": "100",
+      "max": 100,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_io_capacity": {
+      "current_value": "200",
+      "max": 4294967295,
+      "min": 100,
+      "source": "COMPILED"
+    },
+    "innodb_io_capacity_max": {
+      "current_value": "2000",
+      "max": 4294967295,
+      "min": 100,
+      "source": "COMPILED"
+    },
+    "innodb_lock_wait_timeout": {
+      "current_value": "50",
+      "max": 1073741824,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "innodb_log_buffer_size": {
+      "current_value": "16777216",
+      "max": 4294967295,
+      "min": 262144,
+      "source": "COMPILED"
+    },
+    "innodb_log_checksums": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_log_compressed_pages": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_log_file_size": {
+      "current_value": "50331648",
+      "max": 18446744073709551615,
+      "min": 4194304,
+      "source": "COMPILED"
+    },
+    "innodb_log_files_in_group": {
+      "current_value": "2",
+      "max": 100,
+      "min": 2,
+      "source": "COMPILED"
+    },
+    "innodb_log_spin_cpu_abs_lwm": {
+      "current_value": "80",
+      "max": 4294967295,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_log_spin_cpu_pct_hwm": {
+      "current_value": "50",
+      "max": 100,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_log_wait_for_flush_spin_hwm": {
+      "current_value": "400",
+      "max": 4294967295,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_log_write_ahead_size": {
+      "current_value": "8192",
+      "max": 16384,
+      "min": 512,
+      "source": "COMPILED"
+    },
+    "innodb_log_writer_threads": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_lru_scan_depth": {
+      "current_value": "1024",
+      "max": 4294967295,
+      "min": 100,
+      "source": "COMPILED"
+    },
+    "innodb_max_dirty_pages_pct": {
+      "current_value": "90.000000",
+      "max": 99,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_max_dirty_pages_pct_lwm": {
+      "current_value": "10.000000",
+      "max": 99,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_max_purge_lag": {
+      "current_value": "0",
+      "max": 4294967295,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_max_purge_lag_delay": {
+      "current_value": "0",
+      "max": 10000000,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_max_undo_log_size": {
+      "current_value": "1073741824",
+      "max": 18446744073709551615,
+      "min": 10485760,
+      "source": "COMPILED"
+    },
+    "innodb_monitor_enable": {
+      "current_value": "",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_numa_interleave": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_old_blocks_pct": {
+      "current_value": "37",
+      "max": 95,
+      "min": 5,
+      "source": "COMPILED"
+    },
+    "innodb_old_blocks_time": {
+      "current_value": "1000",
+      "max": 4294967295,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_online_alter_log_max_size": {
+      "current_value": "134217728",
+      "max": 18446744073709551615,
+      "min": 65536,
+      "source": "COMPILED"
+    },
+    "innodb_open_files": {
+      "current_value": "4000",
+      "max": 2147483647,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_optimize_fulltext_only": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_page_cleaners": {
+      "current_value": "1",
+      "max": 64,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "innodb_parallel_read_threads": {
+      "current_value": "4",
+      "max": 256,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "innodb_print_all_deadlocks": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_print_ddl_logs": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_purge_batch_size": {
+      "current_value": "300",
+      "max": 5000,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "innodb_purge_rseg_truncate_frequency": {
+      "current_value": "128",
+      "max": 128,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "innodb_purge_threads": {
+      "current_value": "4",
+      "max": 32,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "innodb_random_read_ahead": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_read_ahead_threshold": {
+      "current_value": "56",
+      "max": 64,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_read_io_threads": {
+      "current_value": "4",
+      "max": 64,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "innodb_redo_log_archive_dirs": {
+      "current_value": "",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_redo_log_capacity": {
+      "current_value": "1073741824",
+      "max": 549755813888,
+      "min": 8388608,
+      "source": "GLOBAL"
+    },
+    "innodb_redo_log_encrypt": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_replication_delay": {
+      "current_value": "0",
+      "max": 4294967295,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_rollback_segments": {
+      "current_value": "128",
+      "max": 128,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "innodb_segment_reserve_factor": {
+      "current_value": "12.500000",
+      "max": 40,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_sort_buffer_size": {
+      "current_value": "1048576",
+      "max": 67108864,
+      "min": 65536,
+      "source": "COMPILED"
+    },
+    "innodb_spin_wait_delay": {
+      "current_value": "6",
+      "max": 1000,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_spin_wait_pause_multiplier": {
+      "current_value": "50",
+      "max": 100,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_stats_auto_recalc": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_stats_include_delete_marked": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_stats_method": {
+      "current_value": "nulls_equal",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_stats_on_metadata": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_stats_persistent": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_stats_persistent_sample_pages": {
+      "current_value": "20",
+      "max": 18446744073709551615,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "innodb_stats_transient_sample_pages": {
+      "current_value": "8",
+      "max": 18446744073709551615,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "innodb_status_output": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_status_output_locks": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_strict_mode": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_sync_array_size": {
+      "current_value": "1",
+      "max": 1024,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "innodb_sync_spin_loops": {
+      "current_value": "30",
+      "max": 4294967295,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_table_locks": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_thread_concurrency": {
+      "current_value": "0",
+      "max": 1000,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_thread_sleep_delay": {
+      "current_value": "10000",
+      "max": 1000000,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_tmpdir": {
+      "current_value": "",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_undo_log_encrypt": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_undo_log_truncate": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_undo_tablespaces": {
+      "current_value": "2",
+      "max": 127,
+      "min": 2,
+      "source": "COMPILED"
+    },
+    "innodb_use_fdatasync": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_use_native_aio": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "innodb_write_io_threads": {
+      "current_value": "4",
+      "max": 64,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "interactive_timeout": {
+      "current_value": "28800",
+      "max": 31536000,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "internal_tmp_mem_storage_engine": {
+      "current_value": "TempTable",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "join_buffer_size": {
+      "current_value": "262144",
+      "max": 18446744073709551488,
+      "min": 128,
+      "source": "COMPILED"
+    },
+    "keep_files_on_create": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "key_buffer_size": {
+      "current_value": "8388608",
+      "max": 18446744073709547520,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "key_cache_age_threshold": {
+      "current_value": "300",
+      "max": 18446744073709551600,
+      "min": 100,
+      "source": "COMPILED"
+    },
+    "key_cache_block_size": {
+      "current_value": "1024",
+      "max": 16384,
+      "min": 512,
+      "source": "COMPILED"
+    },
+    "key_cache_division_limit": {
+      "current_value": "100",
+      "max": 100,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "lc_messages": {
+      "current_value": "en_US",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "lc_time_names": {
+      "current_value": "en_US",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "lock_wait_timeout": {
+      "current_value": "31536000",
+      "max": 31536000,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "log_bin_trust_function_creators": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "log_bin_use_v1_row_events": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "log_error_services": {
+      "current_value": "log_filter_internal; log_sink_internal",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "log_error_suppression_list": {
+      "current_value": "",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "log_error_verbosity": {
+      "current_value": "2",
+      "max": 3,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "log_queries_not_using_indexes": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "log_slow_admin_statements": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "log_slow_extra": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "log_statements_unsafe_for_binlog": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "log_throttle_queries_not_using_indexes": {
+      "current_value": "0",
+      "max": 18446744073709551615,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "long_query_time": {
+      "current_value": "10.000000",
+      "max": 4719230590769954816,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "low_priority_updates": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "mandatory_roles": {
+      "current_value": "",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "max_allowed_packet": {
+      "current_value": "67108864",
+      "max": 1073741824,
+      "min": 1024,
+      "source": "COMPILED"
+    },
+    "max_binlog_cache_size": {
+      "current_value": "18446744073709547520",
+      "max": 18446744073709547520,
+      "min": 4096,
+      "source": "COMPILED"
+    },
+    "max_binlog_size": {
+      "current_value": "1073741824",
+      "max": 1073741824,
+      "min": 4096,
+      "source": "COMPILED"
+    },
+    "max_binlog_stmt_cache_size": {
+      "current_value": "18446744073709547520",
+      "max": 18446744073709547520,
+      "min": 4096,
+      "source": "COMPILED"
+    },
+    "max_connect_errors": {
+      "current_value": "100",
+      "max": 18446744073709551615,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "max_connections": {
+      "current_value": "151",
+      "max": 100000,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "max_delayed_threads": {
+      "current_value": "20",
+      "max": 16384,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "max_digest_length": {
+      "current_value": "1024",
+      "max": 1048576,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "max_error_count": {
+      "current_value": "1024",
+      "max": 65535,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "max_execution_time": {
+      "current_value": "0",
+      "max": 18446744073709551615,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "max_heap_table_size": {
+      "current_value": "16777216",
+      "max": 18446744073709550592,
+      "min": 16384,
+      "source": "COMPILED"
+    },
+    "max_insert_delayed_threads": {
+      "current_value": "20",
+      "max": 16384,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "max_join_size": {
+      "current_value": "18446744073709551615",
+      "max": 18446744073709551615,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "max_length_for_sort_data": {
+      "current_value": "4096",
+      "max": 8388608,
+      "min": 4,
+      "source": "COMPILED"
+    },
+    "max_points_in_geometry": {
+      "current_value": "65536",
+      "max": 1048576,
+      "min": 3,
+      "source": "COMPILED"
+    },
+    "max_prepared_stmt_count": {
+      "current_value": "16382",
+      "max": 4194304,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "max_relay_log_size": {
+      "current_value": "0",
+      "max": 1073741824,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "max_seeks_for_key": {
+      "current_value": "18446744073709551615",
+      "max": 18446744073709551615,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "max_sort_length": {
+      "current_value": "1024",
+      "max": 8388608,
+      "min": 4,
+      "source": "COMPILED"
+    },
+    "max_sp_recursion_depth": {
+      "current_value": "0",
+      "max": 255,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "max_user_connections": {
+      "current_value": "0",
+      "max": 4294967295,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "max_write_lock_count": {
+      "current_value": "18446744073709551615",
+      "max": 18446744073709551615,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "min_examined_row_limit": {
+      "current_value": "0",
+      "max": 18446744073709551615,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "mysql_native_password_proxy_users": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "net_buffer_length": {
+      "current_value": "16384",
+      "max": 1048576,
+      "min": 1024,
+      "source": "COMPILED"
+    },
+    "net_read_timeout": {
+      "current_value": "30",
+      "max": 31536000,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "net_retry_count": {
+      "current_value": "10",
+      "max": 18446744073709551615,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "net_write_timeout": {
+      "current_value": "60",
+      "max": 31536000,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "new": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "offline_mode": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "open_files_limit": {
+      "current_value": "10000",
+      "max": 4294967295,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "optimizer_max_subgraph_pairs": {
+      "current_value": "100000",
+      "max": 2147483647,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "optimizer_prune_level": {
+      "current_value": "1",
+      "max": 1,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "optimizer_search_depth": {
+      "current_value": "62",
+      "max": 62,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "optimizer_switch": {
+      "current_value": "index_merge=on,index_merge_union=on,index_merge_sort_union=on,index_merge_intersection=on,engine_condition_pushdown=on,index_condition_pushdown=on,mrr=on,mrr_cost_based=on,block_nested_loop=on,batched_key_access=off,materialization=on,semijoin=on,loosescan=on,firstmatch=on,duplicateweedout=on,subquery_materialization_cost_based=on,use_index_extensions=on,condition_fanout_filter=on,derived_merge=on,use_invisible_indexes=off,skip_scan=on,hash_join=on,subquery_to_derived=off,prefer_ordering_index=on,hypergraph_optimizer=off,derived_condition_pushdown=on",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "parser_max_mem_size": {
+      "current_value": "18446744073709551615",
+      "max": 18446744073709551615,
+      "min": 10000000,
+      "source": "COMPILED"
+    },
+    "partial_revokes": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "performance_schema": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "performance_schema_max_digest_length": {
+      "current_value": "1024",
+      "max": 1048576,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "performance_schema_max_digest_sample_age": {
+      "current_value": "60",
+      "max": 1048576,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "performance_schema_max_table_handles": {
+      "current_value": "-1",
+      "max": 1048576,
+      "min": -1.0,
+      "source": "COMPILED"
+    },
+    "performance_schema_max_table_instances": {
+      "current_value": "-1",
+      "max": 1048576,
+      "min": -1.0,
+      "source": "COMPILED"
+    },
+    "performance_schema_max_thread_classes": {
+      "current_value": "100",
+      "max": 1024,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "performance_schema_max_thread_instances": {
+      "current_value": "-1",
+      "max": 1048576,
+      "min": -1.0,
+      "source": "COMPILED"
+    },
+    "preload_buffer_size": {
+      "current_value": "32768",
+      "max": 1073741824,
+      "min": 1024,
+      "source": "COMPILED"
+    },
+    "print_identified_with_as_hex": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "protocol_compression_algorithms": {
+      "current_value": "zlib,zstd,uncompressed",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "query_alloc_block_size": {
+      "current_value": "8192",
+      "max": 4294966272,
+      "min": 1024,
+      "source": "COMPILED"
+    },
+    "query_prealloc_size": {
+      "current_value": "8192",
+      "max": 18446744073709550592,
+      "min": 8192,
+      "source": "COMPILED"
+    },
+    "range_alloc_block_size": {
+      "current_value": "4096",
+      "max": 4294966272,
+      "min": 4096,
+      "source": "COMPILED"
+    },
+    "range_optimizer_max_mem_size": {
+      "current_value": "8388608",
+      "max": 18446744073709551615,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "read_buffer_size": {
+      "current_value": "131072",
+      "max": 2147479552,
+      "min": 8192,
+      "source": "COMPILED"
+    },
+    "read_rnd_buffer_size": {
+      "current_value": "262144",
+      "max": 2147483647,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "regexp_stack_limit": {
+      "current_value": "8000000",
+      "max": 2147483647,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "regexp_time_limit": {
+      "current_value": "32",
+      "max": 2147483647,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "schema_definition_cache": {
+      "current_value": "256",
+      "max": 524288,
+      "min": 256,
+      "source": "COMPILED"
+    },
+    "secondary_engine_cost_threshold": {
+      "current_value": "100000.000000",
+      "max": 9218868437227405311,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "select_into_buffer_size": {
+      "current_value": "131072",
+      "max": 2147479552,
+      "min": 8192,
+      "source": "COMPILED"
+    },
+    "select_into_disk_sync": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "select_into_disk_sync_delay": {
+      "current_value": "0",
+      "max": 31536000,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "sha256_password_proxy_users": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "skip-innodb-doublewrite": {
+      "allowed_values": [
+        false,
+        true
+      ],
+      "context": "mysql_startup_option",
+      "current_value": false,
+      "restart_required": true,
+      "source": "startup_option_alias"
+    },
+    "skip-log-bin": {
+      "allowed_values": [
+        false,
+        true
+      ],
+      "context": "mysql_startup_option",
+      "current_value": false,
+      "restart_required": true,
+      "source": "startup_option_alias"
+    },
+    "skip_name_resolve": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "slow_launch_time": {
+      "current_value": "2",
+      "max": 31536000,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "slow_query_log": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "sort_buffer_size": {
+      "current_value": "262144",
+      "max": 18446744073709551615,
+      "min": 32768,
+      "source": "COMPILED"
+    },
+    "source_verify_checksum": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "sql_buffer_result": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "stored_program_cache": {
+      "current_value": "256",
+      "max": 524288,
+      "min": 16,
+      "source": "COMPILED"
+    },
+    "stored_program_definition_cache": {
+      "current_value": "256",
+      "max": 524288,
+      "min": 256,
+      "source": "COMPILED"
+    },
+    "sync_binlog": {
+      "current_value": "1",
+      "max": 4294967295,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "table_definition_cache": {
+      "current_value": "2000",
+      "max": 524288,
+      "min": 400,
+      "source": "COMPILED"
+    },
+    "table_open_cache": {
+      "current_value": "4000",
+      "max": 524288,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "table_open_cache_instances": {
+      "current_value": "16",
+      "max": 64,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "tablespace_definition_cache": {
+      "current_value": "256",
+      "max": 524288,
+      "min": 256,
+      "source": "COMPILED"
+    },
+    "temptable_max_mmap": {
+      "current_value": "1073741824",
+      "max": 18446744073709551615,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "temptable_max_ram": {
+      "current_value": "1073741824",
+      "max": 18446744073709551615,
+      "min": 2097152,
+      "source": "COMPILED"
+    },
+    "temptable_use_mmap": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "thread_cache_size": {
+      "current_value": "9",
+      "max": 16384,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "tmp_table_size": {
+      "current_value": "16777216",
+      "max": 18446744073709551615,
+      "min": 1024,
+      "source": "COMPILED"
+    },
+    "transaction_alloc_block_size": {
+      "current_value": "8192",
+      "max": 131072,
+      "min": 1024,
+      "source": "COMPILED"
+    },
+    "transaction_isolation": {
+      "current_value": "REPEATABLE-READ",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "transaction_prealloc_size": {
+      "current_value": "4096",
+      "max": 131072,
+      "min": 1024,
+      "source": "COMPILED"
+    },
+    "transaction_read_only": {
+      "current_value": "OFF",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "transaction_write_set_extraction": {
+      "current_value": "XXHASH64",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "unique_checks": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "updatable_views_with_limit": {
+      "current_value": "YES",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "wait_timeout": {
+      "current_value": "28800",
+      "max": 31536000,
+      "min": 1,
+      "source": "COMPILED"
+    },
+    "windowing_use_high_precision": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    },
+    "xa_detach_on_prepare": {
+      "current_value": "ON",
+      "max": 0,
+      "min": 0,
+      "source": "COMPILED"
+    }
+  },
+  "selected_parameter_count": 305,
+  "workload": "sysbench_read",
+  "workload_interpretation": {
+    "access_patterns": [
+      "short_transaction",
+      "point_lookup",
+      "range_scan",
+      "index_scan"
+    ],
+    "auditor_policy": {
+      "db_plateau_patience_hint": 3,
+      "min_db_rounds_hint": 6,
+      "reason": "Read-only sysbench usually needs several DB-side checks around cache, AHI, performance_schema, and thread concurrency before switching to OS layers."
+    },
+    "base_type": "read_only",
+    "bottleneck_signals": [
+      "buffer_cache_miss",
+      "cpu_saturation",
+      "connection_pressure"
+    ],
+    "classification_source": "benchmark.mode",
+    "client_transport": "tcp_loopback",
+    "confidence": "high",
+    "evidence": [
+      "benchmark.mode=read",
+      "lua_script inferred from mode=oltp_read_only.lua",
+      "report_interval=10",
+      "client_transport=tcp_loopback",
+      "db_family=mysql"
+    ],
+    "first_round_guidance": [
+      "Do not describe this workload as readwrite when benchmark.mode is read.",
+      "Treat redo/binlog/flush knobs as secondary unless state metrics show real writes.",
+      "For DB tuning, prioritize cache residency, read-path contention, instrumentation overhead, thread/concurrency balance, and read-ahead behavior.",
+      "For benchmark maximum, consider restart-required instrumentation or startup tradeoffs only if allowed_knob_space and state/history justify them."
+    ],
+    "knobs_to_deprioritize": [
+      "sql_buffer_result",
+      "innodb_flush_log_at_trx_commit",
+      "sync_binlog",
+      "innodb_redo_log_capacity",
+      "innodb_log_buffer_size",
+      "innodb_io_capacity",
+      "innodb_io_capacity_max",
+      "skip-log-bin",
+      "skip-innodb-doublewrite",
+      "innodb_doublewrite"
+    ],
+    "knobs_to_prioritize": [
+      "performance_schema",
+      "innodb_buffer_pool_size",
+      "innodb_buffer_pool_instances",
+      "innodb_adaptive_hash_index",
+      "innodb_adaptive_hash_index_parts",
+      "innodb_sync_array_size",
+      "innodb_thread_concurrency",
+      "innodb_read_io_threads",
+      "innodb_read_ahead_threshold",
+      "innodb_random_read_ahead",
+      "innodb_old_blocks_pct",
+      "innodb_old_blocks_time",
+      "read_buffer_size",
+      "read_rnd_buffer_size",
+      "thread_cache_size",
+      "table_open_cache",
+      "table_open_cache_instances",
+      "table_definition_cache",
+      "skip_name_resolve",
+      "back_log"
+    ],
+    "layered_tags": {
+      "access_patterns": [
+        "short_transaction",
+        "point_lookup",
+        "range_scan",
+        "index_scan"
+      ],
+      "base_type": "read_only",
+      "bottleneck_signals": [
+        "buffer_cache_miss",
+        "cpu_saturation",
+        "connection_pressure"
+      ],
+      "objective_tags": [
+        "benchmark_max",
+        "throughput_sensitive",
+        "latency_sensitive"
+      ],
+      "workload_class": "oltp"
+    },
+    "low_priority_directions": [
+      "redo_binlog_flush_durability",
+      "dirty_page_writeback",
+      "doublewrite_and_write_io_threads"
+    ],
+    "lua_script": "oltp_read_only.lua",
+    "mode": "read",
+    "objective_tags": [
+      "benchmark_max",
+      "throughput_sensitive",
+      "latency_sensitive"
+    ],
+    "primary_tuning_directions": [
+      "memory_and_buffer_pool_residency",
+      "read_path_latch_and_cache_contention",
+      "performance_schema_overhead",
+      "thread_concurrency_and_scheduler_balance",
+      "read_ahead_and_old_blocks_policy"
+    ],
+    "read_intensity": "high",
+    "report_interval": 10,
+    "workload_class": "oltp",
+    "workload_family": "sysbench",
+    "workload_type": "sysbench_oltp_read_only",
+    "write_intensity": "none_or_negligible"
+  }
+}
+
+## Prompt DB Metrics Summary
+
+{
+  "innodb_metrics": {
+    "adaptive_hash_searches": 0,
+    "adaptive_hash_searches_btree": 10133573,
+    "buffer_data_reads": 7213943296,
+    "buffer_data_written": 3173376,
+    "buffer_pages_created": 143,
+    "buffer_pages_read": 440344,
+    "buffer_pages_written": 189,
+    "buffer_pool_bytes_data": 7216939008,
+    "buffer_pool_bytes_dirty": 0,
+    "buffer_pool_pages_data": 440487,
+    "buffer_pool_pages_dirty": 0,
+    "buffer_pool_pages_free": 2704960,
+    "buffer_pool_pages_misc": 281,
+    "buffer_pool_pages_total": 3145728,
+    "buffer_pool_read_ahead": 111623,
+    "buffer_pool_read_ahead_evicted": 0,
+    "buffer_pool_read_requests": 45937509,
+    "buffer_pool_reads": 328703,
+    "buffer_pool_size": 51539607552,
+    "buffer_pool_wait_free": 0,
+    "buffer_pool_write_requests": 1896,
+    "dml_deletes": 0,
+    "dml_inserts": 0,
+    "dml_reads": 0,
+    "dml_updates": 0,
+    "file_num_open_files": 47,
+    "ibuf_merges": 0,
+    "ibuf_merges_delete": 0,
+    "ibuf_merges_delete_mark": 0,
+    "ibuf_merges_discard_delete": 0,
+    "ibuf_merges_discard_delete_mark": 0,
+    "ibuf_merges_discard_insert": 0,
+    "ibuf_merges_insert": 0,
+    "ibuf_size": 1,
+    "innodb_activity_count": 114,
+    "innodb_dblwr_pages_written": 48,
+    "innodb_dblwr_writes": 16,
+    "innodb_page_size": 16384,
+    "innodb_rwlock_s_os_waits": 0,
+    "innodb_rwlock_s_spin_rounds": 0,
+    "innodb_rwlock_s_spin_waits": 0,
+    "innodb_rwlock_x_os_waits": 0,
+    "innodb_rwlock_x_spin_rounds": 0,
+    "innodb_rwlock_x_spin_waits": 0,
+    "lock_deadlocks": 0,
+    "lock_row_lock_current_waits": 0,
+    "lock_row_lock_time": 0,
+    "lock_row_lock_time_avg": 0,
+    "lock_row_lock_time_max": 0,
+    "lock_row_lock_waits": 0,
+    "lock_timeouts": 0,
+    "log_waits": 0,
+    "log_write_requests": 838,
+    "log_writes": 28,
+    "metadata_mem_pool_size": 0,
+    "os_data_fsyncs": 107,
+    "os_data_reads": 440358,
+    "os_data_writes": 260,
+    "os_log_bytes_written": 54784,
+    "os_log_fsyncs": 25,
+    "os_log_pending_fsyncs": 0,
+    "os_log_pending_writes": 0,
+    "trx_rseg_history_len": 5
+  },
+  "metrics_profile": [
+    "metadata_mem_pool_size",
+    "lock_row_lock_time_max",
+    "lock_row_lock_time_avg",
+    "buffer_pool_size",
+    "buffer_pool_pages_total",
+    "buffer_pool_pages_misc",
+    "buffer_pool_pages_data",
+    "buffer_pool_bytes_data",
+    "buffer_pool_pages_dirty",
+    "buffer_pool_bytes_dirty",
+    "buffer_pool_pages_free",
+    "trx_rseg_history_len",
+    "file_num_open_files",
+    "innodb_page_size",
+    "lock_row_lock_current_waits",
+    "buffer_pool_read_ahead_evicted",
+    "ibuf_merges_discard_delete_mark",
+    "innodb_rwlock_s_spin_rounds",
+    "innodb_rwlock_x_spin_rounds",
+    "innodb_rwlock_s_os_waits",
+    "innodb_rwlock_x_os_waits",
+    "innodb_dblwr_pages_written",
+    "innodb_rwlock_s_spin_waits",
+    "innodb_rwlock_x_spin_waits",
+    "ibuf_merges_discard_delete",
+    "buffer_pool_read_requests",
+    "buffer_pool_write_requests",
+    "lock_row_lock_time",
+    "lock_row_lock_waits",
+    "buffer_pool_wait_free",
+    "buffer_pool_read_ahead",
+    "adaptive_hash_searches",
+    "adaptive_hash_searches_btree",
+    "ibuf_merges_delete_mark",
+    "ibuf_merges_discard_insert",
+    "os_log_pending_fsyncs",
+    "os_log_pending_writes",
+    "os_log_bytes_written",
+    "innodb_activity_count",
+    "buffer_pages_written",
+    "buffer_pages_read",
+    "buffer_data_reads",
+    "buffer_data_written",
+    "ibuf_merges_insert",
+    "ibuf_merges_delete",
+    "innodb_dblwr_writes",
+    "buffer_pool_reads",
+    "buffer_pages_created",
+    "log_write_requests",
+    "os_data_reads",
+    "os_data_writes",
+    "os_data_fsyncs",
+    "os_log_fsyncs",
+    "lock_deadlocks",
+    "lock_timeouts",
+    "log_waits",
+    "log_writes",
+    "ibuf_merges",
+    "ibuf_size",
+    "dml_reads",
+    "dml_inserts",
+    "dml_deletes",
+    "dml_updates"
+  ],
+  "status": {
+    "Created_tmp_disk_tables": "0",
+    "Innodb_buffer_pool_reads": "328703",
+    "Innodb_row_lock_time_avg": "0",
+    "Queries": "7409704",
+    "Threads_running": "2",
+    "Uptime": "112"
+  },
+  "variables": {
+    "innodb_buffer_pool_size": "51539607552",
+    "innodb_flush_log_at_trx_commit": "1",
+    "innodb_io_capacity": "200",
+    "innodb_io_capacity_max": "2000",
+    "max_connections": "256"
+  }
+}

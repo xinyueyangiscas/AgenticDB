@@ -1,0 +1,2239 @@
+{
+  "profiles": {
+    "postgres|sysbench_pg_read|tps_over_p95|tps|maximize": {
+      "profile_context": {
+        "dbms": "postgres",
+        "workload": "sysbench_pg_read",
+        "objective_formula": "tps_over_p95",
+        "primary_metric": "tps",
+        "direction": "maximize",
+        "hardware": {
+          "cpu": "12 vCPU",
+          "memory": "64GB",
+          "disk": "116GB SSD"
+        },
+        "benchmark": {
+          "kind": "shell",
+          "mode": "read",
+          "command_template": null,
+          "script_path": "<PAPER_WORKSPACE>\\scripts\\run_sysbench_pg.sh",
+          "db_driver": "pgsql",
+          "workload_script": null,
+          "tables": 32,
+          "table_size": 1000000,
+          "estimated_total_rows": 32000000,
+          "threads": 64,
+          "duration_seconds": 60,
+          "warmup_seconds": 0,
+          "report_interval_seconds": 5,
+          "database": "sbtest",
+          "host": "127.0.0.1",
+          "port": 5432,
+          "output_path": "/tmp/sb_pg.log",
+          "benchmark_config_path": "<PAPER_WORKSPACE>\\agenticDB\\config\\benchmark_postgres_10_20_173_60_read.yaml",
+          "benchmark_config_text": "[omitted from stored memory; provided directly to the LLM prompt when needed]",
+          "script_content": "[omitted from stored memory; provided directly to the LLM prompt when needed]",
+          "reference_files": [
+            {
+              "path": "<PAPER_WORKSPACE>\\agenticDB\\config\\benchmark_postgres_10_20_173_60_read.yaml",
+              "role": "benchmark_config",
+              "content": "[omitted from stored memory; provided directly to the LLM prompt when needed]"
+            },
+            {
+              "path": "<PAPER_WORKSPACE>\\scripts\\run_sysbench_pg.sh",
+              "role": "benchmark_script",
+              "content": "[omitted from stored memory; provided directly to the LLM prompt when needed]"
+            },
+            {
+              "path": "<PAPER_WORKSPACE>\\readme_pg.md",
+              "role": "reference_file",
+              "content": "[omitted from stored memory; provided directly to the LLM prompt when needed]"
+            },
+            {
+              "path": "<PAPER_WORKSPACE>\\pg_knobs_common150_ranges.csv",
+              "role": "knob_space_file",
+              "content": "[omitted from stored memory; provided directly to the LLM prompt when needed]"
+            },
+            {
+              "path": "<PAPER_WORKSPACE>\\pg_knobs_tunable.csv",
+              "role": "knob_space_file",
+              "content": "[omitted from stored memory; provided directly to the LLM prompt when needed]"
+            },
+            {
+              "path": "<PAPER_WORKSPACE>\\pg_knobs_initial.csv",
+              "role": "knob_space_file",
+              "content": "[omitted from stored memory; provided directly to the LLM prompt when needed]"
+            },
+            {
+              "path": "<PAPER_WORKSPACE>\\environment\\metrics_whitelist pg.py",
+              "role": "state_metric_whitelist",
+              "content": "[omitted from stored memory; provided directly to the LLM prompt when needed]"
+            }
+          ],
+          "effective_command_preview": "bash <PAPER_WORKSPACE>\\scripts\\run_sysbench_pg.sh <mode/host/port/password/duration/output according to workload kind>",
+          "workload_interpretation": {
+            "workload_type": "sysbench_pg_oltp_read_only",
+            "workload_family": "sysbench_pgsql",
+            "mode": "read",
+            "lua_script": "oltp_read_only.lua",
+            "read_intensity": "high",
+            "write_intensity": "none_or_negligible",
+            "client_transport": "tcp_loopback",
+            "report_interval": 5,
+            "classification_source": "benchmark.mode",
+            "primary_tuning_directions": [
+              "postgres_memory_cache_residency",
+              "planner_cost_and_io_concurrency",
+              "parallelism_and_worker_budget",
+              "client_connection_budget",
+              "jit_and_tracking_overhead"
+            ],
+            "low_priority_directions": [
+              "wal_and_checkpoint_write_path",
+              "autovacuum_write_cost_policy"
+            ],
+            "first_round_guidance": [
+              "Base the first DB round on a real global candidate, not one isolated probe.",
+              "Separate restart-required knobs from reloadable/runtime knobs.",
+              "For read-only, prioritize shared_buffers, effective_cache_size, work_mem, planner cost, IO concurrency, JIT/stat overhead, and worker settings.",
+              "Do not treat WAL/checkpoint knobs as primary unless state metrics show write pressure."
+            ],
+            "knobs_to_prioritize": [
+              "shared_buffers",
+              "effective_cache_size",
+              "work_mem",
+              "maintenance_work_mem",
+              "random_page_cost",
+              "effective_io_concurrency",
+              "max_worker_processes",
+              "max_parallel_workers",
+              "max_parallel_workers_per_gather",
+              "jit",
+              "track_io_timing",
+              "max_connections",
+              "temp_buffers"
+            ],
+            "knobs_to_deprioritize": [
+              "synchronous_commit",
+              "wal_buffers",
+              "max_wal_size",
+              "checkpoint_completion_target",
+              "full_page_writes",
+              "fsync"
+            ],
+            "auditor_policy": {
+              "min_db_rounds_hint": 6,
+              "db_plateau_patience_hint": 3
+            },
+            "evidence": [
+              "benchmark.mode=read",
+              "lua_script inferred from mode=oltp_read_only.lua",
+              "report_interval=5",
+              "client_transport=tcp_loopback",
+              "db_family=postgresql"
+            ],
+            "confidence": "high"
+          },
+          "planner_instruction": "Use workload_interpretation as the controller's preflight workload classification. You may cross-check it against benchmark_config_text, script_content, and effective_command_preview, but do not relabel a configured read workload as readwrite just because a wrapper script contains an unused readwrite branch.",
+          "objective": {
+            "primary_metric": "tps",
+            "direction": "maximize",
+            "formula": "tps_over_p95",
+            "latency_metric": "p95_latency_ms",
+            "min_improvement_ratio": 0.01
+          }
+        },
+        "workload_interpretation": {
+          "workload_type": "sysbench_pg_oltp_read_only",
+          "workload_family": "sysbench_pgsql",
+          "mode": "read",
+          "lua_script": "oltp_read_only.lua",
+          "read_intensity": "high",
+          "write_intensity": "none_or_negligible",
+          "client_transport": "tcp_loopback",
+          "report_interval": 5,
+          "classification_source": "benchmark.mode",
+          "primary_tuning_directions": [
+            "postgres_memory_cache_residency",
+            "planner_cost_and_io_concurrency",
+            "parallelism_and_worker_budget",
+            "client_connection_budget",
+            "jit_and_tracking_overhead"
+          ],
+          "low_priority_directions": [
+            "wal_and_checkpoint_write_path",
+            "autovacuum_write_cost_policy"
+          ],
+          "first_round_guidance": [
+            "Base the first DB round on a real global candidate, not one isolated probe.",
+            "Separate restart-required knobs from reloadable/runtime knobs.",
+            "For read-only, prioritize shared_buffers, effective_cache_size, work_mem, planner cost, IO concurrency, JIT/stat overhead, and worker settings.",
+            "Do not treat WAL/checkpoint knobs as primary unless state metrics show write pressure."
+          ],
+          "knobs_to_prioritize": [
+            "shared_buffers",
+            "effective_cache_size",
+            "work_mem",
+            "maintenance_work_mem",
+            "random_page_cost",
+            "effective_io_concurrency",
+            "max_worker_processes",
+            "max_parallel_workers",
+            "max_parallel_workers_per_gather",
+            "jit",
+            "track_io_timing",
+            "max_connections",
+            "temp_buffers"
+          ],
+          "knobs_to_deprioritize": [
+            "synchronous_commit",
+            "wal_buffers",
+            "max_wal_size",
+            "checkpoint_completion_target",
+            "full_page_writes",
+            "fsync"
+          ],
+          "auditor_policy": {
+            "min_db_rounds_hint": 6,
+            "db_plateau_patience_hint": 3
+          },
+          "evidence": [
+            "benchmark.mode=read",
+            "lua_script inferred from mode=oltp_read_only.lua",
+            "report_interval=5",
+            "client_transport=tcp_loopback",
+            "db_family=postgresql"
+          ],
+          "confidence": "high"
+        }
+      },
+      "baseline": {
+        "score": 461.2423357664234,
+        "tps": 6319.02,
+        "p95_latency_ms": 13.7,
+        "primary_metric_name": "tps",
+        "primary_metric_value": 6319.02,
+        "valid": true,
+        "metrics": {
+          "tps": 6319.02,
+          "p95_latency_ms": 13.7
+        },
+        "metadata": {}
+      },
+      "best_result": {
+        "score": 1083.6033707865167,
+        "tps": 9644.07,
+        "p95_latency_ms": 8.9,
+        "primary_metric_name": "tps",
+        "primary_metric_value": 9644.07,
+        "valid": true,
+        "metrics": {
+          "tps": 9644.07,
+          "p95_latency_ms": 8.9
+        },
+        "metadata": {}
+      },
+      "best_config": {
+        "allow_in_place_tablespaces": false,
+        "allow_system_table_mods": false,
+        "archive_timeout": 0,
+        "array_nulls": true,
+        "authentication_timeout": 60000,
+        "autovacuum": true,
+        "autovacuum_analyze_scale_factor": 0.1,
+        "autovacuum_analyze_threshold": 50,
+        "autovacuum_freeze_max_age": 200000000,
+        "autovacuum_max_workers": 3,
+        "autovacuum_multixact_freeze_max_age": 400000000,
+        "autovacuum_naptime": 60000,
+        "autovacuum_vacuum_cost_delay": 2.0,
+        "autovacuum_vacuum_cost_limit": -1,
+        "autovacuum_vacuum_insert_scale_factor": 0.2,
+        "autovacuum_vacuum_insert_threshold": 1000,
+        "autovacuum_vacuum_scale_factor": 0.2,
+        "autovacuum_vacuum_threshold": 50,
+        "autovacuum_work_mem": -1024,
+        "backend_flush_after": 0,
+        "backslash_quote": "safe_encoding",
+        "bgwriter_delay": 200,
+        "bgwriter_flush_after": 524288,
+        "bgwriter_lru_maxpages": 100,
+        "bgwriter_lru_multiplier": 2.0,
+        "bonjour": false,
+        "bytea_output": "hex",
+        "check_function_bodies": true,
+        "checkpoint_completion_target": 0.9,
+        "checkpoint_flush_after": 262144,
+        "checkpoint_timeout": 300000,
+        "checkpoint_warning": 30000,
+        "client_connection_check_interval": 0,
+        "client_min_messages": "notice",
+        "commit_delay": 0,
+        "commit_siblings": 5,
+        "compute_query_id": false,
+        "constraint_exclusion": "partition",
+        "cpu_index_tuple_cost": 0.005,
+        "cpu_operator_cost": 0.0025,
+        "cpu_tuple_cost": 0.01,
+        "cursor_tuple_fraction": 0.1,
+        "data_sync_retry": false,
+        "db_user_namespace": false,
+        "deadlock_timeout": 1000,
+        "debug_discard_caches": 0,
+        "debug_io_direct": "",
+        "debug_logical_replication_streaming": "buffered",
+        "debug_parallel_query": false,
+        "debug_pretty_print": true,
+        "debug_print_parse": false,
+        "debug_print_plan": false,
+        "debug_print_rewritten": false,
+        "default_statistics_target": 100,
+        "default_toast_compression": "pglz",
+        "default_transaction_deferrable": false,
+        "default_transaction_isolation": "read committed",
+        "default_transaction_read_only": false,
+        "dynamic_shared_memory_type": "posix",
+        "effective_cache_size": 51539607552,
+        "effective_io_concurrency": 128,
+        "enable_async_append": true,
+        "enable_bitmapscan": true,
+        "enable_gathermerge": true,
+        "enable_hashagg": true,
+        "enable_hashjoin": true,
+        "enable_incremental_sort": true,
+        "enable_indexonlyscan": true,
+        "enable_indexscan": true,
+        "enable_material": true,
+        "enable_memoize": true,
+        "enable_mergejoin": true,
+        "enable_nestloop": true,
+        "enable_parallel_append": true,
+        "enable_parallel_hash": true,
+        "enable_partition_pruning": true,
+        "enable_partitionwise_aggregate": false,
+        "enable_partitionwise_join": false,
+        "enable_presorted_aggregate": true,
+        "enable_seqscan": true,
+        "enable_sort": true,
+        "enable_tidscan": true,
+        "escape_string_warning": true,
+        "exit_on_error": false,
+        "extra_float_digits": 1,
+        "file_extend_method": "posix_fallocate",
+        "from_collapse_limit": 8,
+        "fsync": true,
+        "full_page_writes": true,
+        "geqo": true,
+        "geqo_effort": 5,
+        "geqo_generations": 0,
+        "geqo_pool_size": 0,
+        "geqo_seed": 0.0,
+        "geqo_selection_bias": 2.0,
+        "geqo_threshold": 12,
+        "gin_fuzzy_search_limit": 0,
+        "gin_pending_list_limit": 4194304,
+        "gss_accept_delegation": false,
+        "hash_mem_multiplier": 2.0,
+        "hot_standby": true,
+        "hot_standby_feedback": false,
+        "huge_page_size": 0,
+        "huge_pages": "try",
+        "icu_validation_level": "warning",
+        "idle_in_transaction_session_timeout": 0,
+        "idle_session_timeout": 0,
+        "ignore_checksum_failure": false,
+        "ignore_invalid_pages": false,
+        "ignore_system_indexes": false,
+        "IntervalStyle": "postgres",
+        "jit": false,
+        "jit_above_cost": 100000.0,
+        "jit_debugging_support": false,
+        "jit_dump_bitcode": false,
+        "jit_expressions": false,
+        "jit_inline_above_cost": 500000.0,
+        "jit_optimize_above_cost": 500000.0,
+        "jit_profiling_support": false,
+        "jit_tuple_deforming": false,
+        "join_collapse_limit": 8,
+        "krb_caseins_users": false,
+        "lo_compat_privileges": false,
+        "lock_timeout": 0,
+        "log_autovacuum_min_duration": 600000,
+        "log_checkpoints": true,
+        "log_connections": false,
+        "log_disconnections": false,
+        "log_duration": false,
+        "log_error_verbosity": "default",
+        "log_executor_stats": false,
+        "log_file_mode": 600,
+        "log_hostname": false,
+        "log_lock_waits": false,
+        "log_min_duration_sample": -1,
+        "log_min_duration_statement": -1,
+        "log_min_error_statement": "error",
+        "log_min_messages": "warning",
+        "log_parameter_max_length": -1,
+        "log_parameter_max_length_on_error": 0,
+        "log_parser_stats": false,
+        "log_planner_stats": false,
+        "log_recovery_conflict_waits": false,
+        "log_replication_commands": false,
+        "log_rotation_age": 86400000,
+        "log_rotation_size": 10485760,
+        "log_startup_progress_interval": 10000,
+        "log_statement": "none",
+        "log_statement_sample_rate": 1.0,
+        "log_statement_stats": false,
+        "log_temp_files": -1024,
+        "log_transaction_sample_rate": 0.0,
+        "log_truncate_on_rotation": false,
+        "logging_collector": false,
+        "logical_decoding_work_mem": 67108864,
+        "maintenance_io_concurrency": 10,
+        "maintenance_work_mem": 67108864,
+        "max_connections": 100,
+        "max_files_per_process": 1000,
+        "max_locks_per_transaction": 64,
+        "max_logical_replication_workers": 4,
+        "max_parallel_apply_workers_per_subscription": 2,
+        "max_parallel_maintenance_workers": 2,
+        "max_parallel_workers": 8,
+        "max_parallel_workers_per_gather": 2,
+        "max_pred_locks_per_page": 2,
+        "max_pred_locks_per_relation": -2,
+        "max_pred_locks_per_transaction": 64,
+        "max_prepared_transactions": 0,
+        "max_replication_slots": 10,
+        "max_slot_wal_keep_size": -1048576,
+        "max_stack_depth": 2097152,
+        "max_standby_archive_delay": 30000,
+        "max_standby_streaming_delay": 30000,
+        "max_sync_workers_per_subscription": 2,
+        "max_wal_senders": 10,
+        "max_wal_size": 1073741824,
+        "max_worker_processes": 8,
+        "min_dynamic_shared_memory": 0,
+        "min_parallel_index_scan_size": 524288,
+        "min_parallel_table_scan_size": 8388608,
+        "min_wal_size": 83886080,
+        "old_snapshot_threshold": -60000,
+        "parallel_leader_participation": true,
+        "parallel_setup_cost": 1000.0,
+        "parallel_tuple_cost": 0.1,
+        "password_encryption": "scram-sha-256",
+        "plan_cache_mode": "force_generic_plan",
+        "port": 5432,
+        "post_auth_delay": 0,
+        "pre_auth_delay": 0,
+        "quote_all_identifiers": false,
+        "random_page_cost": 1.5,
+        "recovery_init_sync_method": "fsync",
+        "recovery_min_apply_delay": 0,
+        "recovery_prefetch": "try",
+        "recovery_target_action": "pause",
+        "recovery_target_inclusive": true,
+        "recursive_worktable_factor": 10.0,
+        "remove_temp_files_after_crash": true,
+        "reserved_connections": 0,
+        "restart_after_crash": true,
+        "row_security": true,
+        "scram_iterations": 4096,
+        "send_abort_for_crash": false,
+        "send_abort_for_kill": false,
+        "seq_page_cost": 1.0,
+        "session_replication_role": "origin",
+        "shared_buffers": 134217728,
+        "shared_memory_type": "mmap",
+        "ssl": false,
+        "ssl_max_protocol_version": "",
+        "ssl_min_protocol_version": "TLSv1.2",
+        "ssl_passphrase_command_supports_reload": false,
+        "ssl_prefer_server_ciphers": true,
+        "standard_conforming_strings": true,
+        "statement_timeout": 0,
+        "stats_fetch_consistency": "cache",
+        "superuser_reserved_connections": 3,
+        "synchronize_seqscans": true,
+        "synchronous_commit": true,
+        "syslog_facility": "local0",
+        "syslog_sequence_numbers": true,
+        "syslog_split_messages": true,
+        "tcp_keepalives_count": 9,
+        "tcp_keepalives_idle": 7200000,
+        "tcp_keepalives_interval": 75000,
+        "tcp_user_timeout": 0,
+        "temp_buffers": 8388608,
+        "temp_file_limit": -1024,
+        "trace_notify": false,
+        "trace_recovery_messages": "log",
+        "trace_sort": false,
+        "track_activities": true,
+        "track_activity_query_size": 1024,
+        "track_commit_timestamp": false,
+        "track_counts": true,
+        "track_functions": "none",
+        "track_io_timing": false,
+        "track_wal_io_timing": false,
+        "transform_null_equals": false,
+        "unix_socket_permissions": 777,
+        "update_process_title": false,
+        "vacuum_buffer_usage_limit": 262144,
+        "vacuum_cost_delay": 0.0,
+        "vacuum_cost_limit": 200,
+        "vacuum_cost_page_dirty": 20,
+        "vacuum_cost_page_hit": 1,
+        "vacuum_cost_page_miss": 2,
+        "vacuum_failsafe_age": 1600000000,
+        "vacuum_freeze_min_age": 50000000,
+        "vacuum_freeze_table_age": 150000000,
+        "vacuum_multixact_failsafe_age": 1600000000,
+        "vacuum_multixact_freeze_min_age": 5000000,
+        "vacuum_multixact_freeze_table_age": 150000000,
+        "wal_buffers": 4194304,
+        "wal_compression": false,
+        "wal_decode_buffer_size": 524288,
+        "wal_init_zero": true,
+        "wal_keep_size": 0,
+        "wal_level": "replica",
+        "wal_log_hints": false,
+        "wal_receiver_create_temp_slot": false,
+        "wal_receiver_status_interval": 10000,
+        "wal_receiver_timeout": 60000,
+        "wal_recycle": true,
+        "wal_retrieve_retry_interval": 5000,
+        "wal_sender_timeout": 60000,
+        "wal_skip_threshold": 2097152,
+        "wal_sync_method": "fdatasync",
+        "wal_writer_delay": 200,
+        "wal_writer_flush_after": 1048576,
+        "work_mem": 8388608,
+        "xmlbinary": "base64",
+        "xmloption": "content",
+        "zero_damaged_pages": false
+      },
+      "rounds": [
+        {
+          "round_id": 1,
+          "timestamp": "2026-05-16T00:13:11.579466",
+          "proposal": {
+            "diagnosis": "已按 workload_interpretation 先判定并交叉检查：benchmark_config 的 mode=read，脚本在 MODE=read 时实际选择 /usr/share/sysbench/oltp_read_only.lua，write/readwrite 分支只是未执行的 wrapper 分支，因此这是 sysbench PostgreSQL OLTP read-only，不应按 readwrite 调 WAL/flush 作为主线。当前 state_metric 显示 tup_inserted/updated/deleted=0、pg_stat_wal 全为 0、pg_stat_io writes/fsyncs=0，写路径没有收益证据；主要问题是默认 shared_buffers 只有 128MB，pg_stat_io reads/evictions 和 pg_stat_database.blks_read 都很高，说明 PostgreSQL buffer residency 很差，反复经由 OS cache/缓冲区替换；同时 64 线程压 12 vCPU，load/CPU PSI 偏高，短 OLTP 查询应避免 JIT 和每查询并行开销。第一轮采用覆盖内存驻留、planner/IO 并发、worker 预算、JIT/轻量观测开销的全局候选，并保持 WAL/checkpoint/autovacuum 为低优先级不动。",
+            "action_type": "db_config",
+            "candidate_config": {
+              "shared_buffers": 17179869184,
+              "effective_cache_size": 51539607552,
+              "work_mem": 16777216,
+              "maintenance_work_mem": 1073741824,
+              "temp_buffers": 16777216,
+              "effective_io_concurrency": 200,
+              "random_page_cost": 1.1,
+              "jit": false,
+              "jit_expressions": false,
+              "jit_tuple_deforming": false,
+              "max_worker_processes": 16,
+              "max_parallel_workers": 12,
+              "max_parallel_workers_per_gather": 0,
+              "update_process_title": false,
+              "compute_query_id": "off"
+            },
+            "restart_required": true,
+            "expected_effect": "预期 16GB shared_buffers + 48GB effective_cache_size 会显著降低 PG buffer churn 和缓存命中路径开销，random_page_cost/effective_io_concurrency 更适合 SSD+缓存读，禁用 JIT 和 per-query parallel 会减少 64 并发短查询的 CPU 调度/编译开销，从而提升 TPS 并降低或稳定 p95。",
+            "risk": "需要重启；shared_buffers 提升到 16GB 会改变 PG/OS cache 分工，若数据集远大于内存或重启后无 warmup，首次 60s 可能有重新填充缓冲区的噪声；max_parallel_workers_per_gather=0 可能使少数长 range 查询失去并行收益；compute_query_id/update_process_title 关闭会降低部分观测/进程标题可见性，但不影响基本 benchmark。",
+            "validation_required": true,
+            "global_config_plan": {
+              "summary": "第一轮落地一个 read-only 全局优化组合：显著扩大 PostgreSQL 缓冲区和规划器缓存认知，给 SSD/read path 更高 IO 并发，避免短查询 JIT 和过度并行查询开销，适度提高 worker 总预算；连接数当前 100 足够 64 sysbench 线程和管理连接，因此本轮不冒险压低 max_connections。由于 shared_buffers/max_worker_processes 是 postmaster 参数，本轮需要重启验证。",
+              "change_groups": {
+                "memory": [
+                  "shared_buffers 从 128MB 提到 16GB：64GB 内存机器上给 PG 足够缓冲区，减少当前大量 buffer evictions 和 blks_read/syscall 路径；保留约 48GB 给 OS cache 和进程内存。",
+                  "effective_cache_size 提到 48GB：让 planner 知道数据/索引大概率常驻内存+OS cache，避免把随机索引访问估得过贵。",
+                  "work_mem 从 4MB 提到 16MB：64 并发下仍安全，避免 range/order/hash 场景潜在小内存限制；当前无 temp spill，因此不激进到很大。",
+                  "temp_buffers 从 8MB 提到 16MB：保持轻量，覆盖 session 临时缓冲需求但不浪费过多连接内存。",
+                  "maintenance_work_mem 提到 1GB：主要影响维护/建索引，不是 read-only 主收益；作为全局配置改善但不依赖它提升本轮 TPS。"
+                ],
+                "redo_binlog": [
+                  "保持 fsync/full_page_writes/synchronous_commit/wal_level/wal_buffers 不作为本轮主调：当前 read-only 指标 wal_records/wal_bytes/wal_write/wal_sync 均为 0，写路径没有瓶颈证据。",
+                  "不采用 fsync=off 或 wal_level=minimal 的 benchmark_max 写路径风险项，因为对纯读 run 阶段几乎无收益，反而可能影响准备/恢复安全。"
+                ],
+                "io_flush": [
+                  "effective_io_concurrency 从 1 提到 200：SSD 上提高 bitmap heap scan/prefetch 并发能力，配合更低 random_page_cost 更符合缓存/SSD read path。",
+                  "checkpoint/bgwriter 参数保持不动：pg_stat_bgwriter checkpoint/buffers_backend_fsync 为 0，当前读压测没有 checkpoint/flush 抖动证据。"
+                ],
+                "concurrency_cpu": [
+                  "max_worker_processes 从 8 提到 16，max_parallel_workers 提到 12：给后台/并行 worker 留出与 12 vCPU 匹配的预算，避免 worker 上限过低。",
+                  "max_parallel_workers_per_gather 设为 0：sysbench OLTP read-only 是 64 并发短查询，单查询并行通常增加调度和 gather 开销，禁用 per-query parallel 更有利于 p95 和 CPU 利用。",
+                  "jit 及相关表达式/tuple deforming 关闭：短 OLTP 查询 JIT 编译/执行路径常是净开销，关闭有望降低 p95。",
+                  "update_process_title 关闭、compute_query_id 关闭：减少高频短查询下的轻量元数据更新/查询 ID 计算开销；保留 track_counts/track_activities 以保证基本指标可用。",
+                  "max_connections 保持 100：64 客户端 + 管理/采集连接足够，第一轮避免因压低连接上限导致验证失败。"
+                ],
+                "benchmark_max_static": [
+                  "本轮使用正常偏积极的重启型 DB 参数，不直接采用 crash-safety 牺牲项。",
+                  "如后续确认该组合有效但仍受缓存/CPU 限制，可进一步尝试 24GB shared_buffers、更紧 max_connections 或 OS/THP/block 层；但 read-only 下仍不优先牺牲 WAL durability。"
+                ]
+              }
+            },
+            "exploration_mode": "normal",
+            "next_step": "如果本轮提升或 p95 明显下降，下一轮沿内存与并行边界细调：比较 shared_buffers 24GB vs 12GB，并验证 max_parallel_workers_per_gather=0 是否优于 1，同时微调 random_page_cost 1.0-1.5。",
+            "if_failed_next": "如果本轮回退，优先怀疑 shared_buffers 过大导致重启后填充噪声或禁用 parallel 伤害 range 查询；下一轮避免同时改变太多 CPU/parallel knobs，回退 max_parallel_workers_per_gather 到 1 或 2，并尝试 shared_buffers 8GB/12GB、保留 jit=off 的拆分验证。",
+            "more_aggressive_plan": {
+              "rationale": "若第一轮证明增大缓存和降低短查询开销方向正确，可以更激进地把 PG 缓冲区推到 24GB、work_mem 到 32MB，并压低 max_connections 到更贴近 64 线程的 80 以减少连接数组/内存预算；该路线更可能提升极限 TPS，但连接余量和重启后缓存填充风险更高，所以不作为第一轮直接采用。",
+              "aggressive_candidate_config": {
+                "shared_buffers": 25769803776,
+                "effective_cache_size": 60129542144,
+                "work_mem": 33554432,
+                "maintenance_work_mem": 1073741824,
+                "temp_buffers": 16777216,
+                "effective_io_concurrency": 256,
+                "random_page_cost": 1.0,
+                "jit": false,
+                "jit_expressions": false,
+                "jit_tuple_deforming": false,
+                "max_connections": 80,
+                "max_worker_processes": 24,
+                "max_parallel_workers": 12,
+                "max_parallel_workers_per_gather": 0,
+                "update_process_title": false,
+                "compute_query_id": "off"
+              }
+            },
+            "auditor_recommendation": {
+              "next_phase": "db",
+              "reason": "这是第一轮 DB 全局组合，DB 层还有明确可试方向：shared_buffers 容量、parallel per gather、random_page_cost/effective_io_concurrency、JIT/观测开销和连接预算都尚未验证，不应切到 OS 阶段。",
+              "confidence": "high"
+            }
+          },
+          "result": {
+            "score": 451.43870967741935,
+            "tps": 6297.57,
+            "p95_latency_ms": 13.95,
+            "primary_metric_name": "tps",
+            "primary_metric_value": 6297.57,
+            "valid": true,
+            "metrics": {
+              "tps": 6297.57,
+              "p95_latency_ms": 13.95
+            },
+            "metadata": {}
+          },
+          "decision": "rollback",
+          "reason": "Score did not improve enough: incumbent=461.242, candidate=451.439.",
+          "metadata": {
+            "phase": "db",
+            "auditor": {
+              "current_phase": "db",
+              "next_phase": "db",
+              "action": "continue_db",
+              "reason": "DB phase still has tuning budget before plateau criteria are met.",
+              "stop": false,
+              "plateau_detected": false,
+              "phase_round_count": 0,
+              "consecutive_non_improving": 0,
+              "consecutive_repeats": 0,
+              "best_score": 461.2423357664234,
+              "model_recommendation": null,
+              "model_recommendation_used": false
+            },
+            "state_snapshot": {
+              "path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_000929_pg60_read64_clean_prompt_nohistory\\state_snapshots\\round_001_db.txt",
+              "counts": {
+                "tracked_config": 276,
+                "settings": 276,
+                "metrics_profile": 66,
+                "stat_metrics": 66
+              }
+            },
+            "backup": {
+              "config_path": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+              "backup_path": "/tmp/agenticdb_round_1_1778861522.cnf.bak",
+              "created_at": "2026-05-16T00:12:02",
+              "content_sha256": "912384bdd99167452edf993e54362f1ef4fb9ba5d91f53295f5e7c7b9d1c36e6",
+              "metadata": {
+                "local_backup_path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_000929_pg60_read64_clean_prompt_nohistory\\backup_round_1.cnf"
+              }
+            },
+            "apply_report": {
+              "persisted_keys": [
+                "compute_query_id",
+                "effective_cache_size",
+                "effective_io_concurrency",
+                "jit",
+                "jit_expressions",
+                "jit_tuple_deforming",
+                "maintenance_work_mem",
+                "max_parallel_workers",
+                "max_parallel_workers_per_gather",
+                "max_worker_processes",
+                "random_page_cost",
+                "shared_buffers",
+                "temp_buffers",
+                "update_process_title",
+                "work_mem"
+              ],
+              "runtime_applied_keys": [
+                "effective_cache_size",
+                "work_mem",
+                "maintenance_work_mem",
+                "temp_buffers",
+                "effective_io_concurrency",
+                "random_page_cost",
+                "jit",
+                "jit_expressions",
+                "jit_tuple_deforming",
+                "max_parallel_workers",
+                "max_parallel_workers_per_gather",
+                "update_process_title",
+                "compute_query_id"
+              ],
+              "runtime_skipped_keys": []
+            },
+            "effective_candidate_config": {
+              "shared_buffers": 17179869184,
+              "effective_cache_size": 51539607552,
+              "work_mem": 16777216,
+              "maintenance_work_mem": 1073741824,
+              "temp_buffers": 16777216,
+              "effective_io_concurrency": 200,
+              "random_page_cost": 1.1,
+              "jit": false,
+              "jit_expressions": false,
+              "jit_tuple_deforming": false,
+              "max_worker_processes": 16,
+              "max_parallel_workers": 12,
+              "max_parallel_workers_per_gather": 0,
+              "update_process_title": false,
+              "compute_query_id": "off"
+            }
+          }
+        },
+        {
+          "round_id": 2,
+          "timestamp": "2026-05-16T00:15:25.132817",
+          "proposal": {
+            "diagnosis": "已按 workload_interpretation 和实际执行预览确认这是 sysbench PostgreSQL oltp_read_only.lua，mode=read，64 线程、TCP loopback，不应按 readwrite 去调 WAL/flush。上一轮 16GB shared_buffers + 禁用 per-query parallel + 激进 random_page_cost=1.1 的组合略回退到 6297.57 TPS / p95 13.95，说明问题很可能不是单纯 shared_buffers 越大越好；在无 warmup、重启后共享缓冲重新填充的条件下，大 shared_buffers 和 max_parallel_workers_per_gather=0 都可能伤害 p95。当前 state 显示无写入、无 temp spill、WAL 几乎为 0、checkpoint/backend fsync 无压力，读命中率约 96% 但仍有较多 blks_read；OS 侧无明显 IO wait，负载更像 CPU/调度/连接加密与短查询开销受限。本轮选择不重启的 reload/user 参数，避免再次引入 shared_buffers 重启噪声，重点验证 loopback SSL 开销、JIT/进程标题/查询 ID 等短查询开销，以及保留但收敛并行度的 read-only 方案。",
+            "action_type": "db_config",
+            "candidate_config": {
+              "ssl": false,
+              "effective_cache_size": 51539607552,
+              "work_mem": 8388608,
+              "effective_io_concurrency": 128,
+              "random_page_cost": 1.5,
+              "jit": false,
+              "jit_expressions": false,
+              "jit_tuple_deforming": false,
+              "max_parallel_workers_per_gather": 1,
+              "update_process_title": false,
+              "compute_query_id": "off"
+            },
+            "restart_required": false,
+            "expected_effect": "关闭 loopback SSL 和 JIT/进程标题/query_id 开销有望直接降低短查询 CPU 消耗和 p95；温和降低 random_page_cost 并提高 effective_cache_size/effective_io_concurrency 有望改善缓存/SSD read path 的计划选择；max_parallel_workers_per_gather=1 预期比上一轮 0 更安全，在保留 range 查询并行收益的同时减少 worker 争用。目标是超过 6319 TPS 或把 p95 拉回 13.70ms 以下，从而提高 tps/p95 分数。",
+            "risk": "ssl=false 会牺牲连接加密安全；如果 pg_hba 只允许 hostssl，可能导致新连接失败，需要回退 ssl。random_page_cost/effective_cache_size 可能改变计划导致个别 range 查询变慢；max_parallel_workers_per_gather=1 也可能不如默认 2。整体不需要重启，内存风险低，crash safety 不变。",
+            "validation_required": true,
+            "global_config_plan": {
+              "summary": "相对当前最佳基线，本轮不再重复上一轮失败的 16GB shared_buffers + parallel=0 组合，而采用低风险、不重启的全局候选：关闭 TCP loopback SSL 以减少每条查询的加解密/协议开销；保持 shared_buffers 基线不动以避免重启和缓存填充噪声；把 planner 的缓存/SSD 成本调到温和水平；关闭短 OLTP 查询不必要的 JIT 和轻量观测开销；把 max_parallel_workers_per_gather 从 2 收敛到 1，避免完全禁用并行导致 range 查询受损，同时减少 64 并发下的 worker 争用。",
+              "change_groups": {
+                "memory": [
+                  "shared_buffers 本轮保持 128MB，不触发重启；上一轮 16GB 组合回退，先排除重启后共享缓冲填充噪声。",
+                  "effective_cache_size 提到 48GB，让 planner 认知数据和索引主要由 OS cache/内存承载，符合 64GB 内存和当前较高 cache hit 的状态。",
+                  "work_mem 从 4MB 温和提到 8MB；当前无 temp spill，不需要 16MB/32MB 过度放大并发内存预算。"
+                ],
+                "redo_binlog": [
+                  "保持 fsync/full_page_writes/synchronous_commit/wal_level/wal_buffers 不变；该负载读写分类为纯读，state 中 wal_records/wal_bytes 近似为 0，写路径不是主要瓶颈。",
+                  "不采用 wal_level=minimal 或 fsync=off 的 benchmark_max 写路径牺牲项，因为本轮目标是提升 read-only run 阶段且无 WAL 压力证据。"
+                ],
+                "io_flush": [
+                  "effective_io_concurrency 从 1 提到 128，给 SSD 上可能出现的 bitmap heap scan/read prefetch 留空间，但低于上一轮 200，避免过度激进。",
+                  "random_page_cost 从 4 降到 1.5，较上一轮 1.1 更温和，鼓励缓存/SSD 环境下的索引访问而不过度扭曲计划。",
+                  "checkpoint/bgwriter 参数保持不变；当前无 buffers_backend、无 fsync、无写回瓶颈。"
+                ],
+                "concurrency_cpu": [
+                  "ssl 设为 false：sysbench 通过 127.0.0.1 TCP 连接且 libpq 默认可能优先 SSL，关闭全局 SSL 可减少 loopback 上不必要的加密和握手/记录层 CPU 开销，是本轮新的高杠杆点。",
+                  "jit/jit_expressions/jit_tuple_deforming 关闭：短 OLTP read-only 查询通常不从 JIT 受益，减少执行路径开销。",
+                  "update_process_title=false、compute_query_id=off：减少高频短查询的元数据维护和 query id 计算开销。",
+                  "max_parallel_workers_per_gather=1：上一轮完全禁用并行可能伤害 range/order/distinct 查询；本轮保留少量并行能力，同时降低 64 并发下单查询抢占 worker 的风险。",
+                  "max_connections、max_worker_processes 本轮保持不变，不触发重启；64 客户端下 100 连接仍有管理余量。"
+                ],
+                "benchmark_max_static": [
+                  "本轮不采用静态重启项，目的是在不破坏缓存状态的前提下验证 SSL/短查询开销和温和 planner 调整。",
+                  "如果本轮成功，再考虑重启型 8GB shared_buffers 或 max_connections=80；如果本轮失败，则优先回退 ssl 或 parallel_gather 细分验证。"
+                ]
+              }
+            },
+            "exploration_mode": "normal",
+            "next_step": "如果本轮成功或接近成功，下一轮保留 ssl=false 和短查询开销关闭项，分别细调 max_parallel_workers_per_gather=2 vs 1、random_page_cost 1.3-2.0，并尝试重启型 shared_buffers=8GB 或 12GB，而不要回到上一轮的 16GB+parallel=0 组合。",
+            "if_failed_next": "如果本轮回退，优先判断是否由 ssl=false 连接/安全策略或 max_parallel_workers_per_gather=1 引起；下一轮应回退 ssl=true 或 parallel_gather=2 做拆分验证，同时保留 jit=false/update_process_title=false/compute_query_id=off 的小组合，避免再次同时修改 shared_buffers 和并行策略。",
+            "more_aggressive_plan": {
+              "rationale": "若 reload-only 方案显示 SSL/短查询开销方向有效，可以进一步走 benchmark_max 的重启型组合：适度而非过大的 shared_buffers=8GB，压缩连接预算到 80，保留 ssl=false/jit=false，并把 planner 成本调到 1.3；这可能提升缓存驻留和降低连接结构开销，但需要重启，且 max_connections 余量更小。",
+              "aggressive_candidate_config": {
+                "ssl": false,
+                "shared_buffers": 8589934592,
+                "effective_cache_size": 51539607552,
+                "work_mem": 8388608,
+                "temp_buffers": 16777216,
+                "effective_io_concurrency": 160,
+                "random_page_cost": 1.3,
+                "jit": false,
+                "jit_expressions": false,
+                "jit_tuple_deforming": false,
+                "max_connections": 80,
+                "max_worker_processes": 12,
+                "max_parallel_workers": 8,
+                "max_parallel_workers_per_gather": 1,
+                "update_process_title": false,
+                "compute_query_id": "off"
+              }
+            },
+            "auditor_recommendation": {
+              "next_phase": "db",
+              "reason": "DB 层仍有明确候选：SSL/短查询开销拆分、parallel per gather 1/2、random_page_cost/effective_io_concurrency、以及较小 shared_buffers 8GB/12GB 重启型组合均未验证；仅一轮失败不足以转 OS 阶段。",
+              "confidence": "high"
+            }
+          },
+          "result": {
+            "score": 791.9617590822179,
+            "tps": 8283.92,
+            "p95_latency_ms": 10.46,
+            "primary_metric_name": "tps",
+            "primary_metric_value": 8283.92,
+            "valid": true,
+            "metrics": {
+              "tps": 8283.92,
+              "p95_latency_ms": 10.46
+            },
+            "metadata": {}
+          },
+          "decision": "accepted",
+          "reason": "Score improved from 461.242 to 791.962 (71.70%).",
+          "metadata": {
+            "phase": "db",
+            "auditor": {
+              "current_phase": "db",
+              "next_phase": "db",
+              "action": "continue_db",
+              "reason": "DB phase still has tuning budget before plateau criteria are met.",
+              "stop": false,
+              "plateau_detected": false,
+              "phase_round_count": 1,
+              "consecutive_non_improving": 1,
+              "consecutive_repeats": 0,
+              "best_score": 461.2423357664234,
+              "model_recommendation": {
+                "next_phase": "db",
+                "reason": "这是第一轮 DB 全局组合，DB 层还有明确可试方向：shared_buffers 容量、parallel per gather、random_page_cost/effective_io_concurrency、JIT/观测开销和连接预算都尚未验证，不应切到 OS 阶段。",
+                "confidence": "high"
+              },
+              "model_recommendation_used": false
+            },
+            "state_snapshot": {
+              "path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_000929_pg60_read64_clean_prompt_nohistory\\state_snapshots\\round_002_db.txt",
+              "counts": {
+                "tracked_config": 276,
+                "settings": 276,
+                "metrics_profile": 66,
+                "stat_metrics": 66
+              }
+            },
+            "backup": {
+              "config_path": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+              "backup_path": "/tmp/agenticdb_round_2_1778861663.cnf.bak",
+              "created_at": "2026-05-16T00:14:23",
+              "content_sha256": "912384bdd99167452edf993e54362f1ef4fb9ba5d91f53295f5e7c7b9d1c36e6",
+              "metadata": {
+                "local_backup_path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_000929_pg60_read64_clean_prompt_nohistory\\backup_round_2.cnf"
+              }
+            },
+            "apply_report": {
+              "persisted_keys": [
+                "compute_query_id",
+                "effective_cache_size",
+                "effective_io_concurrency",
+                "jit",
+                "jit_expressions",
+                "jit_tuple_deforming",
+                "max_parallel_workers_per_gather",
+                "random_page_cost",
+                "ssl",
+                "update_process_title",
+                "work_mem"
+              ],
+              "runtime_applied_keys": [
+                "ssl",
+                "effective_cache_size",
+                "work_mem",
+                "effective_io_concurrency",
+                "random_page_cost",
+                "jit",
+                "jit_expressions",
+                "jit_tuple_deforming",
+                "max_parallel_workers_per_gather",
+                "update_process_title",
+                "compute_query_id"
+              ],
+              "runtime_skipped_keys": []
+            },
+            "effective_candidate_config": {
+              "ssl": false,
+              "effective_cache_size": 51539607552,
+              "work_mem": 8388608,
+              "effective_io_concurrency": 128,
+              "random_page_cost": 1.5,
+              "jit": false,
+              "jit_expressions": false,
+              "jit_tuple_deforming": false,
+              "max_parallel_workers_per_gather": 1,
+              "update_process_title": false,
+              "compute_query_id": "off"
+            }
+          }
+        },
+        {
+          "round_id": 3,
+          "timestamp": "2026-05-16T00:18:04.442393",
+          "proposal": {
+            "diagnosis": "已按 workload_interpretation 和脚本/执行预览确认本轮仍是 sysbench PostgreSQL oltp_read_only，mode=read，使用 oltp_read_only.lua，127.0.0.1 TCP loopback，64 线程；不能因为 wrapper 中存在未执行的 readwrite 分支而改判为读写。当前最佳来自第 2 轮的 reload-only 组合，说明 ssl=false、较低 random_page_cost/effective_io_concurrency、jit/update_process_title/compute_query_id 方向有效。最新 state_metric 显示 WAL、checkpoint、写 IO 基本为 0，temp spill 为 0，磁盘 iowait/IO PSI 不明显；但 benchmark 期间 load/CPU PSI 很高，且 pg_stat_io reads/evictions 很大，说明主要瓶颈更像高并发短查询的 CPU/调度/共享缓冲 churn，而不是写路径。第 1 轮 16GB shared_buffers + parallel=0 + 更激进 planner/worker 组合失败，不能重复该组合；本轮选择不重启的 benchmark_max 轻量开销削减，并小幅把 read-path planner 成本从当前最佳继续向 SSD/缓存方向推进。",
+            "action_type": "db_config",
+            "candidate_config": {
+              "ssl": false,
+              "effective_cache_size": 51539607552,
+              "work_mem": 8388608,
+              "effective_io_concurrency": 160,
+              "random_page_cost": 1.3,
+              "jit": false,
+              "jit_expressions": false,
+              "jit_tuple_deforming": false,
+              "max_parallel_workers_per_gather": 1,
+              "update_process_title": false,
+              "compute_query_id": "off",
+              "track_activities": false,
+              "track_counts": false,
+              "autovacuum": false,
+              "stats_fetch_consistency": "none"
+            },
+            "restart_required": false,
+            "expected_effect": "预期在不重启、不改变 shared_buffers 的前提下，进一步降低 64 并发短查询的 CPU/元数据维护开销，并通过 random_page_cost=1.3/effective_io_concurrency=160 小幅改善缓存/SSD 上的 read-only 查询计划。若当前最佳主要受 CPU PSI 和状态统计开销限制，TPS 有机会小幅超过 8283.92，p95 有机会低于 10.46ms。",
+            "risk": "benchmark_max 风险：track_activities=false 会降低 pg_stat_activity 可观测性，track_counts=false 会使统计计数和 autovacuum 依赖的统计信息不可用，autovacuum=false 不适合生产和长期运行；本轮不牺牲 fsync/WAL crash safety，不需要重启。若 AgenticDB 后续诊断依赖 DB 统计，可能看到统计指标缺失或不再增长。",
+            "validation_required": true,
+            "global_config_plan": {
+              "summary": "相对当前最佳配置，本轮保留已验证有效的 ssl=false、jit=false、update_process_title=false、compute_query_id=off、max_parallel_workers_per_gather=1，不触碰失败过的 16GB shared_buffers 和 parallel=0。新增 benchmark_max 型观测/维护开销削减：关闭 track_activities、track_counts 和 autovacuum，减少高频短 SQL 下状态/统计计数维护和潜在后台干扰；同时把 random_page_cost 从 1.5 小幅降到 1.3、effective_io_concurrency 从 128 提到 160，延续第 2 轮成功的 SSD/cache planner 方向但避免第 1 轮的 1.1/200 过激组合。",
+              "change_groups": {
+                "memory": [
+                  "shared_buffers 保持 128MB：第 1 轮 16GB shared_buffers 组合明显回退，本轮不再引入重启和共享缓冲重新填充噪声。",
+                  "work_mem 保持 8MB：当前 temp_files/temp_bytes 为 0，sysbench read-only 没有 spill 证据，继续增大 work_mem 对 64 并发短查询收益有限。",
+                  "effective_cache_size 保持 48GB：该值已在第 2 轮成功配置中生效，符合 64GB 内存和 OS cache 承载大部分数据的状态。"
+                ],
+                "redo_binlog": [
+                  "保持 fsync/full_page_writes/synchronous_commit/wal_level/wal_buffers 不变：本轮是纯读压测，pg_stat_wal wal_records/wal_bytes/wal_write/wal_sync 均为 0，没有写路径瓶颈证据。",
+                  "不把 WAL durability 作为主要收益方向，避免在 read-only run 阶段引入无收益的 crash-safety 风险。"
+                ],
+                "io_flush": [
+                  "random_page_cost 从 1.5 调到 1.3：延续第 2 轮成功的缓存/SSD planner 方向，鼓励索引/随机读取计划，但不降到第 1 轮失败组合里的 1.1。",
+                  "effective_io_concurrency 从 128 调到 160：给 SSD 上 bitmap/read prefetch 留更多并发余量，但低于失败组合的 200。",
+                  "checkpoint/bgwriter 保持不变：checkpoint、buffers_backend_fsync、pg_stat_io writes/fsyncs 都没有读压测瓶颈证据。"
+                ],
+                "concurrency_cpu": [
+                  "保持 max_parallel_workers_per_gather=1：第 1 轮 parallel=0 组合失败，当前第 2 轮的 1 已验证有效；本轮先不改到 2，以免和观测开销削减同时混淆。",
+                  "保持 ssl=false、jit=false、jit_expressions=false、jit_tuple_deforming=false、update_process_title=false、compute_query_id=off：这些是当前最佳配置中的成功方向，继续减少 loopback TLS、JIT 和短查询元数据开销。",
+                  "新增 track_activities=false：减少每条短 SQL 更新 pg_stat_activity 当前状态/查询文本的开销，目标是缓解 CPU/调度压力并降低 p95。",
+                  "新增 track_counts=false 且 autovacuum=false：纯 benchmark read-only 下不需要依赖统计计数/autovacuum 维护，关闭可减少统计计数路径和后台维护噪声；这属于 benchmark_max，不适合长期生产。",
+                  "stats_fetch_consistency=none：配合关闭统计路径，避免统计读取一致性缓存带来的额外状态维护；对 sysbench 业务查询无语义影响。"
+                ],
+                "benchmark_max_static": [
+                  "本轮采用 benchmark_max 但全部为 reload/superuser 可变更项，不需要重启。",
+                  "风险主要是牺牲观测能力和 autovacuum/统计维护能力，而不是 crash safety；验证后若失败应立即回退 track_activities/track_counts/autovacuum。"
+                ]
+              }
+            },
+            "exploration_mode": "benchmark_max",
+            "next_step": "如果本轮成功或接近成功，下一轮保留 ssl=false/jit=false/update_process_title=false/compute_query_id=off，并分别拆分验证 track_activities=false 与 track_counts=false/autovacuum=false 的贡献；随后再在该最佳基础上细调 random_page_cost 1.2-1.4、effective_io_concurrency 128-192，或单独测试 max_parallel_workers_per_gather=2。",
+            "if_failed_next": "如果本轮回退，优先回退 track_activities=true、track_counts=true、autovacuum=true，避免继续沿关闭统计/维护路径；保留第 2 轮最佳配置，然后改做较保守的 split test：只测试 max_parallel_workers_per_gather=2 或只测试 random_page_cost=1.7/2.0，不要重复第 1 轮的 16GB shared_buffers + parallel=0 + random_page_cost=1.1 组合。",
+            "more_aggressive_plan": {
+              "rationale": "若本轮证明观测/统计开销削减有效，可再尝试需要重启的较小 shared_buffers 路线，而不是第 1 轮失败的 16GB：例如 4GB 或 8GB shared_buffers、max_connections=80、max_worker_processes=12，并保持 parallel_per_gather=1。这样可能降低 shared buffer evictions 和连接结构开销，但有重启、缓存重新填充、连接余量变小风险，所以不作为当前 reload-only benchmark_max 轮直接采用。",
+              "aggressive_candidate_config": {
+                "ssl": false,
+                "shared_buffers": 8589934592,
+                "effective_cache_size": 51539607552,
+                "work_mem": 8388608,
+                "temp_buffers": 16777216,
+                "effective_io_concurrency": 160,
+                "random_page_cost": 1.3,
+                "jit": false,
+                "jit_expressions": false,
+                "jit_tuple_deforming": false,
+                "max_connections": 80,
+                "max_worker_processes": 12,
+                "max_parallel_workers": 8,
+                "max_parallel_workers_per_gather": 1,
+                "update_process_title": false,
+                "compute_query_id": "off",
+                "track_activities": false,
+                "track_counts": false,
+                "autovacuum": false
+              }
+            },
+            "auditor_recommendation": {
+              "next_phase": "db",
+              "reason": "DB 层仍有明确候选未充分验证：统计/观测开销拆分、parallel_per_gather=1 vs 2、random_page_cost/effective_io_concurrency 细调，以及较小 shared_buffers=4GB/8GB 的重启型路线。当前仅 2 轮 DB trial，不应切到 OS/sysctl。",
+              "confidence": "high"
+            }
+          },
+          "result": {
+            "score": 774.1502347417841,
+            "tps": 8244.7,
+            "p95_latency_ms": 10.65,
+            "primary_metric_name": "tps",
+            "primary_metric_value": 8244.7,
+            "valid": true,
+            "metrics": {
+              "tps": 8244.7,
+              "p95_latency_ms": 10.65
+            },
+            "metadata": {}
+          },
+          "decision": "rollback",
+          "reason": "Score did not improve enough: incumbent=791.962, candidate=774.150.",
+          "metadata": {
+            "phase": "db",
+            "auditor": {
+              "current_phase": "db",
+              "next_phase": "db",
+              "action": "continue_db",
+              "reason": "DB phase still has tuning budget before plateau criteria are met.",
+              "stop": false,
+              "plateau_detected": false,
+              "phase_round_count": 2,
+              "consecutive_non_improving": 0,
+              "consecutive_repeats": 0,
+              "best_score": 791.9617590822179,
+              "model_recommendation": {
+                "next_phase": "db",
+                "reason": "DB 层仍有明确候选：SSL/短查询开销拆分、parallel per gather 1/2、random_page_cost/effective_io_concurrency、以及较小 shared_buffers 8GB/12GB 重启型组合均未验证；仅一轮失败不足以转 OS 阶段。",
+                "confidence": "high"
+              },
+              "model_recommendation_used": false
+            },
+            "state_snapshot": {
+              "path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_000929_pg60_read64_clean_prompt_nohistory\\state_snapshots\\round_003_db.txt",
+              "counts": {
+                "tracked_config": 276,
+                "settings": 276,
+                "metrics_profile": 66,
+                "stat_metrics": 66
+              }
+            },
+            "backup": {
+              "config_path": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+              "backup_path": "/tmp/agenticdb_round_3_1778861820.cnf.bak",
+              "created_at": "2026-05-16T00:17:00",
+              "content_sha256": "faffce43b9c95936e7a34e376652019e08163be917c725106b5ba49d4048a684",
+              "metadata": {
+                "local_backup_path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_000929_pg60_read64_clean_prompt_nohistory\\backup_round_3.cnf"
+              }
+            },
+            "apply_report": {
+              "persisted_keys": [
+                "autovacuum",
+                "compute_query_id",
+                "effective_io_concurrency",
+                "random_page_cost",
+                "stats_fetch_consistency",
+                "track_activities",
+                "track_counts"
+              ],
+              "runtime_applied_keys": [
+                "effective_io_concurrency",
+                "random_page_cost",
+                "compute_query_id",
+                "track_activities",
+                "track_counts",
+                "autovacuum",
+                "stats_fetch_consistency"
+              ],
+              "runtime_skipped_keys": []
+            },
+            "effective_candidate_config": {
+              "effective_io_concurrency": 160,
+              "random_page_cost": 1.3,
+              "compute_query_id": "off",
+              "track_activities": false,
+              "track_counts": false,
+              "autovacuum": false,
+              "stats_fetch_consistency": "none"
+            }
+          }
+        },
+        {
+          "round_id": 4,
+          "timestamp": "2026-05-16T00:20:47.768746",
+          "proposal": {
+            "diagnosis": "根据 workload_interpretation、benchmark.mode=read、oltp_read_only.lua 和有效执行预览，本轮仍按 sysbench PostgreSQL 纯读负载处理，不把 wrapper 中未执行的 write/readwrite 分支当成写负载。当前最佳配置已经证明 ssl=false、jit=false、compute_query_id=off、update_process_title=false、effective_cache_size=48GB、effective_io_concurrency=128、random_page_cost=1.5、max_parallel_workers_per_gather=1 是有效组合；第 3 轮同时降低 random_page_cost、提高 effective_io_concurrency 并关闭 track_activities/track_counts/autovacuum 后小幅回退，说明继续关闭统计/维护或把随机页成本压得更低并不稳。state_metric 显示 WAL/flush 几乎无压力，temp spill 为 0，主要仍是 64 并发短读 SQL 下 CPU/调度/规划执行开销和缓存路径开销；OS PSI 中 CPU some 较高而 IO/memory PSI 为 0，也支持先做低风险 CPU/planning overhead 优化。本轮选择在当前最佳基础上只新增 plan_cache_mode=force_generic_plan：sysbench 读 SQL 形态固定、参数分布均匀，若 pgsql driver 使用 prepared statement，可减少频繁 custom plan 选择/规划开销；若未使用 prepared statement，则大概率影响很小但风险低。",
+            "action_type": "db_config",
+            "candidate_config": {
+              "ssl": false,
+              "effective_cache_size": 51539607552,
+              "work_mem": 8388608,
+              "temp_buffers": 8388608,
+              "effective_io_concurrency": 128,
+              "random_page_cost": 1.5,
+              "plan_cache_mode": "force_generic_plan",
+              "jit": false,
+              "jit_expressions": false,
+              "jit_tuple_deforming": false,
+              "max_parallel_workers_per_gather": 1,
+              "update_process_title": false,
+              "compute_query_id": "off",
+              "track_io_timing": false,
+              "track_activities": true,
+              "track_counts": true,
+              "autovacuum": true,
+              "stats_fetch_consistency": "cache"
+            },
+            "restart_required": false,
+            "expected_effect": "如果 sysbench pgsql driver 使用 prepared statements，force_generic_plan 可减少 64 并发短 SQL 的 custom plan 选择/规划 CPU 开销，使 CPU some 压力下降、TPS 小幅提升并压低 p95；如果没有 prepared statement 或 PostgreSQL auto 已经选择 generic plan，则该配置大概率接近当前最佳、回退风险较小。",
+            "risk": "风险较低且无需重启。主要风险是某些参数化 range/order/distinct 查询如果需要 custom plan，force_generic_plan 可能选择略差计划导致 TPS/p95 小幅回退；但 sysbench 参数分布固定且范围大小通常稳定，风险可控。不会牺牲 crash safety；也不关闭统计观测和 autovacuum。",
+            "validation_required": true,
+            "global_config_plan": {
+              "summary": "相对当前历史最佳，本轮保持已验证的读路径和短查询开销优化项，回退第 3 轮失败的 track_activities=false、track_counts=false、autovacuum=false 和 random_page_cost=1.3/effective_io_concurrency=160 方向，只新增 plan_cache_mode=force_generic_plan 做低风险规划开销削减。该轮不重启，目标是在不引入 shared_buffers 重启噪声和并行过度竞争的前提下，尝试突破 8283.92 TPS / 10.46ms p95。",
+              "change_groups": {
+                "memory": [
+                  "保持 shared_buffers=128MB：第 1 轮 16GB shared_buffers 与 parallel=0 等组合失败，本轮先不引入重启型缓存结构变化；较小 shared_buffers=4GB/8GB 仍保留为后续候选。",
+                  "保持 effective_cache_size=48GB：这是第 2 轮成功配置，符合 64GB 内存和 OS cache 承载数据集的状态。",
+                  "保持 work_mem=8MB、temp_buffers=8MB：pg_stat_database.temp_files/temp_bytes 为 0，没有排序/哈希 spill 证据，继续加大内存不太可能提升本轮 TPS。"
+                ],
+                "redo_binlog": [
+                  "保持 fsync/full_page_writes/synchronous_commit/wal_level/wal_buffers 不作为本轮主要方向：压测是 read-only，pg_stat_wal 只有极少量记录，wal_write/wal_sync 几乎为 0。",
+                  "不采用 fsync=off、wal_level=minimal 等 benchmark_max 写路径牺牲项，因为对本次读阶段收益缺乏证据。"
+                ],
+                "io_flush": [
+                  "保持 effective_io_concurrency=128、random_page_cost=1.5：第 2 轮该组合是当前最佳，第 3 轮把 random_page_cost 降到 1.3 且 effective_io_concurrency 升到 160 后回退，本轮先不继续沿该方向加码。",
+                  "checkpoint/bgwriter 参数保持不变：读压测期间 writes/fsyncs/checkpoint 写入压力不明显，flush 路径不是当前瓶颈。"
+                ],
+                "concurrency_cpu": [
+                  "保持 max_parallel_workers_per_gather=1：parallel=0 在第 1 轮失败，1 是当前最佳；max_parallel_workers_per_gather=2 仍是后续 split test，但本轮先验证更低风险的规划缓存策略。",
+                  "新增 plan_cache_mode=force_generic_plan：sysbench OLTP read-only SQL 模板固定、参数选择均匀，强制 generic plan 有机会减少 prepared statement 的 custom planning/plan selection 成本，从而提高短查询 TPS 并降低 p95。",
+                  "保持 ssl=false、jit=false、jit_expressions=false、jit_tuple_deforming=false、compute_query_id=off、update_process_title=false、track_io_timing=false：这些降低 loopback TLS、JIT 和观测元数据开销的方向已被当前最佳或默认状态支持。",
+                  "保持 track_activities=true、track_counts=true、autovacuum=true：第 3 轮关闭这些项的组合回退，本轮不继续牺牲统计/维护能力。"
+                ],
+                "benchmark_max_static": [
+                  "本轮不采用重启型 benchmark_max；restart_required=false。",
+                  "更激进的静态路线是 shared_buffers=4GB/8GB、max_connections=80/90、max_worker_processes=12，但考虑第 1 轮 16GB shared_buffers 组合失败且当前还有 reload-only 规划开销候选，暂不直接应用。"
+                ]
+              }
+            },
+            "exploration_mode": "normal",
+            "next_step": "如果本轮成功或接近当前最佳，下一轮保留 plan_cache_mode=force_generic_plan 与第 2 轮最佳组合，再单独测试 max_parallel_workers_per_gather=2；如果 p95 继续下降，也可随后测试 random_page_cost=1.7 或小 shared_buffers=4GB 重启路线。",
+            "if_failed_next": "如果本轮回退，立即把 plan_cache_mode 恢复为 auto，并不要把 force_generic_plan 与其他变化叠加；下一轮按第 3 轮 if_failed_next 做保守 split test：只测试 max_parallel_workers_per_gather=2 或只测试 random_page_cost=1.7/2.0，继续避免 track_activities=false、track_counts=false、autovacuum=false 以及 16GB shared_buffers + parallel=0 组合。",
+            "more_aggressive_plan": {
+              "rationale": "若 reload-only 规划开销优化无法突破，但当前 pg_stat_io.evictions/reads 仍很高，可尝试比第 1 轮温和得多的重启型缓存路线：shared_buffers=4GB 而不是 16GB，保留当前最佳的 parallel_per_gather=1、random_page_cost=1.5、effective_io_concurrency=128，并可轻微压缩 max_connections 到 90。该路线可能减少共享缓冲频繁 eviction 和从 OS cache 反复读入的开销，但需要重启，存在 warmup 噪声和 buffer manager 行为变化风险。",
+              "aggressive_candidate_config": {
+                "ssl": false,
+                "shared_buffers": 4294967296,
+                "effective_cache_size": 51539607552,
+                "work_mem": 8388608,
+                "temp_buffers": 8388608,
+                "effective_io_concurrency": 128,
+                "random_page_cost": 1.5,
+                "plan_cache_mode": "auto",
+                "jit": false,
+                "jit_expressions": false,
+                "jit_tuple_deforming": false,
+                "max_connections": 90,
+                "max_worker_processes": 8,
+                "max_parallel_workers": 8,
+                "max_parallel_workers_per_gather": 1,
+                "update_process_title": false,
+                "compute_query_id": "off",
+                "track_activities": true,
+                "track_counts": true,
+                "autovacuum": true
+              }
+            },
+            "auditor_recommendation": {
+              "next_phase": "db",
+              "reason": "DB 层仍有明确候选尚未充分验证：plan_cache_mode、max_parallel_workers_per_gather=2、random_page_cost=1.7/2.0，以及较小 shared_buffers=4GB/8GB 的重启型路线。当前只有 3 轮 DB trial 且尚未达到 plateau 策略，不建议切到 OS/sysctl。",
+              "confidence": "high"
+            }
+          },
+          "result": {
+            "score": 1060.7262693156733,
+            "tps": 9610.18,
+            "p95_latency_ms": 9.06,
+            "primary_metric_name": "tps",
+            "primary_metric_value": 9610.18,
+            "valid": true,
+            "metrics": {
+              "tps": 9610.18,
+              "p95_latency_ms": 9.06
+            },
+            "metadata": {}
+          },
+          "decision": "accepted",
+          "reason": "Score improved from 791.962 to 1060.726 (33.94%).",
+          "metadata": {
+            "phase": "db",
+            "auditor": {
+              "current_phase": "db",
+              "next_phase": "db",
+              "action": "continue_db",
+              "reason": "DB phase still has tuning budget before plateau criteria are met.",
+              "stop": false,
+              "plateau_detected": false,
+              "phase_round_count": 3,
+              "consecutive_non_improving": 1,
+              "consecutive_repeats": 0,
+              "best_score": 791.9617590822179,
+              "model_recommendation": {
+                "next_phase": "db",
+                "reason": "DB 层仍有明确候选未充分验证：统计/观测开销拆分、parallel_per_gather=1 vs 2、random_page_cost/effective_io_concurrency 细调，以及较小 shared_buffers=4GB/8GB 的重启型路线。当前仅 2 轮 DB trial，不应切到 OS/sysctl。",
+                "confidence": "high"
+              },
+              "model_recommendation_used": false
+            },
+            "state_snapshot": {
+              "path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_000929_pg60_read64_clean_prompt_nohistory\\state_snapshots\\round_004_db.txt",
+              "counts": {
+                "tracked_config": 276,
+                "settings": 276,
+                "metrics_profile": 66,
+                "stat_metrics": 66
+              }
+            },
+            "backup": {
+              "config_path": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+              "backup_path": "/tmp/agenticdb_round_4_1778861986.cnf.bak",
+              "created_at": "2026-05-16T00:19:46",
+              "content_sha256": "faffce43b9c95936e7a34e376652019e08163be917c725106b5ba49d4048a684",
+              "metadata": {
+                "local_backup_path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_000929_pg60_read64_clean_prompt_nohistory\\backup_round_4.cnf"
+              }
+            },
+            "apply_report": {
+              "persisted_keys": [
+                "compute_query_id",
+                "plan_cache_mode"
+              ],
+              "runtime_applied_keys": [
+                "plan_cache_mode",
+                "compute_query_id"
+              ],
+              "runtime_skipped_keys": []
+            },
+            "effective_candidate_config": {
+              "plan_cache_mode": "force_generic_plan",
+              "compute_query_id": "off"
+            }
+          }
+        },
+        {
+          "round_id": 5,
+          "timestamp": "2026-05-16T00:23:00.680526",
+          "proposal": {
+            "diagnosis": "已按 workload_interpretation 和 benchmark.mode/effective command 交叉确认本轮仍是 sysbench PostgreSQL oltp_read_only.lua，64 线程、TCP loopback、无写入型 run 阶段；wrapper 脚本中未执行的 readwrite/write 分支不改变该判断。当前最佳来自第 4 轮：在第 2 轮读路径成本和短查询开销优化基础上加入 plan_cache_mode=force_generic_plan 后，TPS 从 8283.92 提到 9610.18、p95 从 10.46ms 降到 9.06ms，说明固定 SQL 模板下减少规划/plan selection 开销是高收益方向。state_metric 显示 WAL/write/checkpoint/fsync/temp spill 基本为 0，写路径和 temp 内存不是瓶颈；pg_stat_io reads/evictions 很高但 OS 层 iowait 很低、内存充足，说明更多是 shared buffer/OS cache 反复搬运与高并发 CPU 调度问题，而不是磁盘 flush 压力。第 1 轮 16GB shared_buffers + parallel=0 + random_page_cost=1.1 的组合失败，不能简单否定所有缓存路线，但当前更安全的下一步是继承第 4 轮最佳配置，按上一轮 next_step 单独验证 max_parallel_workers_per_gather=2：它只改变并行上限，不引入重启和 shared_buffers warmup 噪声，可判断 read-only 中 range/sum/order/distinct 查询是否能从更多 per-query parallelism 受益。",
+            "action_type": "db_config",
+            "candidate_config": {
+              "ssl": false,
+              "effective_cache_size": 51539607552,
+              "work_mem": 8388608,
+              "temp_buffers": 8388608,
+              "effective_io_concurrency": 128,
+              "random_page_cost": 1.5,
+              "plan_cache_mode": "force_generic_plan",
+              "jit": false,
+              "jit_expressions": false,
+              "jit_tuple_deforming": false,
+              "max_parallel_workers": 8,
+              "max_parallel_workers_per_gather": 2,
+              "update_process_title": false,
+              "compute_query_id": "off",
+              "track_io_timing": false,
+              "track_activities": true,
+              "track_counts": true,
+              "autovacuum": true,
+              "stats_fetch_consistency": "cache"
+            },
+            "restart_required": false,
+            "expected_effect": "如果 sysbench read-only 中 range/select_sum/order/distinct 查询当前受单查询执行时间影响，max_parallel_workers_per_gather=2 可能让部分查询获得更多并行 worker，从而在保留 force_generic_plan 降低规划成本的同时进一步提高 TPS、降低 p95。由于 max_parallel_workers 仍限制在 8，本轮不会无界放大 64 客户端的 CPU 争用。",
+            "risk": "主要风险是 64 并发下更多 per-query parallelism 可能增加 worker 启停、Gather、DSM 和 CPU 调度开销，导致点查类短查询 p95 上升或 TPS 回退；但本轮无需重启，风险可快速回滚。不会牺牲 crash safety，也不关闭统计或 autovacuum。",
+            "validation_required": true,
+            "global_config_plan": {
+              "summary": "本轮采用 reload-only 的保守拆分验证：完整保留第 4 轮最佳的 ssl=false、force_generic_plan、random_page_cost=1.5、effective_io_concurrency=128、jit/观测开销关闭项和统计/auto vacuum 正常开启，只把 max_parallel_workers_per_gather 从 1 提到 2。目标是在不重复第 1 轮失败组合、不关闭 track_counts/autovacuum 的情况下，测试 OLTP read-only 混合点查与 range 聚合中更高 per-query 并行度能否继续降低 p95 或提高 TPS。",
+              "change_groups": {
+                "memory": [
+                  "保持 shared_buffers=128MB：第 1 轮 16GB shared_buffers 与 parallel=0、random_page_cost=1.1 等组合一起失败，本轮不引入重启型缓存变化，避免 warmup 噪声干扰并行拆分判断。",
+                  "保持 effective_cache_size=48GB：第 2/4 轮成功配置，符合 64GB 内存和大量 OS cache 承载数据集的实际情况。",
+                  "保持 work_mem=8MB、temp_buffers=8MB：state_metric 中 temp_files/temp_bytes 为 0，继续增大 work_mem/temp_buffers 对当前 read-only 短查询收益不明确，且 64 并发下会增加内存风险。"
+                ],
+                "redo_binlog": [
+                  "保持 fsync/full_page_writes/synchronous_commit/wal_level/wal_buffers 不作为本轮收益方向：pg_stat_wal wal_records/wal_bytes/wal_write/wal_sync 均为 0，read-only run 阶段没有 WAL 压力证据。",
+                  "不采用 fsync=off、wal_level=minimal 等 benchmark_max 写路径牺牲项；它们对本负载主瓶颈帮助很小，且会牺牲 crash safety/复制能力。"
+                ],
+                "io_flush": [
+                  "保持 effective_io_concurrency=128、random_page_cost=1.5：这是第 4 轮历史最佳所用组合；第 3 轮 random_page_cost=1.3/effective_io_concurrency=160 且关闭统计的组合回退，本轮不再叠加 IO cost 变化。",
+                  "保持 checkpoint/bgwriter 相关参数不变：checkpoint、buffers_checkpoint、buffers_backend_fsync、pg_stat_io writes/fsyncs 均无压力，flush 路径不是当前瓶颈。"
+                ],
+                "concurrency_cpu": [
+                  "将 max_parallel_workers_per_gather 从 1 提到 2：第 1 轮 parallel=0 的组合失败，第 4 轮 parallel=1 已是当前最佳；本轮按计划单独测试 2，观察 range 聚合/排序类 read-only 查询是否能用更多 worker 降低尾延迟。",
+                  "保持 max_parallel_workers=8、max_worker_processes=8：先不提高全局 worker 总量，用现有全局 cap 限制 64 并发下的过度并行和 CPU 争用风险。",
+                  "保持 plan_cache_mode=force_generic_plan：第 4 轮已证明固定 sysbench SQL 模板下 generic plan 明显提升 TPS/p95，是当前必须继承的成功项。",
+                  "保持 ssl=false、jit=false、jit_expressions=false、jit_tuple_deforming=false、update_process_title=false、compute_query_id=off、track_io_timing=false：继续减少 loopback TLS、JIT 和观测元数据开销。",
+                  "保持 track_activities=true、track_counts=true、autovacuum=true、stats_fetch_consistency=cache：第 3 轮关闭这些项的 benchmark_max 组合回退，且关闭统计会降低可观测性和维护安全性，本轮不重复。"
+                ],
+                "benchmark_max_static": [
+                  "本轮不采用静态重启路线，restart_required=false。",
+                  "若本轮无收益但 pg_stat_io evictions/reads 仍高，可下一轮尝试比第 1 轮温和的 shared_buffers=4GB + max_connections=90 重启路线，并保留 force_generic_plan 与 parallel_per_gather=1/2 中表现更好的值。"
+                ]
+              }
+            },
+            "exploration_mode": "conservative",
+            "next_step": "如果本轮成功或接近当前最佳，保留 force_generic_plan，并在 max_parallel_workers_per_gather=2 基础上再小步测试 random_page_cost=1.7 或 parallel_setup_cost/parallel_tuple_cost 的轻微下调；如果 p95 下降但 TPS 不升，可考虑把 max_parallel_workers 提到 10/12 做受控验证。",
+            "if_failed_next": "如果本轮回退，把 max_parallel_workers_per_gather 恢复为 1，不再继续加大 per-query parallelism；下一轮优先测试 random_page_cost=1.7（保持 effective_io_concurrency=128 和 force_generic_plan），或走重启型小 shared_buffers=4GB + max_connections=90 路线。继续避免 track_activities=false、track_counts=false、autovacuum=false，以及第 1 轮失败的 16GB shared_buffers + parallel=0 + random_page_cost=1.1 组合。",
+            "more_aggressive_plan": {
+              "rationale": "更激进但仍围绕 read-only 主瓶颈的路线是重启型缓存/连接预算组合：shared_buffers 不再跳到第 1 轮失败的 16GB，而是温和设为 4GB；同时把 max_connections 从 100 降到 90，减少 ProcArray/连接结构开销，保留第 4 轮已验证的 force_generic_plan、ssl=false、jit=false、random_page_cost=1.5、effective_io_concurrency=128 和统计正常开启。现在没有直接采用，是因为本轮先做 reload-only 并行拆分，避免把 parallel、shared_buffers 和 max_connections 的效果混在一起。",
+              "aggressive_candidate_config": {
+                "ssl": false,
+                "shared_buffers": 4294967296,
+                "effective_cache_size": 51539607552,
+                "work_mem": 8388608,
+                "temp_buffers": 8388608,
+                "effective_io_concurrency": 128,
+                "random_page_cost": 1.5,
+                "plan_cache_mode": "force_generic_plan",
+                "jit": false,
+                "jit_expressions": false,
+                "jit_tuple_deforming": false,
+                "max_connections": 90,
+                "max_worker_processes": 8,
+                "max_parallel_workers": 8,
+                "max_parallel_workers_per_gather": 1,
+                "update_process_title": false,
+                "compute_query_id": "off",
+                "track_io_timing": false,
+                "track_activities": true,
+                "track_counts": true,
+                "autovacuum": true,
+                "stats_fetch_consistency": "cache"
+              }
+            },
+            "auditor_recommendation": {
+              "next_phase": "db",
+              "reason": "DB 层仍有明确且未验证的候选：max_parallel_workers_per_gather=2、random_page_cost=1.7/2.0、较小 shared_buffers=4GB/8GB 与 max_connections=90 的重启型路线。当前 DB 阶段只有 4 次 trial，且第 4 轮刚显著提升，不应切到 OS/sysctl。",
+              "confidence": "high"
+            }
+          },
+          "result": {
+            "score": 1083.6033707865167,
+            "tps": 9644.07,
+            "p95_latency_ms": 8.9,
+            "primary_metric_name": "tps",
+            "primary_metric_value": 9644.07,
+            "valid": true,
+            "metrics": {
+              "tps": 9644.07,
+              "p95_latency_ms": 8.9
+            },
+            "metadata": {}
+          },
+          "decision": "accepted",
+          "reason": "Score improved from 1060.726 to 1083.603 (2.16%).",
+          "metadata": {
+            "phase": "db",
+            "auditor": {
+              "current_phase": "db",
+              "next_phase": "db",
+              "action": "continue_db",
+              "reason": "DB phase still has tuning budget before plateau criteria are met.",
+              "stop": false,
+              "plateau_detected": false,
+              "phase_round_count": 4,
+              "consecutive_non_improving": 0,
+              "consecutive_repeats": 0,
+              "best_score": 1060.7262693156733,
+              "model_recommendation": {
+                "next_phase": "db",
+                "reason": "DB 层仍有明确候选尚未充分验证：plan_cache_mode、max_parallel_workers_per_gather=2、random_page_cost=1.7/2.0，以及较小 shared_buffers=4GB/8GB 的重启型路线。当前只有 3 轮 DB trial 且尚未达到 plateau 策略，不建议切到 OS/sysctl。",
+                "confidence": "high"
+              },
+              "model_recommendation_used": false
+            },
+            "state_snapshot": {
+              "path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_000929_pg60_read64_clean_prompt_nohistory\\state_snapshots\\round_005_db.txt",
+              "counts": {
+                "tracked_config": 276,
+                "settings": 276,
+                "metrics_profile": 66,
+                "stat_metrics": 66
+              }
+            },
+            "backup": {
+              "config_path": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+              "backup_path": "/tmp/agenticdb_round_5_1778862119.cnf.bak",
+              "created_at": "2026-05-16T00:21:59",
+              "content_sha256": "8bb91df6c1e1ee7ad0e6a79b27566f94470b141ee273bf4ae93ea1f7806f5f0c",
+              "metadata": {
+                "local_backup_path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_000929_pg60_read64_clean_prompt_nohistory\\backup_round_5.cnf"
+              }
+            },
+            "apply_report": {
+              "persisted_keys": [
+                "compute_query_id",
+                "max_parallel_workers_per_gather"
+              ],
+              "runtime_applied_keys": [
+                "max_parallel_workers_per_gather",
+                "compute_query_id"
+              ],
+              "runtime_skipped_keys": []
+            },
+            "effective_candidate_config": {
+              "max_parallel_workers_per_gather": 2,
+              "compute_query_id": "off"
+            }
+          }
+        },
+        {
+          "round_id": 6,
+          "timestamp": "2026-05-16T00:25:05.373718",
+          "proposal": {
+            "diagnosis": "已按 workload_interpretation 与 benchmark.mode/effective command 交叉确认，本轮仍是 sysbench PostgreSQL oltp_read_only，64 线程、本机 TCP loopback，不应按 readwrite 处理。历史上最强收益来自 ssl=false、JIT/标题/query_id 开销关闭、force_generic_plan，以及 max_parallel_workers_per_gather=2；关闭 track_counts/track_activities/autovacuum 回退，16GB shared_buffers+parallel=0+random_page_cost=1.1 组合也回退。当前 state 显示 temp_files=0、WAL 几乎为 0、checkpoint/backend_fsync/write path 无压力；pg_stat_io reads/evictions 很高但 OS iowait/IO PSI 低，说明大量读更可能来自 OS cache 到 PG buffer 的循环与执行/规划 CPU 开销而非真实磁盘瓶颈。当前 loadavg/CPU PSI 偏高，继续增加 max_parallel_workers 或降低 parallel cost 可能放大 CPU 争用。因此本轮选择 reload-only 的安全单因子细调：在继承当前最佳配置基础上把 random_page_cost 从 1.5 小幅提高到 1.7，观察 generic plan 下是否减少不利的随机/并行扫描选择并改善 p95 与 TPS。",
+            "action_type": "db_config",
+            "candidate_config": {
+              "ssl": false,
+              "effective_cache_size": 51539607552,
+              "work_mem": 8388608,
+              "temp_buffers": 8388608,
+              "effective_io_concurrency": 128,
+              "random_page_cost": 1.7,
+              "plan_cache_mode": "force_generic_plan",
+              "jit": false,
+              "jit_expressions": false,
+              "jit_tuple_deforming": false,
+              "max_parallel_workers": 8,
+              "max_parallel_workers_per_gather": 2,
+              "update_process_title": false,
+              "compute_query_id": "off",
+              "track_io_timing": false,
+              "track_activities": true,
+              "track_counts": true,
+              "autovacuum": true,
+              "stats_fetch_consistency": "cache"
+            },
+            "restart_required": false,
+            "expected_effect": "预期通过稍微提高 random_page_cost，让 generic plan 在缓存/SSD 与高并发 CPU 压力下更少选择对随机访问和 buffer churn 敏感的计划，从而在保持第 5 轮 ppg=2 并行收益的同时小幅降低 p95，并有机会把 tps/p95 从 1083.6 继续推高。",
+            "risk": "风险较低且无需重启；主要风险是 random_page_cost=1.7 可能使部分 range 聚合/排序查询计划过于保守，导致 TPS 或 p95 回退。由于只改 reloadable planner cost，失败后可快速回到 1.5。",
+            "validation_required": true,
+            "global_config_plan": {
+              "summary": "继承第 5 轮当前最佳组合，只对 planner cost 做小步试探：random_page_cost=1.7，保留 effective_io_concurrency=128、force_generic_plan、parallel_per_gather=2 和观测/维护安全项。这样避免重复已失败的统计关闭和 16GB shared_buffers+parallel=0 组合，也避免在 CPU 已紧张时继续增加并行 worker。",
+              "change_groups": {
+                "memory": [
+                  "保持 shared_buffers=128MB：虽然 pg_stat_io evictions 很高，但第 1 轮大 shared_buffers 组合失败且 confound 较多；本轮先不引入重启和冷 shared buffer 噪声。",
+                  "保持 effective_cache_size=48GB：符合 64GB 内存与 OS cache 实际承载读工作集，是第 2/4/5 轮成功路径。",
+                  "保持 work_mem=8MB、temp_buffers=8MB：temp_files/temp_bytes 为 0，继续增大对当前短 OLTP read-only 收益不明确且会增加 64 并发内存风险。"
+                ],
+                "redo_binlog": [
+                  "保持 fsync/full_page_writes/synchronous_commit/wal_level/wal_buffers 不变：本轮读压测 WAL 仅 214 bytes、wal_write/wal_sync 极少，写路径不是瓶颈。",
+                  "不采用 fsync=off、wal_level=minimal 等 benchmark_max 写路径牺牲项；对 read-only run 阶段收益极低，且会牺牲 crash safety/恢复能力。"
+                ],
+                "io_flush": [
+                  "将 random_page_cost 从 1.5 提到 1.7：在当前 force_generic_plan 和 ppg=2 成功基础上，测试稍保守的随机页成本是否能避免过度随机访问/不佳扫描形态，降低 CPU 与 buffer churn。",
+                  "保持 effective_io_concurrency=128：第 4/5 轮最佳路径所用值；第 3 轮 eio=160 + rpc=1.3 + 关闭统计回退，本轮不叠加 eio 变化。",
+                  "checkpoint/bgwriter/flush 参数保持不变：state 中 writes/fsyncs/checkpoint buffers/backend_fsync 都无压力。"
+                ],
+                "concurrency_cpu": [
+                  "保持 max_parallel_workers_per_gather=2：第 5 轮相对 ppg=1 又提升 2.16%，当前应继承成功项。",
+                  "保持 max_parallel_workers=8、max_worker_processes=8：12 vCPU、64 客户端下负载和 CPU PSI 已高，本轮不扩大并行 worker 池，避免 worker 争用和尾延迟放大。",
+                  "保持 plan_cache_mode=force_generic_plan：第 4 轮证明该项是最大收益之一，适合 sysbench 固定 SQL 模板。",
+                  "保持 ssl=false、jit=false、jit_expressions=false、jit_tuple_deforming=false、update_process_title=false、compute_query_id=off、track_io_timing=false：继续保留已验证的短查询开销削减。",
+                  "保持 track_activities=true、track_counts=true、autovacuum=true、stats_fetch_consistency=cache：第 3 轮关闭这些项回退，且关闭统计/维护不安全。"
+                ],
+                "benchmark_max_static": [
+                  "本轮不采用静态重启路线，restart_required=false。",
+                  "若 random_page_cost=1.7 成功或接近成功，下一步可以考虑把该 planner 成本与温和重启型 shared_buffers=4GB + max_connections=90 组合验证；不要回到第 1 轮的 16GB shared_buffers + parallel=0 + rpc=1.1。"
+                ]
+              }
+            },
+            "exploration_mode": "conservative",
+            "next_step": "如果本轮成功或接近当前最佳，继续继承 force_generic_plan、ppg=2、random_page_cost=1.7，下一轮可小步测试 random_page_cost=1.9/2.0，或在 rpc=1.7 基础上走温和重启型 shared_buffers=4GB + max_connections=90 组合。若 p95 改善但 TPS 不升，再考虑仅把 max_parallel_workers 从 8 提到 10 做受控验证。",
+            "if_failed_next": "如果本轮回退，把 random_page_cost 恢复到 1.5，并避免继续升高 planner random cost；下一轮优先走已多次记录但未验证的重启型小缓存/连接预算路线：shared_buffers=4GB、max_connections=90，保留 force_generic_plan、ssl=false、jit=false、effective_io_concurrency=128、max_parallel_workers_per_gather=2 和统计/auto vacuum 正常开启。继续避免 track_activities=false、track_counts=false、autovacuum=false，以及 16GB shared_buffers + parallel=0 + random_page_cost=1.1 的失败组合。",
+            "more_aggressive_plan": {
+              "rationale": "更激进但仍合理的 DB 路线是解决 pg_stat_io reads/evictions 极高的共享缓冲反复淘汰：采用温和的 shared_buffers=4GB，而不是第 1 轮失败的 16GB；同时把 max_connections 从 100 降到 90，仍覆盖 64 sysbench 线程和管理连接，并减少 ProcArray/连接结构开销。现在不直接采用，是因为它需要重启且会引入 shared buffer 重新填充噪声；本轮先完成 reload-only 的 random_page_cost 拆分。",
+              "aggressive_candidate_config": {
+                "ssl": false,
+                "shared_buffers": 4294967296,
+                "effective_cache_size": 51539607552,
+                "work_mem": 8388608,
+                "temp_buffers": 8388608,
+                "effective_io_concurrency": 128,
+                "random_page_cost": 1.7,
+                "plan_cache_mode": "force_generic_plan",
+                "jit": false,
+                "jit_expressions": false,
+                "jit_tuple_deforming": false,
+                "max_connections": 90,
+                "max_worker_processes": 8,
+                "max_parallel_workers": 8,
+                "max_parallel_workers_per_gather": 2,
+                "update_process_title": false,
+                "compute_query_id": "off",
+                "track_io_timing": false,
+                "track_activities": true,
+                "track_counts": true,
+                "autovacuum": true,
+                "stats_fetch_consistency": "cache"
+              }
+            },
+            "auditor_recommendation": {
+              "next_phase": "db",
+              "reason": "DB 层仍有明确候选未验证：random_page_cost 1.7/2.0、温和 shared_buffers=4GB/8GB + max_connections=90，以及在 p95/TPS 信号明确后受控测试 max_parallel_workers=10。当前第 5 轮刚刷新最佳，不应切到 OS/sysctl。",
+              "confidence": "high"
+            }
+          },
+          "result": {
+            "score": 1076.191011235955,
+            "tps": 9578.1,
+            "p95_latency_ms": 8.9,
+            "primary_metric_name": "tps",
+            "primary_metric_value": 9578.1,
+            "valid": true,
+            "metrics": {
+              "tps": 9578.1,
+              "p95_latency_ms": 8.9
+            },
+            "metadata": {}
+          },
+          "decision": "rollback",
+          "reason": "Score did not improve enough: incumbent=1083.603, candidate=1076.191.",
+          "metadata": {
+            "phase": "db",
+            "auditor": {
+              "current_phase": "db",
+              "next_phase": "db",
+              "action": "continue_db",
+              "reason": "DB phase still has tuning budget before plateau criteria are met.",
+              "stop": false,
+              "plateau_detected": false,
+              "phase_round_count": 5,
+              "consecutive_non_improving": 0,
+              "consecutive_repeats": 0,
+              "best_score": 1083.6033707865167,
+              "model_recommendation": {
+                "next_phase": "db",
+                "reason": "DB 层仍有明确且未验证的候选：max_parallel_workers_per_gather=2、random_page_cost=1.7/2.0、较小 shared_buffers=4GB/8GB 与 max_connections=90 的重启型路线。当前 DB 阶段只有 4 次 trial，且第 4 轮刚显著提升，不应切到 OS/sysctl。",
+                "confidence": "high"
+              },
+              "model_recommendation_used": false
+            },
+            "state_snapshot": {
+              "path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_000929_pg60_read64_clean_prompt_nohistory\\state_snapshots\\round_006_db.txt",
+              "counts": {
+                "tracked_config": 276,
+                "settings": 276,
+                "metrics_profile": 66,
+                "stat_metrics": 66
+              }
+            },
+            "backup": {
+              "config_path": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+              "backup_path": "/tmp/agenticdb_round_6_1778862241.cnf.bak",
+              "created_at": "2026-05-16T00:24:01",
+              "content_sha256": "31e18f4423f6e26b593da4746896ef76ba83c9725229afeb6f0fd43f39a32920",
+              "metadata": {
+                "local_backup_path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_000929_pg60_read64_clean_prompt_nohistory\\backup_round_6.cnf"
+              }
+            },
+            "apply_report": {
+              "persisted_keys": [
+                "compute_query_id",
+                "random_page_cost"
+              ],
+              "runtime_applied_keys": [
+                "random_page_cost",
+                "compute_query_id"
+              ],
+              "runtime_skipped_keys": []
+            },
+            "effective_candidate_config": {
+              "random_page_cost": 1.7,
+              "compute_query_id": "off"
+            }
+          }
+        },
+        {
+          "round_id": 7,
+          "timestamp": "2026-05-16T00:27:14.419406",
+          "proposal": {
+            "diagnosis": "已按 workload_interpretation 和脚本/命令预览交叉确认：本轮仍是 sysbench PostgreSQL oltp_read_only，mode=read，执行 read 分支/oltp_read_only.lua，wrapper 中未执行的 readwrite/write 分支不应改变判断。当前最佳来自 ssl=false、force_generic_plan、jit/查询ID/进程标题开销关闭、effective_cache_size=48GB、eio=128、random_page_cost=1.5、ppg=2。第6轮把 random_page_cost 提到 1.7 回退，说明继续升高随机页成本收益不佳，应恢复 1.5。state_metric 显示 read-only 写路径几乎无压力：WAL 仅 114 bytes、writes/fsyncs 为 0、temp_files=0；而 pg_stat_io reads≈2210万、evictions≈2210万，shared_buffers 仍为 128MB，说明 PostgreSQL shared buffer 反复淘汰严重，虽然 OS cache 足够但每次仍要经过 buffer 分配/淘汰路径。OS 侧 IO PSI 为 0、内存充足，CPU PSI 高，说明不能盲目增加并行度；本轮最有杠杆且尚未验证的是温和重启型缓存/连接预算：shared_buffers=4GB 而不是第1轮失败的 16GB，并把 max_connections 从 100 压到 90，保留已验证的 ppg=2 和 force_generic_plan。",
+            "action_type": "db_config",
+            "candidate_config": {
+              "ssl": false,
+              "shared_buffers": 4294967296,
+              "effective_cache_size": 51539607552,
+              "work_mem": 8388608,
+              "temp_buffers": 8388608,
+              "effective_io_concurrency": 128,
+              "random_page_cost": 1.5,
+              "plan_cache_mode": "force_generic_plan",
+              "jit": false,
+              "jit_expressions": false,
+              "jit_tuple_deforming": false,
+              "max_connections": 90,
+              "max_worker_processes": 8,
+              "max_parallel_workers": 8,
+              "max_parallel_workers_per_gather": 2,
+              "update_process_title": false,
+              "compute_query_id": "off",
+              "track_io_timing": false,
+              "track_activities": true,
+              "track_counts": true,
+              "autovacuum": true,
+              "stats_fetch_consistency": "cache"
+            },
+            "restart_required": true,
+            "expected_effect": "预期 4GB shared_buffers 能减少 128MB 下极高的 shared buffer 分配/淘汰和从 OS cache 反复装入 shared buffer 的开销，max_connections=90 降低连接共享结构扫描/缓存占用；同时保留第5轮已验证的 force_generic_plan、ppg=2、JIT/观测开销削减组合，有机会把 TPS 推过 9644 或在 p95=8.90ms 基础上进一步降低尾延迟。",
+            "risk": "需要重启，存在重启后缓存热度噪声；shared_buffers 增大可能带来 buffer manager 锁竞争或不如纯 OS cache 路径；max_connections=90 对 64 并发仍安全但管理连接余量减少。不改变 fsync/full_page_writes/wal_level，因此不额外牺牲 crash safety。",
+            "validation_required": true,
+            "global_config_plan": {
+              "summary": "相对当前最佳，本轮采用一次受控的静态 DB 组合：保留第5轮成功的 planner/parallel/JIT/观测开销配置，把第6轮失败的 random_page_cost=1.7 回退到 1.5，同时验证多轮策略记忆中反复建议但未落地的 shared_buffers=4GB + max_connections=90。目标是在不重复第1轮 16GB shared_buffers + parallel=0 + rpc=1.1 失败组合的前提下，减少 128MB shared_buffers 导致的 reads/evictions 和连接数组/ProcArray 开销。",
+              "change_groups": {
+                "memory": [
+                  "shared_buffers 从 128MB 提到 4GB：当前 pg_stat_io reads/evictions 几乎等量且极高，4GB 是温和缓存路线，避免第1轮 16GB 过大和并行策略混杂失败；64GB 内存下仍给 OS cache 留出充足空间。",
+                  "effective_cache_size 保持 48GB：前几轮成功路径一致，符合机器内存和 OS cache 驻留能力。",
+                  "work_mem 保持 8MB、temp_buffers 保持 8MB：temp_files/temp_bytes 为 0，继续增大对 sysbench 短只读查询收益不明确，且会提高 64 并发内存风险。",
+                  "maintenance_work_mem 不作为本轮收益项：当前是 read-only run，维护内存不在瓶颈路径。"
+                ],
+                "redo_binlog": [
+                  "保持 fsync/full_page_writes/synchronous_commit/wal_level/wal_buffers 不作为主要调优方向：本轮负载是 read-only，WAL 仅个位数事件和 114 bytes，写路径没有瓶颈证据。",
+                  "不采用 fsync=off、wal_level=minimal 等 benchmark_max durability tradeoff：对该 read-only 运行阶段几乎无收益，反而带来恢复/复制风险。"
+                ],
+                "io_flush": [
+                  "random_page_cost 恢复并保持 1.5：第6轮 1.7 回退，继续升高到 1.9/2.0 暂停；1.5 是当前历史最佳配置。",
+                  "effective_io_concurrency 保持 128：第2/4/5轮成功路径，SSD/缓存读场景下较稳；不与 shared_buffers 同时再改变 eio，避免混淆。",
+                  "checkpoint/bgwriter/flush 参数保持不变：bgwriter/checkpoint buffers_backend/buffers_checkpoint 基本无压力，read-only 下写回不是 p95 主因。"
+                ],
+                "concurrency_cpu": [
+                  "max_connections 从 100 降到 90：64 sysbench 线程 + 管理/采集连接仍有余量，减少连接相关共享结构和 ProcArray 扫描成本；这是静态重启项。",
+                  "max_worker_processes、max_parallel_workers 均保持 8，max_parallel_workers_per_gather 保持 2：第5轮 ppg=2 已提升 2.16%，但 CPU PSI 高，不在本轮同时扩大 worker 池。",
+                  "保留 plan_cache_mode=force_generic_plan：第4轮带来最大提升，适合 sysbench 固定 SQL 模板，降低规划/自定义计划成本。",
+                  "保留 ssl=false、jit=false、jit_expressions=false、jit_tuple_deforming=false、update_process_title=false、compute_query_id=off、track_io_timing=false：这些是已验证的短查询开销削减项。",
+                  "保留 track_activities=true、track_counts=true、autovacuum=true、stats_fetch_consistency=cache：第3轮关闭统计/维护回退，且不安全，不再重复。"
+                ],
+                "benchmark_max_static": [
+                  "本轮采用 restart_required=true 的静态路线，包含 shared_buffers 和 max_connections；这是 benchmark 性能探索，但不牺牲 crash safety。",
+                  "主要风险是重启后 shared buffer 重新填充、4GB shared buffer 可能增加 buffer manager 锁/扫描开销、max_connections=90 连接余量比 100 小；但相比 16GB/80 连接方案更温和。"
+                ]
+              }
+            },
+            "exploration_mode": "aggressive",
+            "next_step": "如果本轮成功或接近当前最佳，继续沿静态缓存/连接预算细调：比较 shared_buffers=8GB vs 4GB，或把 max_connections 从 90 进一步试到 80；若 TPS 提升但 p95 不降，再小步测试 max_worker_processes=10、max_parallel_workers=10 且 ppg=2。",
+            "if_failed_next": "如果本轮回退，优先判断 shared_buffers=4GB 或 max_connections=90 是否负贡献：下一轮回到 shared_buffers=128MB、max_connections=100 的第5轮最佳配置，不再立刻尝试更大的 8GB/16GB shared_buffers；改做 reload-only 的并行成本小探针，例如 parallel_setup_cost 500 或 parallel_tuple_cost 0.05，保持 random_page_cost=1.5、eio=128、force_generic_plan、ppg=2。继续避免 random_page_cost=1.7/2.0、关闭 track_counts/track_activities/autovacuum，以及 16GB shared_buffers + parallel=0 + rpc=1.1。",
+            "more_aggressive_plan": {
+              "rationale": "若 4GB shared_buffers + max_connections=90 有正向信号，更激进路线是把 shared_buffers 提到 8GB、max_connections 压到 80，并把 worker 总预算提高到 10，以探索缓存驻留和并行 worker 池是否还能提升 p95/TPS。但当前 CPU PSI 已高且第1轮大 shared_buffers 失败，所以本轮先验证 4GB/90 的温和静态组合。",
+              "aggressive_candidate_config": {
+                "ssl": false,
+                "shared_buffers": 8589934592,
+                "effective_cache_size": 51539607552,
+                "work_mem": 8388608,
+                "temp_buffers": 8388608,
+                "effective_io_concurrency": 128,
+                "random_page_cost": 1.5,
+                "plan_cache_mode": "force_generic_plan",
+                "jit": false,
+                "jit_expressions": false,
+                "jit_tuple_deforming": false,
+                "max_connections": 80,
+                "max_worker_processes": 10,
+                "max_parallel_workers": 10,
+                "max_parallel_workers_per_gather": 2,
+                "update_process_title": false,
+                "compute_query_id": "off",
+                "track_io_timing": false,
+                "track_activities": true,
+                "track_counts": true,
+                "autovacuum": true,
+                "stats_fetch_consistency": "cache"
+              }
+            },
+            "auditor_recommendation": {
+              "next_phase": "db",
+              "reason": "DB 侧仍有明确候选未验证：4GB/8GB shared_buffers、max_connections 90/80、parallel_setup_cost/parallel_tuple_cost、以及 max_worker_processes/max_parallel_workers 10 的受控测试。当前刚完成一次 random_page_cost 回退，不应切到 OS/sysctl。",
+              "confidence": "high"
+            }
+          },
+          "result": {
+            "score": 1032.5932754880694,
+            "tps": 9520.51,
+            "p95_latency_ms": 9.22,
+            "primary_metric_name": "tps",
+            "primary_metric_value": 9520.51,
+            "valid": true,
+            "metrics": {
+              "tps": 9520.51,
+              "p95_latency_ms": 9.22
+            },
+            "metadata": {}
+          },
+          "decision": "rollback",
+          "reason": "Score did not improve enough: incumbent=1083.603, candidate=1032.593.",
+          "metadata": {
+            "phase": "db",
+            "auditor": {
+              "current_phase": "db",
+              "next_phase": "db",
+              "action": "continue_db",
+              "reason": "DB phase still has tuning budget before plateau criteria are met.",
+              "stop": false,
+              "plateau_detected": false,
+              "phase_round_count": 6,
+              "consecutive_non_improving": 1,
+              "consecutive_repeats": 0,
+              "best_score": 1083.6033707865167,
+              "model_recommendation": {
+                "next_phase": "db",
+                "reason": "DB 层仍有明确候选未验证：random_page_cost 1.7/2.0、温和 shared_buffers=4GB/8GB + max_connections=90，以及在 p95/TPS 信号明确后受控测试 max_parallel_workers=10。当前第 5 轮刚刷新最佳，不应切到 OS/sysctl。",
+                "confidence": "high"
+              },
+              "model_recommendation_used": false
+            },
+            "state_snapshot": {
+              "path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_000929_pg60_read64_clean_prompt_nohistory\\state_snapshots\\round_007_db.txt",
+              "counts": {
+                "tracked_config": 276,
+                "settings": 276,
+                "metrics_profile": 66,
+                "stat_metrics": 66
+              }
+            },
+            "backup": {
+              "config_path": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+              "backup_path": "/tmp/agenticdb_round_7_1778862366.cnf.bak",
+              "created_at": "2026-05-16T00:26:06",
+              "content_sha256": "31e18f4423f6e26b593da4746896ef76ba83c9725229afeb6f0fd43f39a32920",
+              "metadata": {
+                "local_backup_path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_000929_pg60_read64_clean_prompt_nohistory\\backup_round_7.cnf"
+              }
+            },
+            "apply_report": {
+              "persisted_keys": [
+                "compute_query_id",
+                "max_connections",
+                "shared_buffers"
+              ],
+              "runtime_applied_keys": [
+                "compute_query_id"
+              ],
+              "runtime_skipped_keys": []
+            },
+            "effective_candidate_config": {
+              "shared_buffers": 4294967296,
+              "max_connections": 90,
+              "compute_query_id": "off"
+            }
+          }
+        },
+        {
+          "round_id": 8,
+          "timestamp": "2026-05-16T00:29:40.521632",
+          "proposal": {
+            "diagnosis": "已按 workload_interpretation 和脚本/命令预览确认当前是 sysbench PostgreSQL oltp_read_only.lua，mode=read；wrapper 里未执行的 readwrite/write 分支不作为负载判定依据。最近最佳来自第5轮：force_generic_plan、ssl=false、jit/compute_query_id/update_process_title/track_io_timing 关闭、random_page_cost=1.5、effective_io_concurrency=128、ppg=2。第6轮 random_page_cost=1.7 小幅回退，第7轮 shared_buffers=4GB + max_connections=90 明显回退，说明当前高 pg_stat_io reads/evictions 更像共享缓冲过小导致的 OS cache/PG buffer churn 计数和 CPU/buffer-manager 路径开销，不是物理 IO 饱和；OS PSI 显示 CPU some 压力高而 IO/memory PSI 低，WAL 只有 3 records/218 bytes，写路径不是主要瓶颈。本轮不再扩大 shared_buffers，也不重复关闭 track_counts/track_activities/autovacuum；转向第7轮 if_failed_next 指出的 reload-only 并行成本探针：在当前最佳配置上轻微降低 parallel_setup_cost 和 parallel_tuple_cost，尝试让 generic plan 下的 range/order/distinct 读查询更容易使用已有 ppg=2 的有限并行，同时不扩大 worker 池，控制 CPU 风险。",
+            "action_type": "db_config",
+            "candidate_config": {
+              "ssl": false,
+              "effective_cache_size": 51539607552,
+              "work_mem": 8388608,
+              "temp_buffers": 8388608,
+              "effective_io_concurrency": 128,
+              "random_page_cost": 1.5,
+              "parallel_setup_cost": 500.0,
+              "parallel_tuple_cost": 0.05,
+              "plan_cache_mode": "force_generic_plan",
+              "jit": false,
+              "jit_expressions": false,
+              "jit_tuple_deforming": false,
+              "max_parallel_workers": 8,
+              "max_parallel_workers_per_gather": 2,
+              "update_process_title": false,
+              "compute_query_id": "off",
+              "track_io_timing": false,
+              "track_activities": true,
+              "track_counts": true,
+              "autovacuum": true,
+              "stats_fetch_consistency": "cache"
+            },
+            "restart_required": false,
+            "expected_effect": "如果当前 generic plan 下部分 range/order/distinct 查询因默认并行成本偏保守而没有使用有限并行，本轮会在不增加 worker 上限的情况下改善这些较重读查询的执行时间，从而降低 p95 或略增 TPS；保留已验证的 planner/JIT/观测开销优化，避免 shared_buffers 重启路线带来的回退。",
+            "risk": "不需要重启，crash safety 不变。主要风险是 64 并发下并行计划过多导致 CPU PSI 进一步升高、worker 竞争或 gather 开销增加，使 TPS/p95 回退；若回退应立即恢复 parallel_setup_cost=1000、parallel_tuple_cost=0.1。",
+            "validation_required": true,
+            "global_config_plan": {
+              "summary": "相对当前历史最佳保留已验证有效的 read-only 全局组合，回退第7轮失败的 shared_buffers=4GB/max_connections=90 路线，保持 shared_buffers=128MB/max_connections=100；本轮只在并行计划成本上做可回滚的小步调优，目标是在不增加连接/内存/重启噪声的前提下突破 9644.07 TPS / 8.90ms p95。",
+              "change_groups": {
+                "memory": [
+                  "保持 shared_buffers=128MB：4GB 与 16GB 路线均已失败或混合失败，本轮不再扩大共享缓冲，继续依赖充足 OS cache。",
+                  "保持 effective_cache_size=48GB：这是第4/5轮成功路径，符合 64GB 内存和读多写少场景。",
+                  "保持 work_mem=8MB、temp_buffers=8MB：temp_files/temp_bytes 为 0，sysbench 短读查询没有 spill 证据，继续增大内存收益不明确。",
+                  "maintenance_work_mem 保持默认/当前值：read-only run 阶段不在关键路径。"
+                ],
+                "redo_binlog": [
+                  "保持 fsync/full_page_writes/synchronous_commit/wal_level/wal_buffers 不作为本轮收益项：本次 workload 为纯读，pg_stat_wal 仅极少量记录，写路径无瓶颈证据。",
+                  "不采用 fsync=off、wal_level=minimal 等 benchmark_max durability tradeoff：对读阶段几乎没有直接收益，且会引入恢复/复制风险。"
+                ],
+                "io_flush": [
+                  "保持 random_page_cost=1.5：第6轮 1.7 已回退，第1轮 1.1 处于失败组合中，本轮不再改 planner 随机页成本。",
+                  "保持 effective_io_concurrency=128：这是第4/5轮成功配置；第3轮 eio=160 与其他负向项混合失败，本轮避免同时改动 IO 成本和并行成本。",
+                  "checkpoint/bgwriter 参数保持不变：当前 buffers_backend/buffers_checkpoint/writebacks 基本无压力，read-only 下 flush 不是 p95 主因。"
+                ],
+                "concurrency_cpu": [
+                  "保持 max_parallel_workers_per_gather=2、max_parallel_workers=8：第5轮 ppg=2 带来 2.16% 提升；但 CPU PSI 高，本轮不扩大 worker 池。",
+                  "将 parallel_setup_cost 从 1000 降到 500、parallel_tuple_cost 从 0.1 降到 0.05：鼓励 planner 在 generic plan 下对较重只读 range/order/distinct 查询使用已有的有限并行，期望降低 p95 或提升尾部查询吞吐。",
+                  "保持 plan_cache_mode=force_generic_plan：第4轮最大提升来自该项，适合 sysbench 固定 SQL 模板。",
+                  "保持 ssl=false、jit=false/jit_expressions=false/jit_tuple_deforming=false、update_process_title=false、compute_query_id=off、track_io_timing=false：这些是已验证的短查询开销削减项。",
+                  "保持 track_activities=true、track_counts=true、autovacuum=true、stats_fetch_consistency=cache：第3轮关闭统计/维护回退且不安全，不再重复。",
+                  "保持 max_connections=100：第7轮 max_connections=90 与 4GB shared_buffers 混合失败，本轮先不把连接预算作为变量。"
+                ],
+                "benchmark_max_static": [
+                  "本轮为 reload/user 级 DB 参数探针，不需要重启，避免第7轮静态重启和 buffer warmup 噪声。",
+                  "风险主要是并行计划增多后在 64 clients/12 vCPU 下加剧 CPU runnable 压力，使 TPS 或 p95 回退；但不牺牲 crash safety、恢复能力或观测能力。"
+                ]
+              }
+            },
+            "exploration_mode": "normal",
+            "next_step": "如果本轮成功或接近当前最佳，继续沿并行成本细调：比较 parallel_setup_cost=250/750 或 parallel_tuple_cost=0.03/0.08；若 p95 明显下降但 TPS 不升，再考虑重启型小步把 max_worker_processes/max_parallel_workers 提到 10，仍保持 shared_buffers=128MB、random_page_cost=1.5、force_generic_plan。",
+            "if_failed_next": "如果本轮回退，恢复 parallel_setup_cost=1000、parallel_tuple_cost=0.1，并避免继续降低并行成本；下一轮不要再尝试 shared_buffers=4GB/8GB/16GB，也不要重复 random_page_cost=1.7 或关闭 track_counts/track_activities/autovacuum。替代方向优先做一个静态隔离测试：仅把 max_connections 从 100 降到 80 或 90，保持 shared_buffers=128MB 和第5轮最佳其他参数，用来分离第7轮失败中 shared_buffers 与连接预算的影响；或者做 reload-only random_page_cost=1.4 的小探针。",
+            "more_aggressive_plan": {
+              "rationale": "如果并行成本探针有效，说明 planner/parallel 仍有收益空间；更激进路线是在保留 shared_buffers=128MB 的前提下，叠加更紧连接预算 max_connections=80，并可在下一轮视 CPU PSI 决定是否把 max_worker_processes/max_parallel_workers 提到 10。当前没有直接采用，是因为第7轮已经有一次重启型回退，且需要先确认并行成本方向是否正向。",
+              "aggressive_candidate_config": {
+                "ssl": false,
+                "shared_buffers": 134217728,
+                "effective_cache_size": 51539607552,
+                "work_mem": 8388608,
+                "temp_buffers": 8388608,
+                "effective_io_concurrency": 128,
+                "random_page_cost": 1.5,
+                "parallel_setup_cost": 500.0,
+                "parallel_tuple_cost": 0.05,
+                "plan_cache_mode": "force_generic_plan",
+                "jit": false,
+                "jit_expressions": false,
+                "jit_tuple_deforming": false,
+                "max_connections": 80,
+                "max_worker_processes": 8,
+                "max_parallel_workers": 8,
+                "max_parallel_workers_per_gather": 2,
+                "update_process_title": false,
+                "compute_query_id": "off",
+                "track_io_timing": false,
+                "track_activities": true,
+                "track_counts": true,
+                "autovacuum": true,
+                "stats_fetch_consistency": "cache"
+              }
+            },
+            "auditor_recommendation": {
+              "next_phase": "db",
+              "reason": "DB 侧仍有明确未完全验证的候选：parallel_setup_cost/parallel_tuple_cost 细调、max_connections=80/90 与 shared_buffers=128MB 的隔离测试、random_page_cost=1.4 小步探针，以及可能的 max_worker_processes/max_parallel_workers=10 受控重启测试；不应因第6/7轮回退就切到 OS。",
+              "confidence": "high"
+            }
+          },
+          "result": {
+            "score": 1078.7988764044942,
+            "tps": 9601.31,
+            "p95_latency_ms": 8.9,
+            "primary_metric_name": "tps",
+            "primary_metric_value": 9601.31,
+            "valid": true,
+            "metrics": {
+              "tps": 9601.31,
+              "p95_latency_ms": 8.9
+            },
+            "metadata": {}
+          },
+          "decision": "rollback",
+          "reason": "Score did not improve enough: incumbent=1083.603, candidate=1078.799.",
+          "metadata": {
+            "phase": "db",
+            "auditor": {
+              "current_phase": "db",
+              "next_phase": "db",
+              "action": "continue_db",
+              "reason": "DB phase still has tuning budget before plateau criteria are met.",
+              "stop": false,
+              "plateau_detected": false,
+              "phase_round_count": 7,
+              "consecutive_non_improving": 2,
+              "consecutive_repeats": 0,
+              "best_score": 1083.6033707865167,
+              "model_recommendation": {
+                "next_phase": "db",
+                "reason": "DB 侧仍有明确候选未验证：4GB/8GB shared_buffers、max_connections 90/80、parallel_setup_cost/parallel_tuple_cost、以及 max_worker_processes/max_parallel_workers 10 的受控测试。当前刚完成一次 random_page_cost 回退，不应切到 OS/sysctl。",
+                "confidence": "high"
+              },
+              "model_recommendation_used": false
+            },
+            "state_snapshot": {
+              "path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_000929_pg60_read64_clean_prompt_nohistory\\state_snapshots\\round_008_db.txt",
+              "counts": {
+                "tracked_config": 276,
+                "settings": 276,
+                "metrics_profile": 66,
+                "stat_metrics": 66
+              }
+            },
+            "backup": {
+              "config_path": "/var/lib/postgresql/16/main/postgresql.auto.conf",
+              "backup_path": "/tmp/agenticdb_round_8_1778862516.cnf.bak",
+              "created_at": "2026-05-16T00:28:36",
+              "content_sha256": "31e18f4423f6e26b593da4746896ef76ba83c9725229afeb6f0fd43f39a32920",
+              "metadata": {
+                "local_backup_path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_000929_pg60_read64_clean_prompt_nohistory\\backup_round_8.cnf"
+              }
+            },
+            "apply_report": {
+              "persisted_keys": [
+                "compute_query_id",
+                "parallel_setup_cost",
+                "parallel_tuple_cost"
+              ],
+              "runtime_applied_keys": [
+                "parallel_setup_cost",
+                "parallel_tuple_cost",
+                "compute_query_id"
+              ],
+              "runtime_skipped_keys": []
+            },
+            "effective_candidate_config": {
+              "parallel_setup_cost": 500.0,
+              "parallel_tuple_cost": 0.05,
+              "compute_query_id": "off"
+            }
+          }
+        },
+        {
+          "round_id": 9,
+          "timestamp": "2026-05-16T00:31:26.774188",
+          "proposal": {
+            "diagnosis": "已按 workload_interpretation 和脚本/命令预览确认本轮仍是 sysbench PostgreSQL oltp_read_only，mode=read，oltp_read_only.lua，64 threads，TCP loopback；wrapper 中其他分支不是本次执行路径。DB 阶段最佳来自 force_generic_plan、ssl=false、jit/查询ID/IO timing 开销关闭、random_page_cost=1.5、effective_io_concurrency=128、ppg=2；最近 random_page_cost=1.7、shared_buffers=4GB+max_connections=90、降低 parallel cost 均未突破。当前切到 os_sysctl 后，state_metric 显示内存和 IO 压力很低：memory PSI=0、IO PSI=0、iowait 很低、WAL/写路径几乎为零；但 benchmark 期间/近端 CPU PSI some 很高、loadavg 远高于 12 vCPU，瓶颈更像 64 客户端下 CPU 调度/运行队列竞争和短查询上下文切换，而不是磁盘或 dirty writeback。因此本轮优先做低风险 CPU scheduler sysctl，并轻量保护 OS page cache/reclaim，避免动 read-only 无收益的 dirty/writeback 和网络 backlog。",
+            "action_type": "os_config",
+            "candidate_config": {
+              "kernel.sched_autogroup_enabled": 0,
+              "vm.swappiness": 1,
+              "vm.vfs_cache_pressure": 50
+            },
+            "restart_required": false,
+            "expected_effect": "预期关闭 CFS autogroup 后减少 64 sysbench client 与 PostgreSQL backend 在高 CPU PSI 下的调度分组干扰，降低短查询尾延迟；swappiness=1 和 vfs_cache_pressure=50 保护当前依赖 OS page cache 的读路径，减少偶发 reclaim/cache miss 抖动。目标是小幅提高 TPS 或把 p95 稳定在 8.90ms 以下，从而突破 1083.60 的 tps/p95 分数。",
+            "risk": "风险较低且无需重启。sched_autogroup=0 可能在某些交互式/混合负载下改变进程组公平性，若 sysbench 与 postgres 恰好受益于 autogroup，TPS 可能小幅回退；vfs_cache_pressure 降低过多可能让 dentry/inode cache 更常驻，但本轮只降到 50，内存充足，OOM/内存压力风险很小；swappiness=1 在极端内存压力下可能更晚换出，但当前 memory PSI=0。",
+            "validation_required": true,
+            "global_config_plan": {
+              "summary": "当前阶段是 os_sysctl，只能使用 allowed_os_knob_space。本轮不再改 DB 参数，保留历史最佳 DB 配置；OS 侧选择一个高信号低风险组合：关闭 CFS autogroup 以减少服务器型多进程负载的调度分组干扰，同时降低 swappiness 和 vfs_cache_pressure，帮助 32M 行只读数据集继续依赖 OS cache。",
+              "change_groups": {
+                "memory": [
+                  "将 vm.swappiness 从 60 降到 1：64GB 内存且 memory PSI=0、free/cache 充足，读压测不希望匿名页或 backend 内存被积极换出；该项通常对 p95 抖动有保护作用。",
+                  "将 vm.vfs_cache_pressure 从 100 降到 50：shared_buffers 保持 128MB 且最佳路线依赖 OS cache，降低 inode/dentry 回收压力，避免目录/元数据 cache 被过早回收；不设到极低值，避免长期 reclaim 行为过度偏向。",
+                  "保持 vm.overcommit_memory=0、vm.overcommit_ratio=50、vm.zone_reclaim_mode=0、kernel.numa_balancing=0：没有内存分配失败、NUMA miss 或 memory PSI 证据，当前值安全。"
+                ],
+                "redo_binlog": [
+                  "read-only run 阶段 pg_stat_wal 仅 1 条记录、wal_bytes=114，WAL/redo 不是瓶颈；OS sysctl 层也不针对 durability 做改变。",
+                  "不调整 dirty_ratio、dirty_background_ratio、dirty_writeback_centisecs、dirty_expire_centisecs：当前 workload 无写入、iostat 写入主要是背景系统噪声，dirty writeback 不是 p95 主因。"
+                ],
+                "io_flush": [
+                  "保持 fs.file-max、fs.nr_open、fs.aio-max-nr 当前值：没有 fd/aio 上限瓶颈证据。",
+                  "保持 net.core.somaxconn、netdev_max_backlog、tcp_max_syn_backlog、tcp_tw_reuse 当前值：sysbench 使用 64 个客户端连接，非高频建连；loopback backlog 不是主要限制。",
+                  "不在 sysctl 层处理 block scheduler/read-ahead：这些属于 os_control，且当前 IO PSI=0、iowait 接近 0，优先级低于 CPU 调度。"
+                ],
+                "concurrency_cpu": [
+                  "将 kernel.sched_autogroup_enabled 从 1 改为 0：服务器型 PostgreSQL+sysbench 多进程短查询负载通常不需要桌面交互式 autogroup，关闭可减少 CFS 分组带来的不必要公平性干扰和调度噪声，有机会降低 p95 并提升 TPS/p95。",
+                  "当前 CPU PSI some avg10/avg60 很高，说明 64 clients/12 vCPU 下存在明显 runnable contention；sysctl 可调项中 sched_autogroup 是最直接、风险最低的 CPU 调度杠杆。"
+                ],
+                "benchmark_max_static": [
+                  "本轮为在线 sysctl 调整，无需重启，不牺牲 crash safety。",
+                  "不采用会显著改变内存提交策略的 vm.overcommit_memory=1/2，也不扩大网络/dirty 队列作为 benchmark_max，因为 state_metric 没有相应反证。"
+                ]
+              }
+            },
+            "exploration_mode": "conservative",
+            "next_step": "如果本轮成功或接近最佳，下一轮保持 kernel.sched_autogroup_enabled=0，并做 sysctl 小步拆分：比较 vm.vfs_cache_pressure=25/75 或 swappiness=0/10，优先只改一个 memory-reclaim knob 以分离贡献；若 p95 明显改善，再考虑是否进入 os_control 验证 THP defrag=never/khugepaged.defrag=0。",
+            "if_failed_next": "如果本轮回退，优先恢复 kernel.sched_autogroup_enabled=1，并把 vm.swappiness/vfs_cache_pressure 回到默认或单独只保留 swappiness=1 做拆分；不要继续扩大 dirty_ratio、网络 backlog 或 aio/file handle，因为 read-only state 没有这些瓶颈证据。下一轮可改用 repeat_benchmark 确认噪声，或在 os_sysctl 内单独测试 kernel.sched_autogroup_enabled=0 之外的 vm.swappiness=1。",
+            "more_aggressive_plan": {
+              "rationale": "更激进的 sysctl 路线是在确认 sched_autogroup=0 不回退后，把 cache/reclaim 更偏向数据库 benchmark：swappiness=0、vfs_cache_pressure=25，并保持 dirty/writeback 与网络不动。当前没有直接采用更低 vfs_cache_pressure，是因为 memory PSI 虽低但该项对纯数据 page cache 的直接作用有限，过度降低可能引入长期 reclaim 副作用。",
+              "aggressive_candidate_config": {
+                "kernel.sched_autogroup_enabled": 0,
+                "vm.swappiness": 0,
+                "vm.vfs_cache_pressure": 25
+              }
+            },
+            "auditor_recommendation": {
+              "next_phase": "os_sysctl",
+              "reason": "DB 层已完成 8 轮并出现 3 次非提升，当前刚进入 sysctl；本轮仅验证第一组 CPU scheduler/cache-reclaim sysctl。无论成功或失败，至少还应在 os_sysctl 做一次拆分或确认，除非结果明显很差；若 sysctl 连续无收益，再切到 os_control 验证 THP defrag/khugepaged 和 block scheduler。",
+              "confidence": "high"
+            }
+          },
+          "result": {
+            "score": 1081.9258426966292,
+            "tps": 9629.14,
+            "p95_latency_ms": 8.9,
+            "primary_metric_name": "tps",
+            "primary_metric_value": 9629.14,
+            "valid": true,
+            "metrics": {
+              "tps": 9629.14,
+              "p95_latency_ms": 8.9
+            },
+            "metadata": {}
+          },
+          "decision": "rollback",
+          "reason": "Score did not improve enough: incumbent=1083.603, candidate=1081.926.",
+          "metadata": {
+            "phase": "os_sysctl",
+            "auditor": {
+              "current_phase": "db",
+              "next_phase": "os_sysctl",
+              "action": "switch_to_os_sysctl",
+              "reason": "DB phase reached a plateau: recent DB proposals did not produce meaningful improvement, so the controller is moving to OS sysctl tuning.",
+              "stop": false,
+              "plateau_detected": true,
+              "phase_round_count": 8,
+              "consecutive_non_improving": 3,
+              "consecutive_repeats": 0,
+              "best_score": 1083.6033707865167,
+              "model_recommendation": null,
+              "model_recommendation_used": false
+            },
+            "state_snapshot": {
+              "path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_000929_pg60_read64_clean_prompt_nohistory\\state_snapshots\\round_009_os_sysctl.txt",
+              "counts": {
+                "tracked_config": 276,
+                "settings": 276,
+                "metrics_profile": 66,
+                "stat_metrics": 66
+              }
+            },
+            "previous_values": {
+              "kernel.sched_autogroup_enabled": "1",
+              "vm.swappiness": "60",
+              "vm.vfs_cache_pressure": "100"
+            },
+            "effective_candidate_config": {
+              "kernel.sched_autogroup_enabled": 0,
+              "vm.swappiness": 1,
+              "vm.vfs_cache_pressure": 50
+            }
+          }
+        },
+        {
+          "round_id": 10,
+          "timestamp": "2026-05-16T00:33:07.434555",
+          "proposal": {
+            "diagnosis": "压测预识别和实际命令仍是 sysbench PostgreSQL oltp_read_only.lua，64 线程、read 模式；wrapper 里未执行的 write/readwrite 分支不改变负载性质。当前 DB 最佳来自第5轮：ssl=false、force_generic_plan、jit 关闭、random_page_cost=1.5、effective_io_concurrency=128、ppg=2 等，后续 DB 侧 random_page_cost=1.7、4GB shared_buffers+max_connections=90、降低 parallel cost 均未超过最佳。第9轮 os_sysctl 的 sched_autogroup=0 + swappiness=1 + vfs_cache_pressure=50 只比最佳低约0.15%，p95同为8.90，属于很接近但未通过阈值的结果。state_metric 显示 read-only 阶段 WAL/写入/IO PSI 基本不是瓶颈，memory PSI=0、NUMA miss=0；真正有信号的是 64 clients/12 vCPU 下 CPU PSI some 很高和 loadavg 高，说明 runnable contention/调度抖动仍可能影响 TPS/p95。因此本轮不继续动 dirty、网络 backlog、aio/file handle，也不把 read workload 误判为写路径；选择拆分第9轮组合，只验证最有针对性的 CPU scheduler knob：kernel.sched_autogroup_enabled=0，去掉 swappiness/vfs_cache_pressure 的干扰。",
+            "action_type": "os_config",
+            "candidate_config": {
+              "kernel.sched_autogroup_enabled": 0
+            },
+            "restart_required": false,
+            "expected_effect": "在 64 并发短 OLTP read-only 且 CPU runnable contention 很高的情况下，关闭 autogroup 可能减少调度分组开销和跨进程公平性噪声，目标是在 p95 维持 8.90ms 的同时把 TPS 从 9644 附近再推高，或让 p95 小幅下降从而提高 tps/p95。",
+            "risk": "风险较低且可在线回滚；可能没有收益或因调度公平性变化使 sysbench/PostgreSQL 进程竞争更尖锐，导致 TPS 小幅波动。该项不影响数据安全、不需要重启，但结果可能受单次 60s benchmark 噪声影响。",
+            "validation_required": true,
+            "global_config_plan": {
+              "summary": "当前阶段限定为 os_sysctl，只能返回 allowed_os_knob_space 中的 sysctl。第9轮组合接近最佳但回退，本轮做低风险拆分：仅关闭 CFS autogroup，保留内存回收、dirty、网络和文件句柄默认值，以判断 CPU 调度分组是否能单独带来超过 9644.07/8.90 的小幅收益。",
+              "change_groups": {
+                "memory": [
+                  "不再同时设置 vm.swappiness=1 和 vm.vfs_cache_pressure=50：第9轮组合未过最佳，且当前 memory PSI=0、free/cache 充足，没有明确 reclaim 压力；先避免把内存回收策略和 CPU 调度效果混在一起。",
+                  "保持 vm.overcommit_memory、vm.overcommit_ratio、vm.zone_reclaim_mode、kernel.numa_balancing 不变：没有 OOM/分配失败、NUMA miss 或内存 full PSI 证据。"
+                ],
+                "redo_binlog": [
+                  "read-only run 阶段 pg_stat_wal 为 0，WAL/redo/binlog 不参与本阶段收益；os_sysctl 中不选择任何写持久化相关方向。",
+                  "不调整 fsync/full_page_writes/synchronous_commit 等 DB 写路径参数；当前阶段也不允许 DB 参数。"
+                ],
+                "io_flush": [
+                  "不调整 dirty_background_ratio、dirty_ratio、dirty_writeback_centisecs、dirty_expire_centisecs：pg_stat_io writes/fsyncs 为 0，IO PSI 为 0，iowait 很低，dirty writeback 不是当前 p95 主因。",
+                  "不调整 fs.aio-max-nr、fs.file-max、fs.nr_open：64 个客户端连接和当前文件句柄规模下没有 fd/aio 上限瓶颈证据。",
+                  "不调整 net.core.somaxconn、netdev_max_backlog、tcp_max_syn_backlog、tcp_tw_reuse：sysbench 使用固定 64 连接在 loopback 上运行，主要不是高频建连或 SYN backlog 问题。"
+                ],
+                "concurrency_cpu": [
+                  "将 kernel.sched_autogroup_enabled 从 1 改为 0：CPU PSI some avg10/avg60 很高，说明调度队列竞争明显；PostgreSQL backend + sysbench 的服务器型短查询负载通常不需要桌面交互式 autogroup，关闭后可能减少 CFS 分组公平性干扰，提高 TPS 或稳定 p95。",
+                  "本轮只改这一项是因为第9轮三项组合已经接近最佳但未提升，拆分 CPU knob 能最大化信号清晰度，并避免把 swappiness/vfs_cache_pressure 的潜在噪声带入。"
+                ],
+                "benchmark_max_static": [
+                  "本轮为在线 sysctl，无需重启，不牺牲数据库 crash safety。",
+                  "不采用更激进的内存回收或 dirty writeback benchmark_max 组合，因为 read-only state 没有内存/IO写入反证；若 sysctl 继续无收益，更高杠杆应转到 os_control 的 THP defrag/khugepaged 或 block scheduler。"
+                ]
+              }
+            },
+            "exploration_mode": "conservative",
+            "next_step": "如果本轮成功或非常接近最佳，保留 kernel.sched_autogroup_enabled=0，再做单变量内存回收拆分：优先测试 vm.swappiness=1 或 0，暂不同时改 vfs_cache_pressure；若连续两轮 p95/TPS 接近但未稳定超过，可 repeat_benchmark 确认噪声。",
+            "if_failed_next": "如果本轮回退，恢复 kernel.sched_autogroup_enabled=1，不再继续沿 autogroup 方向叠加 vm.swappiness/vfs_cache_pressure。下一轮在 os_sysctl 内只测试 vm.swappiness=1 单项，或直接建议进入 os_control 验证 transparent_hugepage.defrag=never、khugepaged.defrag=0；继续避免 dirty_ratio、网络 backlog、aio/file handle 这类无状态证据的方向。",
+            "more_aggressive_plan": {
+              "rationale": "更激进的 sysctl 路线是在确认 autogroup 单项有效后再叠加更偏 benchmark 的内存回收策略，例如 swappiness=0、vfs_cache_pressure=25；但第9轮三项组合未超过最佳，说明不能直接假设内存回收项有正贡献，所以当前先拆分 CPU 调度项。",
+              "aggressive_candidate_config": {
+                "kernel.sched_autogroup_enabled": 0,
+                "vm.swappiness": 0,
+                "vm.vfs_cache_pressure": 25
+              }
+            },
+            "auditor_recommendation": {
+              "next_phase": "os_sysctl",
+              "reason": "os_sysctl 目前只做过一轮三项组合且接近最佳，本轮是必要拆分验证。若本轮和下一轮单项 swappiness 仍无提升，再转 os_control 更合理，重点验证 THP defrag/khugepaged 和可能的 block scheduler；现在直接停止或切回 DB 都不如完成 sysctl 拆分。",
+              "confidence": "high"
+            }
+          },
+          "result": {
+            "score": 1077.655056179775,
+            "tps": 9591.13,
+            "p95_latency_ms": 8.9,
+            "primary_metric_name": "tps",
+            "primary_metric_value": 9591.13,
+            "valid": true,
+            "metrics": {
+              "tps": 9591.13,
+              "p95_latency_ms": 8.9
+            },
+            "metadata": {}
+          },
+          "decision": "rollback",
+          "reason": "Score did not improve enough: incumbent=1083.603, candidate=1077.655.",
+          "metadata": {
+            "phase": "os_sysctl",
+            "auditor": {
+              "current_phase": "os_sysctl",
+              "next_phase": "os_sysctl",
+              "action": "continue_os_sysctl",
+              "reason": "OS sysctl phase still has tuning budget before control-layer criteria are met.",
+              "stop": false,
+              "plateau_detected": false,
+              "phase_round_count": 1,
+              "consecutive_non_improving": 1,
+              "consecutive_repeats": 0,
+              "best_score": 1083.6033707865167,
+              "model_recommendation": {
+                "next_phase": "os_sysctl",
+                "reason": "DB 层已完成 8 轮并出现 3 次非提升，当前刚进入 sysctl；本轮仅验证第一组 CPU scheduler/cache-reclaim sysctl。无论成功或失败，至少还应在 os_sysctl 做一次拆分或确认，除非结果明显很差；若 sysctl 连续无收益，再切到 os_control 验证 THP defrag/khugepaged 和 block scheduler。",
+                "confidence": "high"
+              },
+              "model_recommendation_used": false
+            },
+            "state_snapshot": {
+              "path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_000929_pg60_read64_clean_prompt_nohistory\\state_snapshots\\round_010_os_sysctl.txt",
+              "counts": {
+                "tracked_config": 276,
+                "settings": 276,
+                "metrics_profile": 66,
+                "stat_metrics": 66
+              }
+            },
+            "previous_values": {
+              "kernel.sched_autogroup_enabled": "1"
+            },
+            "effective_candidate_config": {
+              "kernel.sched_autogroup_enabled": 0
+            }
+          }
+        },
+        {
+          "round_id": 11,
+          "timestamp": "2026-05-16T00:34:53.579164",
+          "proposal": {
+            "diagnosis": "负载按 workload_interpretation、benchmark.mode=read 与有效命令确认是 sysbench PostgreSQL oltp_read_only，不应按脚本中未执行的 write/readwrite 分支处理。历史最佳来自 DB 侧第5轮：ssl=false、force_generic_plan、random_page_cost=1.5、effective_io_concurrency=128、ppg=2、JIT/查询ID/进程标题开销关闭，达到 9644.07 TPS / p95 8.90。随后 DB 的 random_page_cost=1.7、shared_buffers=4GB+max_connections=90、降低 parallel cost，以及 sysctl 的 sched_autogroup/swappiness/vfs_cache_pressure 均未超过最佳。当前阶段已切到 os_control，只能调 allowed_os_control_space。state_metric 显示 read-only run 阶段 WAL/写入/fsync 为 0，IO PSI 为 0、iowait 很低，block 层不是首要瓶颈；memory PSI 为 0，NUMA miss 为 0；但 CPU PSI some 很高，且 p95 已卡在 8.9ms，说明更可能是 CPU 调度/内存管理抖动而非磁盘吞吐。CPU governor 不可用，因此本轮选择低风险的 THP defrag/khugepaged 抖动削减，而不动 block scheduler/read-ahead/nr_requests。",
+            "action_type": "os_control",
+            "candidate_config": {
+              "transparent_hugepage.defrag": "never",
+              "transparent_hugepage.khugepaged.defrag": 0
+            },
+            "restart_required": false,
+            "expected_effect": "减少 THP 同步/后台内存整理带来的 CPU 消耗和尾延迟尖峰，在当前 CPU PSI 高、IO/内存 PSI 为 0 的 read-only OLTP 场景下，期望小幅提高 TPS 或把 p95 稳定压低，从而超过 9644.07/8.90 的历史最佳 score。",
+            "risk": "在线修改 sysfs 控制项需要 sudo；可能降低其他进程获得 THP collapse 的机会。由于不改 THP enabled、不改数据库参数、不改 block 队列，风险较低；实际收益可能很小并受 benchmark 噪声影响。",
+            "validation_required": true,
+            "global_config_plan": {
+              "summary": "进入 os_control 第一轮后，优先验证 THP 后台/同步整理是否给短 OLTP 查询带来尾延迟噪声：保持 THP enabled=madvise 不激进关闭整个 THP，仅把 transparent_hugepage.defrag 调为 never，并关闭 khugepaged.defrag。这样比直接改 block 队列更符合当前 IO PSI=0、CPU/latency 竞争明显的状态，也避免把无证据的磁盘队列变化混入。",
+              "change_groups": {
+                "memory": [
+                  "设置 transparent_hugepage.defrag=never：当前为 madvise，PostgreSQL/sysbench 短查询对 THP 整理带来的偶发 stall 很敏感；禁用 defrag 预期降低 p95 抖动。",
+                  "设置 transparent_hugepage.khugepaged.defrag=0：关闭 khugepaged 后台 collapse 时的内存整理，减少 CPU/内存管理干扰。",
+                  "暂不把 transparent_hugepage.enabled 从 madvise 改为 never：当前不是 always，且 shared_buffers 仍是历史最佳的 128MB，小步先隔离 defrag/khugepaged 贡献。"
+                ],
+                "redo_binlog": [
+                  "保持 DB WAL/redo/checkpoint 相关方向不动；该 read-only benchmark 的 pg_stat_wal 为 0，pg_stat_io writes/fsyncs 为 0，写路径不是本阶段收益来源。"
+                ],
+                "io_flush": [
+                  "不调整 block.scheduler、block.read_ahead_kb、block.nr_requests、block.nomerges、block.io_poll、wbt 等：os_metrics 显示 IO PSI=0、iowait 很低、压测状态主要不是磁盘队列瓶颈。",
+                  "不动 dirty/writeback 类 sysctl；当前阶段也不允许 sysctl，且 read-only state 无写回压力证据。"
+                ],
+                "concurrency_cpu": [
+                  "CPU governor/energy_performance_preference 不可用，不能作为候选。",
+                  "sysctl 的 sched_autogroup=0 已单独验证回退，因此本轮不再沿该方向，而是降低 THP defrag 带来的 CPU/内存管理噪声。"
+                ],
+                "benchmark_max_static": [
+                  "本轮为在线 sysfs os_control，无需数据库重启，不牺牲 crash safety；风险主要是禁用 THP defrag 后对依赖 THP collapse 的其他进程可能不利，但对当前短 OLTP benchmark 通常更安全。"
+                ]
+              }
+            },
+            "exploration_mode": "conservative",
+            "next_step": "如果本轮成功或非常接近最佳，保留 defrag=never 和 khugepaged.defrag=0；下一轮再小步测试 transparent_hugepage.enabled=never 是否进一步降低 p95，或做 repeat_benchmark 确认提升不是噪声。继续避免已回退的 sched_autogroup=0 和 DB shared_buffers=4GB 组合。",
+            "if_failed_next": "如果本轮回退，恢复 transparent_hugepage.defrag=madvise、transparent_hugepage.khugepaged.defrag=1，不要再直接叠加 THP enabled=never。下一轮在 os_control 内改做单变量 block 层探针：优先 block.scheduler=none 或 block.nomerges=2（二选一），因为 CPU governor 不可用；若 block 探针也无收益，建议 repeat_benchmark 确认历史最佳噪声边界或停止 OS control。",
+            "more_aggressive_plan": {
+              "rationale": "更激进路线是完全禁用 THP，并同时保持 defrag/khugepaged defrag 关闭，以最大化减少 THP 相关尾延迟。但当前 enabled 已是 madvise 而不是 always，直接改 never 的边际收益不确定，所以本轮先只关闭整理路径，若信号正向再采用。",
+              "aggressive_candidate_config": {
+                "transparent_hugepage.enabled": "never",
+                "transparent_hugepage.defrag": "never",
+                "transparent_hugepage.khugepaged.defrag": 0
+              }
+            },
+            "auditor_recommendation": {
+              "next_phase": "os_control",
+              "reason": "os_control 刚开始，THP defrag/khugepaged 还未验证；CPU governor 不可用但 THP 与少量 block 队列单变量仍有可试空间。若本轮与后续一个 block/THP 单变量都未超过最佳，再考虑 stop 或 repeat_benchmark；现在不应停止。",
+              "confidence": "high"
+            }
+          },
+          "result": {
+            "score": 1086.4247191011236,
+            "tps": 9669.18,
+            "p95_latency_ms": 8.9,
+            "primary_metric_name": "tps",
+            "primary_metric_value": 9669.18,
+            "valid": true,
+            "metrics": {
+              "tps": 9669.18,
+              "p95_latency_ms": 8.9
+            },
+            "metadata": {}
+          },
+          "decision": "rollback",
+          "reason": "Score did not improve enough: incumbent=1083.603, candidate=1086.425.",
+          "metadata": {
+            "phase": "os_control",
+            "auditor": {
+              "current_phase": "os_sysctl",
+              "next_phase": "os_control",
+              "action": "switch_to_os_control",
+              "reason": "OS sysctl phase reached a plateau; the controller is moving to the stronger OS control layer such as THP, CPU governor, and block queue controls.",
+              "stop": false,
+              "plateau_detected": true,
+              "phase_round_count": 2,
+              "consecutive_non_improving": 2,
+              "consecutive_repeats": 0,
+              "best_score": 1083.6033707865167,
+              "model_recommendation": {
+                "next_phase": "os_sysctl",
+                "reason": "os_sysctl 目前只做过一轮三项组合且接近最佳，本轮是必要拆分验证。若本轮和下一轮单项 swappiness 仍无提升，再转 os_control 更合理，重点验证 THP defrag/khugepaged 和可能的 block scheduler；现在直接停止或切回 DB 都不如完成 sysctl 拆分。",
+                "confidence": "high"
+              },
+              "model_recommendation_used": false
+            },
+            "state_snapshot": {
+              "path": "<PAPER_WORKSPACE>\\agenticDB\\runs\\20260516_000929_pg60_read64_clean_prompt_nohistory\\state_snapshots\\round_011_os_control.txt",
+              "counts": {
+                "tracked_config": 276,
+                "settings": 276,
+                "metrics_profile": 66,
+                "stat_metrics": 66
+              }
+            },
+            "previous_values": {
+              "transparent_hugepage.defrag": {
+                "/sys/kernel/mm/transparent_hugepage/defrag": "madvise"
+              },
+              "transparent_hugepage.khugepaged.defrag": {
+                "/sys/kernel/mm/transparent_hugepage/khugepaged/defrag": "1"
+              }
+            },
+            "effective_candidate_config": {
+              "transparent_hugepage.defrag": "never",
+              "transparent_hugepage.khugepaged.defrag": 0
+            }
+          }
+        }
+      ]
+    }
+  }
+}
