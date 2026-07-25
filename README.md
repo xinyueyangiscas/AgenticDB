@@ -51,7 +51,7 @@ Prepare three environment-specific YAML files:
 After installation, run a dry-run session with:
 
 ```bash
-agenticdb --rounds 10 \
+agenticdb --rounds 15 \
   --config /path/to/target.yaml \
   --benchmark-config /path/to/benchmark.yaml \
   --knobs-config /path/to/knobs.yaml \
@@ -61,7 +61,7 @@ agenticdb --rounds 10 \
 The equivalent direct Python command is:
 
 ```bash
-python main.py --rounds 10 \
+python main.py --rounds 15 \
   --config /path/to/target.yaml \
   --benchmark-config /path/to/benchmark.yaml \
   --knobs-config /path/to/knobs.yaml \
