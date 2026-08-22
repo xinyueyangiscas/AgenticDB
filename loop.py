@@ -741,7 +741,8 @@ def format_reference_files_for_prompt(
         if not include_contents:
             sections.append(
                 f"- {role}: `{path}` "
-                "(完整文件内容已在 round 1 提供，本轮只引用路径并结合新的 state/history 继续调优)"
+                "(The complete file contents were provided in round 1; this round only "
+                "references the path and continues tuning using the new state/history.)"
             )
             continue
         content = item.get("content")
@@ -832,22 +833,23 @@ def _format_result_for_brief(result: BenchmarkResult, objective: dict[str, Any])
 def _objective_goal_text(objective: dict[str, Any]) -> tuple[str, str, str]:
     if _is_execution_time_objective(objective):
         return (
-            "缩短完整 benchmark execute 阶段记录的 execution_time（time_ms）",
-            "更低的 execution_time（time_ms）",
-            "TPS 和 p95 仅可作为观察信息，不是本任务的优化目标，也不能作为配置接受依据",
+            "reduce the execution_time (time_ms) recorded during the complete benchmark execute phase",
+            "a lower execution_time (time_ms)",
+            "TPS and p95 may only be used as observational information; they are not optimization "
+            "objectives for this task and cannot be used as the basis for accepting a configuration",
         )
     primary_metric = str(objective.get("primary_metric", "tps"))
     direction = str(objective.get("direction", "maximize")).lower()
     if direction == "minimize":
         return (
-            f"降低 {primary_metric}",
-            f"更低的 {primary_metric}",
-            f"必须以 {primary_metric} 的下降作为配置优劣判断依据",
+            f"reduce {primary_metric}",
+            f"a lower {primary_metric}",
+            f"A decrease in {primary_metric} must be used as the basis for judging configuration quality",
         )
     return (
-        "使它的 tps/p95 更高",
-        "更高的 tps/p95",
-        "必须以 tps/p95 的提升作为配置优劣判断依据",
+        "increase its tps/p95",
+        "a higher tps/p95",
+        "An increase in tps/p95 must be used as the basis for judging configuration quality",
     )
 
 
@@ -939,36 +941,42 @@ def build_task_brief(
     low_priority = ", ".join(workload_interpretation.get("low_priority_directions", [])[:4]) or "none"
     if round_id <= 1:
         return (
-            f"你是一位经验丰富的 DBA，你将对当前负载的全局参数进行调整，以{goal_text}。"
-            f"针对于当前服务器，你现在在一个 {hardware.get('cpu', 'unknown')}、"
-            f"{hardware.get('memory', 'unknown')} 内存和 {hardware.get('disk', 'unknown')} 的硬盘上"
-            f"进行 {dbms} {db_version} 的 {workload_label} 参数调优。"
-            f"当前负载预识别为 {workload_interpretation.get('workload_type', workload_label)}，"
-            f"主要调优方向是：{directions}；低优先级方向是：{low_priority}。"
-            "这是完整压测脚本以及当前的初始参数，"
-            f"初始压测结果是 {_format_result_for_brief(baseline_result, objective)}。"
-            f"{decision_rule}。"
-            "你需要先基于完整的候选全局参数空间给服务器给出一套全局更好的配置方案，"
-            "而不是只孤立地挑少量 knobs；同时你可以通过观察当前服务器的 state_metric 进行调整，"
-            f"在少数尝试之后得到{improvement_text}。"
-            "第一轮的 candidate_config 也必须是一套可执行的全局候选配置，而不是只调一两个参数。"
-            "它应该覆盖 workload_interpretation 指出的主要方向；"
-            "如果是只读/分析型负载，不要为了凑全局而强行把 redo/binlog/flush 当作核心收益来源。"
-            "如果是纯 benchmark 极限目标，可以采用更激进的 benchmark_max 全局组合并明确说明风险。"
-            "请把这套全局方案写入 global_config_plan，把同一套第一轮要落地验证的全局参数变更写入 candidate_config。"
+            f"You are an experienced DBA. You will adjust the global parameters for the current workload "
+            f"to {goal_text}. For the current server, you are tuning {workload_label} parameters for "
+            f"{dbms} {db_version} on a machine with CPU: {hardware.get('cpu', 'unknown')}, "
+            f"memory: {hardware.get('memory', 'unknown')}, and disk: {hardware.get('disk', 'unknown')}. "
+            f"The current workload has been preliminarily identified as "
+            f"{workload_interpretation.get('workload_type', workload_label)}. The primary tuning "
+            f"directions are: {directions}; the low-priority directions are: {low_priority}. "
+            "Here are the complete benchmark script and the current initial parameters. "
+            f"The initial benchmark result is {_format_result_for_brief(baseline_result, objective)}. "
+            f"{decision_rule}. "
+            "First, you need to produce a globally better configuration plan for the server based on the "
+            "complete candidate global parameter space, rather than selecting only a small number of knobs "
+            "in isolation. You can also adjust the configuration by observing the current server's "
+            f"state_metric and obtain {improvement_text} after a small number of attempts. "
+            "The candidate_config for the first round must also be an executable global candidate "
+            "configuration, rather than changing only one or two parameters. It should cover the primary "
+            "directions identified by workload_interpretation. For a read-only or analytical workload, do "
+            "not force redo/binlog/flush into the configuration as core sources of benefit merely to make "
+            "the plan global. For a pure benchmark limit objective, you may use a more aggressive "
+            "benchmark_max global combination and clearly state the risks. Write this global plan to "
+            "global_config_plan, and write the same set of global parameter changes to be applied and "
+            "validated in the first round to candidate_config."
         )
 
     return (
-        f"你是一位经验丰富的 DBA，你将继续调整当前负载的参数以{goal_text}。"
-        f"当前是在 {dbms} {db_version} 的 {workload_label} 上继续调全局参数。"
-        f"当前负载预识别为 {workload_interpretation.get('workload_type', workload_label)}，"
-        f"主要调优方向是：{directions}；低优先级方向是：{low_priority}。"
-        f"初始压测是 {_format_result_for_brief(baseline_result, objective)}，"
-        f"当前已经达到的最好结果是 {_format_result_for_brief(best_result, objective)}。"
-        f"{decision_rule}。"
-        f"你要继续尝试{improvement_text}，继承之前每轮的成功/失败结果、next_step、if_failed_next，"
-        "结合完整压测脚本、当前全局参数、state_metric 和最近几轮历史，"
-        "给出下一组更可能超过当前最好结果的全局配置。"
+        f"You are an experienced DBA. You will continue adjusting the parameters for the current workload "
+        f"to {goal_text}. You are continuing to tune global parameters for {workload_label} on "
+        f"{dbms} {db_version}. The current workload has been preliminarily identified as "
+        f"{workload_interpretation.get('workload_type', workload_label)}. The primary tuning directions "
+        f"are: {directions}; the low-priority directions are: {low_priority}. The initial benchmark result "
+        f"is {_format_result_for_brief(baseline_result, objective)}, and the best result achieved so far is "
+        f"{_format_result_for_brief(best_result, objective)}. {decision_rule}. Continue attempting to obtain "
+        f"{improvement_text}, carrying forward the success/failure results, next_step, and if_failed_next "
+        "from every previous round. Using the complete benchmark script, the current global parameters, "
+        "state_metric, and the history from the most recent rounds, provide the next global configuration "
+        "that is more likely to surpass the current best result."
     )
 
 
