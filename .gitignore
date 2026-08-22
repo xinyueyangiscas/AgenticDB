@@ -4,6 +4,6 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 runs/
+results/
 *.log
-!results/**/*.log
 *.tmp

@@ -1,6 +1,6 @@
 # AgenticDB
 
-Core implementation and selected experimental results for the AgenticDB paper.
+Core implementation for the AgenticDB paper.
 
 ## Contents
 
@@ -14,7 +14,6 @@ profiles/              Workload and metric interpretation
 tools/                 Execution, metrics, recovery, and reporting
 validators/            Configuration, safety, and result validation
 skills/                Prompts loaded by the control loop
-results/               Eight representative experiment directories
 LICENSE                MIT License
 ```
 
@@ -24,13 +23,10 @@ connections, validation, rollback, metric collection, and experience memory.
 The Markdown files under `skills/` are prompts loaded by the code and
 are part of the implementation.
 
-`results/` contains separate directories for:
-
-- MySQL: YCSB, TPC-H, and Sysbench Read, Write, and ReadWrite;
-- PostgreSQL: Sysbench Read, Write, and ReadWrite.
-
-Each experiment directory retains its original SVG, CSV data, logs, prompts,
-messages, configuration backups, and state snapshots.
+Generated experiment outputs are not stored in this source repository. Each
+execution creates a separate directory under `runs/` for its reports, CSV data,
+logs, prompts, messages, configuration backups, and state snapshots. The
+`runs/` directory is ignored by Git.
 
 ## Install
 
